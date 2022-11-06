@@ -1,0 +1,43 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Udoncar" parent="Theme.AppCompat.Light">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+
+        <item name="android:textViewStyle">@style/nanumTextView</item>
+        <item name="android:buttonStyle">@style/nanumButton</item>
+        <item name="android:radioButtonStyle">@style/nanumRadioButton</item>
+
+    </style>
+
+    <style name="nanumTextView"
+        parent="android:Widget.TextView">
+
+        <item name="android:fontFamily">
+            @font/nanumSquareNeo_bold</item>
+    </style>
+
+    <style name="nanumButton"
+        parent="android:Widget.Button">
+
+        <item name="android:fontFamily">
+            @font/nanumSquareNeo_bold</item>
+    </style>
+
+    <style name="nanumRadioButton"
+        parent="android:Widget.CompoundButton.RadioButton">
+
+        <item name="android:fontFamily">
+            @font/nanumSquareNeo_regular</item>
+    </style>
+
+</resources>
