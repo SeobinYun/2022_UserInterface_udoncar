@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tab1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:text="##동"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:text="MAIN"
+            android:textSize="20dp"
+            android:textColor="#FF5B59" />
+
+        <Button
+            android:id="@+id/btn_filter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/mypage" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#E76B6B" />
+
+    <!--10개정도에 더보기란? + 버튼안에 text여러개 + 그림자..?테두리-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="590dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <Button
+                android:id="@+id/btn_list1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="#F0F0F0"
+                android:text="Button1"/>
+
+            <Button
+                android:id="@+id/btn_list2"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="#F0F0F0"
+                android:text="Button 2" />
+
+            <Button
+                android:id="@+id/btn_list3"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="#F0F0F0"
+                android:text="Button 3" />
+
+            <Button
+                android:id="@+id/btn_list4"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="#F0F0F0"
+                android:text="Button 4" />
+
+            <Button
+                android:id="@+id/btn_list5"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="#F0F0F0"
+                android:text="Button 5" />
+
+            <Button
+                android:id="@+id/btn_list6"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="#F0F0F0"
+                android:text="Button 6" />
+
+            <Button
+                android:id="@+id/btn_list7"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="#F0F0F0"
+                android:text="Button 7" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Screen_MyPage">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:backgroundTint="#FF8587"
+            app:itemIconTint="@drawable/menu_selector_color"
+            app:itemTextColor="@drawable/menu_selector_color"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_menu" />
+
+    </LinearLayout>
+
+</LinearLayout>
