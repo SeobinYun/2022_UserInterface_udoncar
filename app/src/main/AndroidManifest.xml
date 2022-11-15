@@ -29,7 +29,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Screen_Chatting"
+            android:name=".ChattingActivity"
             android:exported="false" />
         <activity
             android:name=".myPageActivity"
