@@ -14,7 +14,22 @@
         android:theme="@style/Theme.Udoncar"
         tools:targetApi="31">
         <activity
-            android:name=".Screen_Chatting"
+            android:name=".MainDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainDialogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChattingActivity"
             android:exported="false" />
         <activity
             android:name=".myPageActivity"
