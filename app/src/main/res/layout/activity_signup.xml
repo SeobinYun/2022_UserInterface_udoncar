@@ -10,9 +10,7 @@
         android:gravity="center"
         android:text="회원가입"
         android:textSize="20dp"
-        android:textColor="#FF5B59"
-        android:fontFamily="@font/nanumSquareNeo_bold"
-        />
+        android:textColor="#FF5B59"/>
 
     <View
         android:layout_width="match_parent"
@@ -38,16 +36,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="ID"
-                android:textSize="14sp"
-                android:fontFamily="@font/nanumSquareNeo_bold"/>
+                android:textSize="14sp"/>
 
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="영문 소문자 및 숫자만 입력 가능합니다. "
                 android:textSize="10sp"
-                android:fontFamily="@font/nanumSquareNeo_regular"
-                />
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
+                android:fontFamily="@font/nanum_regular"/>
 
             <Button
                 android:layout_width="70dp"
@@ -56,8 +53,7 @@
                 android:background="@drawable/btn_pink"
                 android:text="중복확인"
                 android:textSize="12sp"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/nanumSquareNeo_regular"/>
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
 
         <LinearLayout
@@ -74,15 +70,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="PW"
-                android:textSize="13sp"
-                android:fontFamily="@font/nanumSquareNeo_bold" />
+                android:textSize="13sp"/>
 
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호를 입력해주세요. "
                 android:textSize="10dp"
-                android:fontFamily="@font/nanumSquareNeo_regular"/>
+                android:inputType="textPassword"
+                android:fontFamily="@font/nanum_regular"/>
         </LinearLayout>
 
         <LinearLayout
@@ -98,15 +94,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="PW확인"
-                android:textSize="13sp"
-                android:fontFamily="@font/nanumSquareNeo_bold" />
+                android:textSize="13sp"/>
 
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호를 다시 입력해주세요. "
                 android:textSize="10dp"
-                android:fontFamily="@font/nanumSquareNeo_regular"/>
+                android:inputType="textPassword"
+                android:fontFamily="@font/nanum_regular"/>
         </LinearLayout>
 
         <LinearLayout
@@ -122,15 +118,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="닉네임"
-                android:textSize="13sp"
-                android:fontFamily="@font/nanumSquareNeo_bold"/>
+                android:textSize="13sp"/>
 
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
-                android:fontFamily="@font/nanumSquareNeo_regular"
-                />
+                android:fontFamily="@font/nanum_regular"/>
         </LinearLayout>
 
         <LinearLayout
@@ -146,14 +140,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="지역"
-                android:textSize="13sp"
-                android:fontFamily="@font/nanumSquareNeo_bold"/>
+                android:textSize="13sp"/>
 
-            <EditText
-                android:layout_width="200dp"
+            <LinearLayout
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
-                />
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"/>
+
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"/>
+
+                <Spinner
+                    android:id="@+id/spinner3"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -169,8 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="성별"
-                android:textSize="13sp"
-                android:fontFamily="@font/nanumSquareNeo_bold"/>
+                android:textSize="13sp"/>
 
             <RadioGroup
                 android:layout_width="wrap_content"
@@ -179,18 +188,16 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="남자"
-                    android:fontFamily="@font/nanumSquareNeo_regular"
                     android:textSize="13sp"/>
 
                 <RadioButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:text="여자"
-                    android:fontFamily="@font/nanumSquareNeo_regular"
                     android:textSize="13sp"/>
             </RadioGroup>
 
@@ -209,16 +216,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="나이"
-                android:textSize="13sp"
-                android:fontFamily="@font/nanumSquareNeo_bold" />
+                android:textSize="13sp"/>
 
             <Spinner
                 android:id="@+id/spinner_ages"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:fontFamily="@font/nanumSquareNeo_regular"
-                />
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -229,13 +232,11 @@
             <Button
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:background="@drawable/btn_pink"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
+                android:background="@drawable/btn_pink"
                 android:text="회원가입"
-                android:textColor="#FFF"
-                android:fontFamily="@font/nanumSquareNeo_bold"
-                />
+                android:textColor="#FFF" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

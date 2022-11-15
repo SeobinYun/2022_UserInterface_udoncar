@@ -16,54 +16,42 @@
             android:layout_height="wrap_content"
             android:text="우"
             android:textSize="30sp"
-            android:textColor="#FF5B59"
-            android:fontFamily="@font/nanumSquareNeo_bold"
-            />
+            android:textColor="#FF5B59"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="리"
             android:textSize="24sp"
-            android:textColor="#E76B6B"
-            android:fontFamily="@font/nanumSquareNeo_bold"
-            />
+            android:textColor="#E76B6B"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="동"
             android:textSize="30sp"
-            android:textColor="#FF5B59"
-            android:fontFamily="@font/nanumSquareNeo_bold"
-            />
+            android:textColor="#FF5B59"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="네"
             android:textSize="24sp"
-            android:textColor="#E76B6B"
-            android:fontFamily="@font/nanumSquareNeo_bold"
-            />
+            android:textColor="#E76B6B"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="카"
             android:textSize="30sp"
-            android:textColor="#FF5B59"
-            android:fontFamily="@font/nanumSquareNeo_bold"
-            />
+            android:textColor="#FF5B59"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="풀"
             android:textSize="24sp"
-            android:textColor="#E76B6B"
-            android:fontFamily="@font/nanumSquareNeo_bold"
-            />
+            android:textColor="#E76B6B"/>
     </LinearLayout>
 
 
@@ -82,24 +70,23 @@
         android:layout_marginTop="80dp">
 
         <Button
+            android:id="@+id/signup"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginLeft="80dp"
             android:background="@drawable/btn_pink"
-            android:fontFamily="@font/nanumSquareNeo_bold"
             android:text="회원가입"
             android:textColor="#FFFFFF" />
 
         <Button
+            android:id="@+id/login"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:background="@drawable/btn_pink"
             android:layout_alignParentRight="true"
             android:layout_marginRight="80dp"
             android:text="로그인"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/nanumSquareNeo_bold"
-            />
+            android:textColor="#FFFFFF"/>
     </RelativeLayout>
 </LinearLayout>
 

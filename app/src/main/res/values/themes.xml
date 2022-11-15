@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Udoncar" parent="Theme.AppCompat.Light">
+    <style name="Theme.Udoncar" parent="Theme.AppCompat.Light.NoActionBar"> <!-- 액션바 없앰 -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -16,6 +16,7 @@
         <item name="android:textViewStyle">@style/nanumTextView</item>
         <item name="android:buttonStyle">@style/nanumButton</item>
         <item name="android:radioButtonStyle">@style/nanumRadioButton</item>
+        <item name="android:editTextStyle">@style/nanumEditText</item>
 
     </style>
 
@@ -23,21 +24,28 @@
         parent="android:Widget.TextView">
 
         <item name="android:fontFamily">
-            @font/nanumSquareNeo_bold</item>
+            @font/nanum_bold</item>
     </style>
 
     <style name="nanumButton"
         parent="android:Widget.Button">
 
         <item name="android:fontFamily">
-            @font/nanumSquareNeo_bold</item>
+            @font/nanum_bold</item>
     </style>
 
     <style name="nanumRadioButton"
         parent="android:Widget.CompoundButton.RadioButton">
 
         <item name="android:fontFamily">
-            @font/nanumSquareNeo_regular</item>
+            @font/nanum_regular</item>
+    </style>
+
+    <style name="nanumEditText"
+        parent="android:Widget.EditText">
+
+        <item name="android:fontFamily">
+            @font/nanum_regular</item>
     </style>
 
 </resources>

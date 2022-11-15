@@ -14,10 +14,10 @@
         android:theme="@style/Theme.Udoncar"
         tools:targetApi="31">
         <activity
-            android:name=".Screen_MyPage"
+            android:name=".myPageActivity"
             android:exported="false" />
         <activity
-            android:name=".Screen_Login"
+            android:name=".loginActivity"
             android:exported="false" />
 
         <meta-data
@@ -25,10 +25,10 @@
             android:resource="@xml/xml_border" />
 
         <activity
-            android:name=".Screen_SignUp"
+            android:name=".signUpActivity"
             android:exported="false" />
         <activity
-            android:name=".Screen_Start"
+            android:name=".startActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
