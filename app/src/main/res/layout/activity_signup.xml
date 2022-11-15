@@ -237,6 +237,10 @@
                 android:background="@drawable/btn_pink"
                 android:text="회원가입"
                 android:textColor="#FFF" />
+                android:background="@drawable/btn_pink"
+                android:fontFamily="@font/nanumSquareNeo_bold"
+                android:text="회원가입"
+                android:textColor="#FFF" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
