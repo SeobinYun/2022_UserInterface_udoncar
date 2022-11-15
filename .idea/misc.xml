@@ -3,6 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/drawable/btn_pink.xml" value="0.1335" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/drawable/lineblack.xml" value="0.135" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_main_activity.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_screen_history.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_screen_login.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_screen_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_screen_main_detail.xml" value="0.264" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_screen_main_dialog.xml" value="0.264" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_screen_my_page.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_screen_sign_up.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_screen_start.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/layout/activity_screen_write.xml" value="0.2" />
+        <entry key="..\:/Users/Public/Androidstudioproject/2022_UserInterface/app/src/main/res/menu/bottom_menu.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/udoncar/app/src/main/res/drawable/btn_pink.xml" value="0.12" />
         <entry key="..\:/Users/user/AndroidStudioProjects/udoncar/app/src/main/res/drawable/menu_selector_color.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/udoncar/app/src/main/res/font/font.xml" value="0.26614583333333336" />
