@@ -9,71 +9,67 @@
         android:layout_height="70dp"
         android:gravity="center"
         android:text="로그인"
-        android:textSize="20dp"
         android:textColor="#FF5B59"
-        android:fontFamily="@font/nanumSquareNeo_bold"
-        />
+        android:textSize="20dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#E76B6B"/>
+        android:background="#E76B6B" />
 
     <LinearLayout
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_marginTop="200dp">
+        android:layout_marginTop="200dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="5dp"
+            android:background="@xml/xml_border"
             android:gravity="center_vertical"
-            android:background="@xml/xml_border">
+            android:padding="5dp">
 
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="ID"
-                android:textSize="14sp"
-                android:fontFamily="@font/nanumSquareNeo_bold"/>
+                android:textSize="14sp" />
 
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nanum_regular"
                 android:hint="아이디를 입력해주세요. "
-                android:textSize="10sp"
-                android:fontFamily="@font/nanumSquareNeo_regular"
-                />
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
+                android:textSize="10sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="5dp"
             android:layout_marginTop="3dp"
-            android:gravity="center_vertical"
             android:background="@xml/xml_border"
-            >
+            android:gravity="center_vertical"
+            android:padding="5dp">
 
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="PW"
-                android:textSize="13sp"
-                android:fontFamily="@font/nanumSquareNeo_bold" />
+                android:textSize="13sp" />
 
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nanum_regular"
                 android:hint="비밀번호를 입력해주세요. "
-                android:textSize="10dp"
-                android:fontFamily="@font/nanumSquareNeo_regular"/>
+                android:inputType="textPassword"
+                android:textSize="10dp" />
         </LinearLayout>
 
         <RelativeLayout
@@ -86,6 +82,9 @@
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
+                android:background="@drawable/btn_pink"
+                android:text="로그인"
+                android:textColor="#FFF" />
                 android:background="@drawable/btn_pink"
                 android:fontFamily="@font/nanumSquareNeo_bold"
                 android:text="로그인"

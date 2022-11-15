@@ -29,10 +29,13 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Screen_MyPage"
+            android:name=".Screen_Chatting"
             android:exported="false" />
         <activity
-            android:name=".Screen_Login"
+            android:name=".myPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".loginActivity"
             android:exported="false" />
 
         <meta-data
@@ -40,10 +43,10 @@
             android:resource="@xml/xml_border" />
 
         <activity
-            android:name=".Screen_SignUp"
+            android:name=".signUpActivity"
             android:exported="false" />
         <activity
-            android:name=".Screen_Start"
+            android:name=".startActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
