@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="조건 설정"
+        android:textColor="#999999"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/arr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="목적지"
+        android:textSize="14sp"
+        android:layout_below="@id/set"
+        android:layout_alignLeft="@id/set"
+        android:layout_marginTop="20dp" />
+
+    <Spinner
+        android:id="@+id/spn_arr1"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@id/arr"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/arr" />
+
+    <Spinner
+        android:id="@+id/spn_arr2"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@id/arr"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/spn_arr1" />
+
+    <Spinner
+        android:id="@+id/spn_arr3"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/spn_arr1"
+        android:layout_alignLeft="@id/spn_arr1"/>
+
+    <TextView
+        android:id="@+id/mysex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="성별"
+        android:textSize="14sp"
+        android:layout_below="@id/spn_arr3"
+        android:layout_alignLeft="@id/arr"
+        android:layout_marginTop="20dp" />
+
+    <Spinner
+        android:id="@+id/spn_sex"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@id/spn_arr1"
+        android:layout_alignTop="@id/mysex" />
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나이대"
+        android:textSize="14sp"
+        android:layout_below="@id/mysex"
+        android:layout_alignLeft="@id/mysex"
+        android:layout_marginTop="20dp" />
+
+    <Spinner
+        android:id="@+id/spn_age"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@id/spn_arr1"
+        android:layout_alignTop="@id/age" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="횟수"
+        android:textSize="14sp"
+        android:layout_below="@id/age"
+        android:layout_alignLeft="@id/age"
+        android:layout_marginTop="20dp" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/spn_arr1"
+        android:layout_alignTop="@id/count"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/btn_count1"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="일회성"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/btn_count2"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:text="다회성"
+            android:textSize="10sp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/count"
+        android:layout_alignLeft="@id/count"
+        android:layout_marginTop="20dp"
+        android:text="종류"
+        android:textSize="14sp" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/spn_arr1"
+        android:layout_alignTop="@id/type"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/btn_type1"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="운전자"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/btn_type2"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:text="탑승자"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/btn_type3"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:text="택시"
+            android:textSize="10sp" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="330dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/type"
+        android:layout_marginTop="30dp"
+        android:background="#D5D5D5"/>
+
+</RelativeLayout>

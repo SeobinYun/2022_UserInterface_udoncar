@@ -85,6 +85,10 @@
                 android:background="@drawable/btn_pink"
                 android:text="로그인"
                 android:textColor="#FFF" />
+                android:background="@drawable/btn_pink"
+                android:fontFamily="@font/nanumSquareNeo_bold"
+                android:text="로그인"
+                android:textColor="#FFF" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
