@@ -61,7 +61,7 @@
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="48dp"
-                android:fontFamily="@font/nanumSquareNeo_regular"
+                android:fontFamily="@font/nanum_regular"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -84,7 +84,7 @@
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="48dp"
-                android:fontFamily="@font/nanumSquareNeo_regular"
+                android:fontFamily="@font/nanum_regular"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -107,7 +107,7 @@
             <EditText
                 android:layout_width="200dp"
                 android:layout_height="48dp"
-                android:fontFamily="@font/nanumSquareNeo_regular"
+                android:fontFamily="@font/nanum_regular"
                 android:textSize="10sp" />
 
         </LinearLayout>
