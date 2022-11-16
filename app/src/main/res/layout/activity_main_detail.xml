@@ -166,9 +166,9 @@
                 android:id="@+id/condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="<조건>"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:text="&lt;조건&gt;" />
 
             <TextView
                 android:id="@+id/sex"
@@ -222,7 +222,7 @@
             android:text="참가하기"
             android:textColor="#FFF"
             android:background="@drawable/btn_pink"
-            android:fontFamily="@font/nanumSquareNeo_bold"
+            android:fontFamily="@font/nanum_bold"
             android:layout_marginTop="40dp"
             android:layout_gravity="center_horizontal" />
 
