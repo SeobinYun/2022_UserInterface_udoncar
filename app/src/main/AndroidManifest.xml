@@ -29,7 +29,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ChattingActivity"
+            android:name=".ChatActivity"
             android:exported="false" />
         <activity
             android:name=".MyPageActivity"
