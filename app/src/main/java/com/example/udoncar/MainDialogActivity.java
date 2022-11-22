@@ -20,7 +20,7 @@ public class MainDialogActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_main_dialog);
 
-        filterBtn = findViewById(R.id.btn_filter);
+        filterBtn = findViewById(R.id.filter_btn);
 
         filterBtn.setOnClickListener(this);
     }
