@@ -2,7 +2,7 @@ package com.example.udoncar.model;
 
 import java.io.Serializable;
 
-public class ChatData implements Serializable {
+public class Chat implements Serializable {
     private String name;
     private String message;
     private String sendtime;

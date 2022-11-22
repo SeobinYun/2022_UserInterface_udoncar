@@ -9,12 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.udoncar.model.ChatData;
+import com.example.udoncar.model.Chat;
 
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
-    private List<ChatData> chatList;
+    private List<Chat> chatList;
     private String myName;
     public static class ChatHolder extends RecyclerView.ViewHolder {
         public TextView textViewName;
@@ -29,7 +29,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
         }
     }
     // 어댑터에 넣을 데이터set를 매개변수로 하는 생성자 - myName은 내 닉네임 구분하려고
-    public ChatAdapter(List<ChatData> chatList, String myName){
+    public ChatAdapter(List<Chat> chatList, String myName){
         this.chatList = chatList;
         this.myName = myName;
     }
@@ -45,7 +45,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ChatHolder holder, int position) {
-        ChatData chat = chatDataList.get(position); //position을 인덱스로 객체 하나 가져옴
+        Chat chat = chatList.get(position); //position을 인덱스로 객체 하나 가져옴
         holder.textViewName.setText(chat.getName()); // 가져온 chat객체에서 데이터 뽑아내서 holder에 세팅
         holder.textViewMessage.setText(chat.getMessage());
         holder.textViewSendtime.setText(chat.getSendtime());
@@ -59,6 +59,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
 
     @Override
     public int getItemCount() {
-        return chatDataList.size();
+        return chatList.size();
     }
 }

@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.udoncar.model.ChatData;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.udoncar.model.Chat;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -17,8 +15,9 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView chatRecyclerView;
     private RecyclerView.Adapter chatAdapter;
     private RecyclerView.LayoutManager chatLayoutManager;
-    private List<ChatData> chatList;
+    private List<Chat> chatList;
 
+    private String name = "min";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +31,7 @@ public class ChatActivity extends AppCompatActivity {
         chatLayoutManager = new LinearLayoutManager(this);
         chatRecyclerView.setLayoutManager(chatLayoutManager);
 
-        chatAdapter = new ChatAdapter(chatList);
+        chatAdapter = new ChatAdapter(chatList, name);
         chatRecyclerView.setAdapter(chatAdapter);
     }
 }
