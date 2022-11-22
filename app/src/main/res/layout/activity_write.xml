@@ -20,14 +20,14 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/wirte"
+            android:id="@+id/write_btn"
             android:layout_width="70dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/btn_pink"
             android:text="등록"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="11dp"
             android:textColor="#FFF" />
 
     </RelativeLayout>
@@ -51,14 +51,15 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="제목 :"
+                android:text="제목     :"
                 android:textSize="14sp"
                 android:padding="5dp" />
 
             <EditText
+                android:id="@+id/title_edittext"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/nanum_regular"
@@ -82,6 +83,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/dep_edittext"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/nanum_regular"
@@ -105,6 +107,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/arr_edittext"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/nanum_regular"
@@ -128,10 +131,14 @@
                 android:textSize="14sp" />
 
             <Spinner
+                android:entries="@array/month"
+                android:id="@+id/month_spn"
                 android:layout_width="100dp"
                 android:layout_height="20dp" />
 
             <Spinner
+                android:entries="@array/day"
+                android:id="@+id/day_spn"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="20dp" />
@@ -155,10 +162,14 @@
                 android:textSize="14sp" />
 
             <Spinner
+                android:entries="@array/hour"
+                android:id="@+id/hour_spn"
                 android:layout_width="100dp"
                 android:layout_height="20dp" />
 
             <Spinner
+                android:entries="@array/min"
+                android:id="@+id/min_spn"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="20dp" />
@@ -187,12 +198,15 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/type_btn1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="운전자"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    tools:ignore="InvalidId" />
 
                 <RadioButton
+                    android:id="@+id/type_btn2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="탑승자"
@@ -200,6 +214,7 @@
                     android:layout_marginLeft="20dp" />
 
                 <RadioButton
+                    android:id="@+id/type_btn3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="택시"
@@ -243,12 +258,14 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/gen_btn1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="남자"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                     <RadioButton
+                        android:id="@+id/gen_btn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="여자"
@@ -271,9 +288,11 @@
                     android:layout_marginLeft="10dp" />
 
                 <Spinner
+                    android:id="@+id/age_spn"
                     android:layout_width="100dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="15dp" />
+                    android:layout_marginLeft="15dp"
+                    tools:ignore="InvalidId" />
 
             </LinearLayout>
 
@@ -293,18 +312,20 @@
                 <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/sex"
-                    android:layout_alignBaseline="@id/sex"
+                    android:layout_toRightOf="@id/gen_con"
+                    android:layout_alignBaseline="@id/gen_con"
                     android:layout_marginLeft="17dp"
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/count_btn1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="일회성"
                         android:textSize="14sp"/>
 
                     <RadioButton
+                        android:id="@+id/count_btn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="다회성"
@@ -325,10 +346,11 @@
             android:padding="5dp" >
 
             <EditText
+                android:id="@+id/content_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:hint="영문 소문자 및 숫자만 입력 가능합니다. "
+                android:hint="내용을 입력하세요."
                 android:textSize="14sp" />
 
     </LinearLayout>
