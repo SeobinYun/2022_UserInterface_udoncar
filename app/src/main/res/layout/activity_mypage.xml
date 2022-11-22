@@ -43,11 +43,13 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/name_edittext"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/nanum_regular"
-                android:hint="영문 소문자 및 숫자만 입력 가능합니다. "
-                android:textSize="10sp" />
+                android:hint="닉네임 부분 "
+                android:textSize="10sp"
+                android:enabled="false"/>
 
         </LinearLayout>
 
@@ -65,13 +67,28 @@
                 android:text="지역"
                 android:textSize="14sp" />
 
-            <EditText
-                android:layout_width="200dp"
-                android:layout_height="48dp"
-                android:fontFamily="@font/nanum_regular"
-                android:hint="영문 소문자 및 숫자만 입력 가능합니다. "
-                android:textSize="10sp" />
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Spinner
+                    android:id="@+id/spinner_1"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
 
+                <Spinner
+                    android:id="@+id/spinner_2"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
+
+                <Spinner
+                    android:id="@+id/spinner_3"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -90,10 +107,12 @@
                 android:textSize="13sp" />
 
             <RadioGroup
+                android:id="@+id/sex_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:enabled="false">
 
                 <RadioButton
                     android:layout_width="100dp"
@@ -127,11 +146,12 @@
                 android:textSize="13sp" />
 
             <Spinner
-                android:id="@+id/spinner_ages"
+                android:id="@+id/ages_spinner"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/nanum_regular"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                android:enabled="false"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -140,16 +160,17 @@
             android:layout_marginTop="30dp">
 
             <Button
+                android:id="@+id/edit_btn"
                 android:layout_width="70dp"
                 android:layout_height="48dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/save"
+                android:layout_toLeftOf="@id/save_btn"
                 android:background="@drawable/btn_pink"
                 android:text="수정"
                 android:textColor="#FFF" />
 
             <Button
-                android:id="@+id/save"
+                android:id="@+id/save_btn"
                 android:layout_width="70dp"
                 android:layout_height="48dp"
                 android:layout_alignParentRight="true"
@@ -165,16 +186,17 @@
             android:layout_marginTop="120dp">
 
             <Button
+                android:id="@+id/logout_btn"
                 android:layout_width="80dp"
                 android:layout_height="48dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/delete"
+                android:layout_toLeftOf="@id/delete_btn"
                 android:background="@drawable/btn_pink"
                 android:text="로그아웃"
                 android:textColor="#FFF" />
 
             <Button
-                android:id="@+id/delete"
+                android:id="@+id/delete_btn"
                 android:layout_width="80dp"
                 android:layout_height="48dp"
                 android:layout_alignParentRight="true"
@@ -189,7 +211,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        tools:context=".myPageActivity">
+        tools:context=".MyPageActivity">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_menu"
