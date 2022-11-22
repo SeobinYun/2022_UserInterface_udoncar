@@ -29,13 +29,13 @@
             android:textColor="#FF5B59" />
 
         <Button
-            android:id="@+id/btn_filter"
+            android:id="@+id/filter_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/mypage" />
+            android:background="@drawable/filter" />
 
     </RelativeLayout>
 
@@ -44,7 +44,6 @@
         android:layout_height="2dp"
         android:background="#E76B6B" />
 
-    <!--10개정도에 더보기란? + 버튼안에 text여러개 + 그림자..?테두리-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="590dp" >
