@@ -424,7 +424,7 @@
             <item>진관동</item>
         </string-array>
 
-        <string-array name="spinner_region_seoul_jongno">
+    <string-array name="spinner_region_seoul_jongno">
             <item>가희동</item>
             <item>견지동</item>
             <item>경운동</item>
@@ -514,7 +514,7 @@
             <item>훈정동</item>
         </string-array>
 
-        <string-array name="spinner_region_seoul_jung">
+    <string-array name="spinner_region_seoul_jung">
             <item>광희동1가</item>
             <item>광희동2가</item>
             <item>남대문로1가</item>
@@ -591,7 +591,7 @@
             <item>홍인동</item>
         </string-array>
 
-        <string-array name="spinner_region_seoul_jungnanggu">
+    <string-array name="spinner_region_seoul_jungnanggu">
             <item>망우동</item>
             <item>면목동</item>
             <item>묵동</item>
@@ -600,7 +600,7 @@
             <item>중화동</item>
         </string-array>
 
-        <string-array name="spinner_region_busan">
+    <string-array name="spinner_region_busan">
             <item>강서구</item>
             <item>금정구</item>
             <item>기장군</item>
@@ -619,7 +619,82 @@
             <item>해운대구</item>
         </string-array>
 
-        <string-array name="spinner_region_incheon">
+    <string-array name="spinner_region_busan_gangseo">
+        <item>대저1동</item>
+<!--대저2동-->
+<!--강동동-->
+<!--명지동-->
+<!--죽림동-->
+<!--식만동-->
+<!--죽동동-->
+<!--봉림동-->
+<!--송정동-->
+<!--화전동-->
+<!--녹산동-->
+<!--생곡동-->
+<!--구랑동-->
+<!--지사동-->
+<!--미음동-->
+<!--범방동-->
+<!--신호동-->
+<!--동선동-->
+<!--성북동-->
+<!--눌차동-->
+<!--천성동-->
+<!--대항동-->
+
+<!--        </item>-->
+    </string-array>
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+<!--    <string-array name="spinner_region_busan_">-->
+
+<!--    </string-array>-->
+
+    <string-array name="spinner_region_incheon">
             <item>강화군</item>
             <item>계양구</item>
             <item>남구</item>
@@ -632,7 +707,7 @@
             <item>중구</item>
         </string-array>
 
-        <string-array name="spinner_region_daegu">
+    <string-array name="spinner_region_daegu">
             <item>중구</item>
             <item>동구</item>
             <item>서구</item>
@@ -643,7 +718,7 @@
             <item>달성군</item>
         </string-array>
 
-        <string-array name="spinner_region_gwangju">
+    <string-array name="spinner_region_gwangju">
             <item>동구</item>
             <item>서구</item>
             <item>남구</item>
@@ -651,7 +726,7 @@
             <item>광산구</item>
         </string-array>
 
-        <string-array name="spinner_region_daejeon">
+    <string-array name="spinner_region_daejeon">
             <item>대덕구</item>
             <item>동구</item>
             <item>서구</item>
@@ -659,7 +734,7 @@
             <item>중구</item>
         </string-array>
 
-        <string-array name="spinner_region_ulsan">
+    <string-array name="spinner_region_ulsan">
             <item>남구</item>
             <item>동구</item>
             <item>북구</item>
@@ -667,11 +742,11 @@
             <item>중구</item>
         </string-array>
 
-        <string-array name="spinner_region_sejong">
+    <string-array name="spinner_region_sejong">
             <item>없음</item>
         </string-array>
 
-        <string-array name="spinner_region_gyeonggi">
+    <string-array name="spinner_region_gyeonggi">
             <item>가평군</item>
             <item>고양시</item>
             <item>과천시</item>
@@ -705,7 +780,7 @@
             <item>화성시</item>
         </string-array>
 
-        <string-array name="spinner_region_gangwon">
+    <string-array name="spinner_region_gangwon">
             <item>강릉시</item>
             <item>고성군</item>
             <item>동해시</item>
@@ -726,7 +801,7 @@
             <item>횡성군</item>
         </string-array>
 
-        <string-array name="spinner_region_chung_buk">
+    <string-array name="spinner_region_chung_buk">
             <item>괴산군</item>
             <item>단양군</item>
             <item>보은군</item>
@@ -740,7 +815,7 @@
             <item>충주시</item>
         </string-array>
 
-        <string-array name="spinner_region_chung_nam">
+    <string-array name="spinner_region_chung_nam">
             <item>계룡시</item>
             <item>공주시</item>
             <item>금산군</item>
@@ -758,7 +833,7 @@
             <item>홍성군</item>
         </string-array>
 
-        <string-array name="spinner_region_gyeong_buk">
+    <string-array name="spinner_region_gyeong_buk">
             <item>경산시</item>
             <item>경주시</item>
             <item>고령군</item>
@@ -784,7 +859,7 @@
             <item>포항시</item>
         </string-array>
 
-        <string-array name="spinner_region_gyeong_nam">
+    <string-array name="spinner_region_gyeong_nam">
             <item>거제시</item>
             <item>거창군</item>
             <item>고성군</item>
@@ -805,7 +880,7 @@
             <item>합천군</item>
         </string-array>
 
-        <string-array name="spinner_region_jeon_buk">
+    <string-array name="spinner_region_jeon_buk">
             <item>고창군</item>
             <item>군산시</item>
             <item>김제시</item>
@@ -822,7 +897,7 @@
             <item>진안군</item>
         </string-array>
 
-        <string-array name="spinner_region_jeon_nam">
+    <string-array name="spinner_region_jeon_nam">
             <item>강진군</item>
             <item>고흥군</item>
             <item>곡성군</item>
@@ -847,7 +922,7 @@
             <item>화순군</item>
         </string-array>
 
-        <string-array name="spinner_region_jeju">
+    <string-array name="spinner_region_jeju">
             <item>서귀포시</item>
             <item>제주시</item>
         </string-array>

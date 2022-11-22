@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class startActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
+    Button createBtn;
+    Button loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,27 +17,23 @@ public class startActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         // 회원가입 클릭 시 액티비티 전환
-        Button signup_btn = (Button)findViewById(R.id.signup);
-        signup_btn.setOnClickListener(new View.OnClickListener(){
-
+        createBtn = (Button)findViewById(R.id.signup_btn);
+        createBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), signUpActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(intent);
             }
         });
 
         // 로그인 클릭 시 액티비티 전환
-        Button login_btn = (Button)findViewById(R.id.login);
-        login_btn.setOnClickListener(new View.OnClickListener(){
-
+        loginBtn = (Button)findViewById(R.id.login_btn);
+        loginBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), loginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
-
-
     }
 }

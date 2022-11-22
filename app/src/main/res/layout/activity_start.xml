@@ -70,7 +70,7 @@
         android:layout_marginTop="80dp">
 
         <Button
-            android:id="@+id/signup"
+            android:id="@+id/signup_btn"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginLeft="80dp"
@@ -79,7 +79,7 @@
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/login_btn"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:background="@drawable/btn_pink"

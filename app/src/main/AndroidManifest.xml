@@ -32,10 +32,10 @@
             android:name=".ChattingActivity"
             android:exported="false" />
         <activity
-            android:name=".myPageActivity"
+            android:name=".MyPageActivity"
             android:exported="false" />
         <activity
-            android:name=".loginActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
 
         <meta-data
@@ -43,10 +43,10 @@
             android:resource="@xml/xml_border" />
 
         <activity
-            android:name=".signUpActivity"
+            android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".startActivity"
+            android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

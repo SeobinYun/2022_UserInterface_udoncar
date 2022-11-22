@@ -39,11 +39,13 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/id_edittext"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:fontFamily="@font/nanum_regular"
-                android:hint="아이디를 입력해주세요. "
-                android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
+                android:hint="아이디를 입력해주세요. (이메일 형식)"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyz.@"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -64,6 +66,7 @@
                 android:textSize="13sp" />
 
             <EditText
+                android:id="@+id/pw_edittext"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum_regular"
@@ -78,15 +81,12 @@
             android:layout_marginTop="30dp">
 
             <Button
+                android:id="@+id/login_btn"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/btn_pink"
-                android:text="로그인"
-                android:textColor="#FFF" />
-                android:background="@drawable/btn_pink"
-                android:fontFamily="@font/nanumSquareNeo_bold"
                 android:text="로그인"
                 android:textColor="#FFF" />
         </RelativeLayout>
