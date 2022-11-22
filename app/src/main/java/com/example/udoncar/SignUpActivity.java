@@ -106,6 +106,10 @@ public class SignUpActivity extends AppCompatActivity {
                 if(idEdittext.getText().toString().equals("") || pwEdittext.getText().toString().equals("") || doublepwEdittext.getText().toString().equals("") || nameEdittext.getText().toString().equals("")){
                     Toast.makeText(SignUpActivity.this, "필수 정보를 입력해주세요.", Toast.LENGTH_LONG).show();
                 }
+                // PW 길이가 8 미만일 경우
+                else if(pwEdittext.getText().toString().length()<8){
+                    Toast.makeText(SignUpActivity.this, "PW는 최소 8자리로 설정해주세요.", Toast.LENGTH_LONG).show();
+                }
                 // PW, PW확인이 일치하지 않을 경우
                 else if(!pwEdittext.getText().toString().equals(doublepwEdittext.getText().toString())){
                     Toast.makeText(SignUpActivity.this, "PW와 PW확인이 일치하지 않습니다.", Toast.LENGTH_LONG).show();
