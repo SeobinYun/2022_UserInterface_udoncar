@@ -33,7 +33,7 @@ public class MainDetailActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), ChattingActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                 startActivity(intent);
             }
         });
