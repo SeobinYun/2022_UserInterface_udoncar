@@ -323,7 +323,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 
-    private void createUser(String email, String password, String name, Spinner region1, Spinner region2, Spinner region3, RadioButton sex, Spinner age) {
+    private void createUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -343,9 +343,9 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
 
-        List<String> region = Arrays.asList(region1.getSelectedItem().toString(), region2.getSelectedItem().toString(), region3.getSelectedItem().toString());
-        User user = new User(email, password, name, region, sex.getText().toString(), age.getSelectedItem().toString());
-        db.collection("users").document(email).set(user);
+//        List<String> region = Arrays.asList(region1.getSelectedItem().toString(), region2.getSelectedItem().toString(), region3.getSelectedItem().toString());
+//        User user = new User(email, password, name, region, sex.getText().toString(), age.getSelectedItem().toString());
+//        db.collection("users").document(email).set(user);
     }
 
 

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.udoncar.model.Chat;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -22,11 +23,12 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
         // Access a Cloud Firestore instance from your Activity
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+        final DocumentReference docRef = db.collection("cities").document("SF");
         chatRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
-        chatRecyclerView.setHasFixedSize(true); // 뭐임?
+        chatRecyclerView.setHasFixedSize(true); // 크기 고정
 
         chatLayoutManager = new LinearLayoutManager(this);
         chatRecyclerView.setLayoutManager(chatLayoutManager);
