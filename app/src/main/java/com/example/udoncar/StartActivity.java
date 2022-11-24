@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class StartActivity extends AppCompatActivity {
-    Button createBtn;
-    Button loginBtn;
+    Button signupBtn;
+    Button signinBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +17,8 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         // 회원가입 클릭 시 액티비티 전환
-        createBtn = (Button)findViewById(R.id.signup_btn);
-        createBtn.setOnClickListener(new View.OnClickListener(){
+        signupBtn = (Button)findViewById(R.id.signup_btn);
+        signupBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
@@ -27,8 +27,8 @@ public class StartActivity extends AppCompatActivity {
         });
 
         // 로그인 클릭 시 액티비티 전환
-        loginBtn = (Button)findViewById(R.id.login_btn);
-        loginBtn.setOnClickListener(new View.OnClickListener(){
+        signinBtn = (Button)findViewById(R.id.signin_btn);
+        signinBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);

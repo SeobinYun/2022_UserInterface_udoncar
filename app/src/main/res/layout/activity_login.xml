@@ -46,7 +46,7 @@
                 android:fontFamily="@font/nanum_regular"
                 android:hint="아이디를 입력해주세요. (이메일 형식)"
                 android:digits="0123456789abcdefghijklmnopqrstuvwxyz.@"
-                android:textSize="10sp" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
@@ -72,7 +72,7 @@
                 android:fontFamily="@font/nanum_regular"
                 android:hint="비밀번호를 입력해주세요. "
                 android:inputType="textPassword"
-                android:textSize="10dp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <RelativeLayout
