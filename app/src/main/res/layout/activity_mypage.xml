@@ -224,7 +224,6 @@
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_menu" />
 
-
     </LinearLayout>
 
 </LinearLayout>

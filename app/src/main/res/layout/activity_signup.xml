@@ -43,7 +43,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="이메일 형식으로 작성해주세요. "
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:inputType="textEmailAddress"
                 android:digits="0123456789abcdefghijklmnopqrstuvwxyz.@"
                 android:fontFamily="@font/nanum_regular"/>
@@ -79,8 +79,8 @@
                 android:id="@+id/pw_edittext"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:hint="비밀번호를 입력해주세요. "
-                android:textSize="10dp"
+                android:hint="비밀번호는 8자 이상 입력해주세요. "
+                android:textSize="12sp"
                 android:inputType="textPassword"
                 android:fontFamily="@font/nanum_regular"/>
         </LinearLayout>
@@ -105,7 +105,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호를 다시 입력해주세요. "
-                android:textSize="10dp"
+                android:textSize="12sp"
                 android:inputType="textPassword"
                 android:fontFamily="@font/nanum_regular"/>
         </LinearLayout>
@@ -129,8 +129,9 @@
                 android:id="@+id/name_edittext"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:hint="한글, 영어, 숫자, 특수문자 입력 가능"
                 android:inputType="text"
-                android:textSize="10dp"
+                android:textSize="12sp"
                 android:fontFamily="@font/nanum_regular"/>
         </LinearLayout>
 
@@ -193,7 +194,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:checkedButton="@id/sex_man">
 
                 <RadioButton
                     android:id="@+id/sex_man"
@@ -231,7 +233,7 @@
             <Spinner
                 android:id="@+id/ages_spinner"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <RelativeLayout
@@ -240,7 +242,7 @@
             android:layout_marginTop="30dp">
 
             <Button
-                android:id="@+id/signup_btn"
+                android:id="@+id/create_btn"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
