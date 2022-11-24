@@ -12,6 +12,8 @@ public class History implements Serializable {
         this.postId = postId;
         this.userId = userId;
     }
+    public History(){
+    }
 
     public String gethistId() {
         return histId;

@@ -11,6 +11,9 @@ public class ChatUserList {
         this.userId = userId;
     }
 
+    public ChatUserList(){
+    }
+
     public String getHistId() {
         return histId;
     }
