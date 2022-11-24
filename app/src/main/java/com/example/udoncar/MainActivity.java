@@ -1,6 +1,8 @@
 package com.example.udoncar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.net.Uri;
@@ -12,16 +14,31 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
-    public MainActivity(Intent intent) {
-    }
+    private ArrayList<MainData> arrayList;
+    private MainAdapter mainAdapter;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    //mainactiviy intent 삭제
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = (RecyclerView)findViewById(R.id.main_rv);
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        arrayList = new ArrayList<>();
+
+        mainAdapter = new MainAdapter(arrayList);
+        recyclerView.setAdapter(mainAdapter);
+
     }
 
     // 사용자 정보 액세스
