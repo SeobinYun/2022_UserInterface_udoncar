@@ -28,6 +28,8 @@ public class Post implements Serializable {
         this.createAt = createAt;
         this.meetAt = meetAt;
     }
+    public Post(){
+    }
 
     public String getpostId() {
         return postId;
