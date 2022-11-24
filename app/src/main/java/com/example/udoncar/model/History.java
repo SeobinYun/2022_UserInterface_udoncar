@@ -3,31 +3,37 @@ package com.example.udoncar.model;
 import java.io.Serializable;
 
 public class History implements Serializable {
-    private String hist_id;
-    private String post_id;
-    private String user_id;
+    private String histId;
+    private String postId;
+    private String userId;
 
-    public String getHist_id() {
-        return hist_id;
+    public History(String histId, String postId, String userId) {
+        this.histId = histId;
+        this.postId = postId;
+        this.userId = userId;
     }
 
-    public void setHist_id(String hist_id) {
-        this.hist_id = hist_id;
+    public String gethistId() {
+        return histId;
     }
 
-    public String getPost_id() {
-        return post_id;
+    public void sethistId(String histId) {
+        this.histId = histId;
     }
 
-    public void setPost_id(String post_id) {
-        this.post_id = post_id;
+    public String getpostId() {
+        return postId;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public void setpostId(String postId) {
+        this.postId = postId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public String getuserId() {
+        return userId;
+    }
+
+    public void setuserId(String userId) {
+        this.userId = userId;
     }
 }

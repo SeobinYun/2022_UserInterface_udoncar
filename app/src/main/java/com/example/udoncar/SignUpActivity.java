@@ -47,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Spinner regionSpinner2;
     private Spinner regionSpinner3;
     private ArrayAdapter<String> regionSpinner1Adapter;
-//    private ArrayAdapter regionSpinner1Adapter;
+    //    private ArrayAdapter regionSpinner1Adapter;
 //    private ArrayAdapter regionSpinner2Adapter;
 //    private ArrayAdapter regionSpinner3Adapter;
     private RadioGroup sexRadioGroup;
