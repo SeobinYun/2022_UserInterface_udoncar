@@ -10,8 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationBarView;
 import com.example.udoncar.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +34,11 @@ import java.util.ArrayList;
 
 public class MainActivity<mDatabase> extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    HomeFragment homeFragment;
+    WriteFragment writeFragment;
+    HistoryFragment historyFragment;
+    MypageFragment mypageFragment;
+
 
     private ArrayList<MainData> arrayList;
     private MainAdapter mainAdapter;
@@ -44,6 +55,36 @@ public class MainActivity<mDatabase> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        homeFragment = new HomeFragment();
+        writeFragment = new WriteFragment();
+        historyFragment = new HistoryFragment();
+        mypageFragment = new MypageFragment();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();
+
+        NavigationBarView navigationBarView = findViewById(R.id.bottom_menu);
+        navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId()){
+                    case R.id.home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();
+                        return true;
+                    case R.id.write:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, writeFragment).commit();
+                        return true;
+                    case R.id.history:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, historyFragment).commit();
+                        return true;
+                    case R.id.mypage:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containers, mypageFragment).commit();
+                        return true;
+                }
+                return false;
+            }
+        });
 
 //        db = FirebaseFirestore.getInstance();
 //        DocumentReference myRef = db.collection("users").document(loca);
@@ -67,15 +108,17 @@ public class MainActivity<mDatabase> extends AppCompatActivity {
     }
 
 
-
-    // 사용자 정보 액세스
-    private void getCurrentUser(){
+    public void checkCurrentUser(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            Log.d(TAG,"getCurrentUser 성공");
+        if(user != null){
+            // User is signed in
+        }
+        else{
+            // No user is signed in
         }
     }
+
+
 
     @Override
     public void onStart() {
@@ -88,6 +131,4 @@ public class MainActivity<mDatabase> extends AppCompatActivity {
 //        }
     }
 
-    private void reload() {
-    }
 }
