@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +18,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.regex.Pattern;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "loginActivity";
     private FirebaseAuth mAuth;
     private EditText idEdittext;
     private EditText pwEdittext;
     private Button loginBtn;
+    public Pattern emailPattern = Patterns.EMAIL_ADDRESS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             reload();
         }
     }
@@ -57,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         return sentence.getText().toString();
     }
 
-// 로그인 함수
+    // 로그인 함수
     private void loginUser(String email, String password) {
         Log.d(TAG, "loginUser 진입");
         mAuth.signInWithEmailAndPassword(email, password)
@@ -68,17 +72,25 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
+                            Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "ID와 PW가 일치하지 않습니다. 다시 시도해주세요.",
-                                    Toast.LENGTH_LONG).show();
+                            if (!emailPattern.matcher(edittextToString(idEdittext)).matches()) {
+                                Toast.makeText(LoginActivity.this, "ID를 이메일 형식으로 입력해주세요.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "ID와 PW가 일치하지 않습니다. 다시 시도해주세요.",
+                                        Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });
     }
-    private void reload(){}
+
+    private void reload() {
+    }
 }
