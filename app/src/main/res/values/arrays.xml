@@ -10,7 +10,6 @@
     </string-array>
 
     <string-array name="spinner_region">
-            <item></item>
             <item>서울특별시</item>
             <item>부산광역시</item>
             <item>대구광역시</item>
@@ -601,6 +600,7 @@
         </string-array>
 
     <string-array name="spinner_region_busan">
+            
             <item>강서구</item>
             <item>금정구</item>
             <item>기장군</item>
@@ -743,10 +743,12 @@
         </string-array>
 
     <string-array name="spinner_region_sejong">
-            <item>없음</item>
+            
+            <item>세종시</item>
         </string-array>
 
     <string-array name="spinner_region_gyeonggi">
+            
             <item>가평군</item>
             <item>고양시</item>
             <item>과천시</item>
@@ -781,6 +783,7 @@
         </string-array>
 
     <string-array name="spinner_region_gangwon">
+            
             <item>강릉시</item>
             <item>고성군</item>
             <item>동해시</item>
@@ -802,6 +805,7 @@
         </string-array>
 
     <string-array name="spinner_region_chung_buk">
+            
             <item>괴산군</item>
             <item>단양군</item>
             <item>보은군</item>
@@ -816,6 +820,7 @@
         </string-array>
 
     <string-array name="spinner_region_chung_nam">
+            
             <item>계룡시</item>
             <item>공주시</item>
             <item>금산군</item>
@@ -834,6 +839,7 @@
         </string-array>
 
     <string-array name="spinner_region_gyeong_buk">
+            
             <item>경산시</item>
             <item>경주시</item>
             <item>고령군</item>
@@ -860,6 +866,7 @@
         </string-array>
 
     <string-array name="spinner_region_gyeong_nam">
+            
             <item>거제시</item>
             <item>거창군</item>
             <item>고성군</item>
@@ -881,6 +888,7 @@
         </string-array>
 
     <string-array name="spinner_region_jeon_buk">
+            
             <item>고창군</item>
             <item>군산시</item>
             <item>김제시</item>
@@ -898,6 +906,7 @@
         </string-array>
 
     <string-array name="spinner_region_jeon_nam">
+            
             <item>강진군</item>
             <item>고흥군</item>
             <item>곡성군</item>
@@ -923,9 +932,13 @@
         </string-array>
 
     <string-array name="spinner_region_jeju">
+            
             <item>서귀포시</item>
             <item>제주시</item>
         </string-array>
 
+        <string-array name="spinner_region_empty">
+                <item>기타</item>
+        </string-array>
 
 </resources>
