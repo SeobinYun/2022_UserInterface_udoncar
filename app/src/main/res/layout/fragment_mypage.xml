@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/mypage">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:text="마이페이지"
+        android:textSize="20dp"
+        android:textColor="#FF5B59"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#E76B6B"/>
+
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="550dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@xml/xml_border"
+            android:gravity="center_vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="닉네임"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/name_edittext"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:fontFamily="@font/nanum_regular"
+                android:hint="닉네임 부분 "
+                android:textSize="10sp"
+                android:enabled="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@xml/xml_border"
+            android:gravity="center_vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="지역"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Spinner
+                    android:id="@+id/spinner_1"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
+
+                <Spinner
+                    android:id="@+id/spinner_2"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
+
+                <Spinner
+                    android:id="@+id/spinner_3"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="3dp"
+            android:background="@xml/xml_border"
+            android:gravity="center_vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="성별"
+                android:textSize="13sp" />
+
+            <RadioGroup
+                android:id="@+id/sex_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:orientation="horizontal"
+                android:enabled="false">
+
+                <RadioButton
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="남자"
+                    android:textSize="13sp" />
+
+                <RadioButton
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="50dp"
+                    android:text="여자"
+                    android:textSize="13sp" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="3dp"
+            android:background="@xml/xml_border"
+            android:gravity="center_vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="나이"
+                android:textSize="13sp" />
+
+            <Spinner
+                android:id="@+id/ages_spinner"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:fontFamily="@font/nanum_regular"
+                android:textSize="10dp"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
+            <Button
+                android:id="@+id/edit_btn"
+                android:layout_width="70dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/save_btn"
+                android:background="@drawable/btn_pink"
+                android:text="수정"
+                android:textColor="#FFF" />
+
+            <Button
+                android:id="@+id/save_btn"
+                android:layout_width="70dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/btn_pink"
+                android:text="저장"
+                android:textColor="#FFF" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp">
+
+            <Button
+                android:id="@+id/logout_btn"
+                android:layout_width="80dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/delete_btn"
+                android:background="@drawable/btn_pink"
+                android:text="로그아웃"
+                android:textColor="#FFF" />
+
+            <Button
+                android:id="@+id/delete_btn"
+                android:layout_width="80dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/btn_pink"
+                android:text="탈퇴"
+                android:textColor="#FFF" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        tools:context=".MyPageActivity">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:backgroundTint="#FF8587"
+            app:itemIconTint="@drawable/menu_selector_color"
+            app:itemTextColor="@drawable/menu_selector_color"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_menu" />
+
+    </LinearLayout>
+
+</LinearLayout>
