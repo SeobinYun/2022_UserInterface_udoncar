@@ -46,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
     // FirebaseAuth의 인스턴스 선언
     private FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private EditText idEdittext;
     private EditText pwEdittext;
     private Button doublecheckBtn;

@@ -13,20 +13,19 @@
         android:orientation="horizontal"
         android:padding="7dp">
 
-        <ImageButton
+        <!--<ImageButton
             android:id="@+id/back_button"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:src="@drawable/ic_arrow_back"
-            style="?android:borderlessButtonStyle"/>
+            style="?android:borderlessButtonStyle"/>-->
 
         <TextView
             android:id="@+id/title_textview"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/back_button"
             android:gravity="center"
             android:text="제목 들어갈 공간"
             android:textSize="22sp" />

@@ -4,23 +4,39 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Post implements Serializable {
-    private String post_id;
+    private String postId;
     private String title;
     private String content;
     private String dest;
     private String position;
-    private String user_id;
-    private String opt_age;
-    private String opt_sex;
+    private String userId;
+    private String optAge;
+    private String optSex;
     private Date createAt;
     private Date meetAt;
 
-    public String getPost_id() {
-        return post_id;
+    public Post(String postId, String title, String content, String dest, String position,
+                String userId, String optAge, String optSex, Date createAt, Date meetAt) {
+        this.postId = postId;
+        this.title = title;
+        this.content = content;
+        this.dest = dest;
+        this.position = position;
+        this.userId = userId;
+        this.optAge = optAge;
+        this.optSex = optSex;
+        this.createAt = createAt;
+        this.meetAt = meetAt;
+    }
+    public Post(){
     }
 
-    public void setPost_id(String post_id) {
-        this.post_id = post_id;
+    public String getpostId() {
+        return postId;
+    }
+
+    public void setpostId(String postId) {
+        this.postId = postId;
     }
 
     public String getTitle() {
@@ -55,28 +71,28 @@ public class Post implements Serializable {
         this.position = position;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getuserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setuserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getOpt_age() {
-        return opt_age;
+    public String getoptAge() {
+        return optAge;
     }
 
-    public void setOpt_age(String opt_age) {
-        this.opt_age = opt_age;
+    public void setoptAge(String optAge) {
+        this.optAge = optAge;
     }
 
-    public String getOpt_sex() {
-        return opt_sex;
+    public String getoptSex() {
+        return optSex;
     }
 
-    public void setOpt_sex(String opt_sex) {
-        this.opt_sex = opt_sex;
+    public void setoptSex(String optSex) {
+        this.optSex = optSex;
     }
 
     public Date getCreateAt() {

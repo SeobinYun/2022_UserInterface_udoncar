@@ -48,7 +48,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
         Chat chat = chatList.get(position); //position을 인덱스로 객체 하나 가져옴
         holder.textViewName.setText(chat.getName()); // 가져온 chat객체에서 데이터 뽑아내서 holder에 세팅
         holder.textViewMessage.setText(chat.getMessage());
-        holder.textViewSendtime.setText(chat.getSendtime());
+        //holder.textViewSendtime.setText(chat.getSendtime());
 
         //닉네임이 내 닉네임이면 오른쪽으로 정렬한다.
         if(chat.getName().equals(this.myName)){
@@ -61,4 +61,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
     public int getItemCount() {
         return chatList.size();
     }
+
+    public void addChat(Chat chat){
+        chatList.add(chat);
+        notifyItemInserted(chatList.size()-1); // 갱신할때마다 알려줌줌
+   }
+
+    /*Timestamp today = new java.util.Date();
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    System.out.println(sdf.format(today));*/
 }
