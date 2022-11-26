@@ -563,7 +563,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
-                        } else {ㅗ
+                        } else {
                             // 아이디 중복일 경우
                             if (task.getException().toString() != null) {
                                 Toast.makeText(SignUpActivity.this, "해당 아이디는 이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.", Toast.LENGTH_LONG).show();
