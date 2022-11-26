@@ -7,24 +7,28 @@
         android:enabled="true"
         android:title="홈"
         android:icon="@drawable/home"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/wrt"
         android:enabled="true"
         android:title="모집"
         android:icon="@drawable/wrt"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/history"
         android:enabled="true"
         android:title="히스토리"
         android:icon="@drawable/history"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/mypage"
         android:enabled="true"
         android:title="내 정보"
-        android:icon="@drawable/mypage"/>
+        android:icon="@drawable/mypage"
+        app:showAsAction="always"/>
 
 
 </menu>
