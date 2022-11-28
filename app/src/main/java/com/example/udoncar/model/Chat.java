@@ -1,34 +1,22 @@
 package com.example.udoncar.model;
 
-import com.google.firebase.Timestamp;
-
 import java.io.Serializable;
+import java.util.Date;
 
 public class Chat implements Serializable {
-    private String msgId;
     private String userId;
     private String name;
     private String message;
-    private Timestamp sendtime;
+    private Date createAt;
 
-    public Chat(String msgId, String userId, String name, String message, Timestamp sendtime) {
-        this.msgId = msgId;
+    public Chat(String userId, String name, String message, Date createAt) {
         this.userId = userId;
         this.name = name;
         this.message = message;
-        this.sendtime = sendtime;
+        this.createAt = createAt;
     }
     public Chat(){
     }
-
-    public String getMsgId() {
-        return msgId;
-    }
-
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
-    }
-
     public String getUserId() {
         return userId;
     }
@@ -52,11 +40,11 @@ public class Chat implements Serializable {
         this.message = message;
     }
 
-    public Timestamp getSendtime() {
-        return sendtime;
+    public Date getcreateAt() {
+        return createAt;
     }
 
-    public void setSendtime(Timestamp sendtime) {
-        this.sendtime = sendtime;
+    public void setcreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 }
