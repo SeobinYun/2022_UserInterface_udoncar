@@ -12,7 +12,7 @@
         android:layout_height="70dp"
         android:gravity="center"
         android:text="마이페이지"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="#FF5B59"
         />
 
@@ -40,17 +40,17 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="닉네임"
+                android:text="아이디"
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/name_edittext"
+                android:id="@+id/myId_edittext"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
+                android:enabled="false"
                 android:fontFamily="@font/nanum_regular"
-                android:hint="닉네임 부분 "
-                android:textSize="10sp"
-                android:enabled="false"/>
+                android:hint="아이디 부분"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -65,30 +65,60 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:text="닉네임"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/myName_edittext"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:enabled="false"
+                android:fontFamily="@font/nanum_regular"
+                android:hint="닉네임 부분"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@xml/xml_border"
+            android:gravity="center_vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="지역"
                 android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
                 <Spinner
                     android:id="@+id/spinner_1"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:enabled="false"
+                    android:spinnerMode="dialog" />
 
                 <Spinner
                     android:id="@+id/spinner_2"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:enabled="false"
+                    android:spinnerMode="dialog" />
 
                 <Spinner
                     android:id="@+id/spinner_3"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:enabled="false"
+                    android:spinnerMode="dialog" />
+
             </LinearLayout>
         </LinearLayout>
 
@@ -112,19 +142,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
-                android:orientation="horizontal"
-                android:enabled="false">
+                android:enabled="false"
+                android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/man_btn"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
+                    android:enabled="false"
                     android:text="남자"
                     android:textSize="13sp" />
 
                 <RadioButton
+                    android:id="@+id/woman_btn"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="50dp"
+                    android:enabled="false"
                     android:text="여자"
                     android:textSize="13sp" />
             </RadioGroup>
@@ -150,15 +184,16 @@
                 android:id="@+id/ages_spinner"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
+                android:enabled="false"
                 android:fontFamily="@font/nanum_regular"
                 android:textSize="10dp"
-                android:enabled="false"/>
+                android:spinnerMode="dialog"/>
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="10dp">
 
             <Button
                 android:id="@+id/edit_btn"
@@ -184,7 +219,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp">
+            android:layout_marginTop="30dp">
 
             <Button
                 android:id="@+id/logout_btn"

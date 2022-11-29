@@ -3,11 +3,15 @@ package com.example.udoncar.model;
 import static android.content.ContentValues.TAG;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.udoncar.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
@@ -51,9 +55,8 @@ public class User implements Serializable {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
-
-
     }
+
     public void setId(String id) {
         this.id = id;
     }
