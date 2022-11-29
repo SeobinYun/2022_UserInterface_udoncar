@@ -48,15 +48,6 @@
                 android:digits="0123456789abcdefghijklmnopqrstuvwxyz.@"
                 android:fontFamily="@font/nanum_regular"/>
 
-<!--            <Button-->
-<!--                android:id="@+id/doublecheck_btn"-->
-<!--                android:layout_width="70dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:layout_gravity="center_vertical|right"-->
-<!--                android:background="@drawable/btn_pink"-->
-<!--                android:text="중복확인"-->
-<!--                android:textSize="12sp"-->
-<!--                android:textColor="#FFFFFF"/>-->
         </LinearLayout>
 
         <LinearLayout
@@ -198,8 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
                 android:orientation="horizontal"
-                android:checkedButton="@id/sex_man">
-
+                >
                 <RadioButton
                     android:id="@+id/sex_man"
                     android:layout_width="100dp"
@@ -207,6 +197,7 @@
                     android:text="남자"
                     android:textSize="13sp"
                     android:buttonTint="#FF5B59"
+                    android:checked="true"
                     />
 
                 <RadioButton
@@ -217,6 +208,7 @@
                     android:text="여자"
                     android:textSize="13sp"
                     android:buttonTint="#FF5B59"
+                    android:checked="false"
                     />
             </RadioGroup>
 

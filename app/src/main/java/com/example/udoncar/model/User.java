@@ -34,12 +34,18 @@ public class User implements Serializable {
 
     public User(String id, String pw, String name, List<String> region, String sex, String age){
         Map<String, Object> docData = new HashMap<>();
-        docData.put("id", id);
-        docData.put("pw", pw);
-        docData.put("name", name);
-        docData.put("region", region);
-        docData.put("sex", sex);
-        docData.put("age", age);
+        if(id!=null){
+        docData.put("id", id);}
+        if(pw!=null){
+        docData.put("pw", pw);}
+        if(name!=null){
+        docData.put("name", name);}
+        if(region!=null){
+        docData.put("region", region);}
+        if(sex!=null){
+        docData.put("sex", sex);}
+        if(age!=null){
+        docData.put("age", age);}
 
         db.collection("users").document(id)
                 .set(docData)
