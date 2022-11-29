@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -47,11 +48,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity<mDatabase> extends AppCompatActivity {
-    private FirebaseAuth mAuth;
     HomeFragment homeFragment;
     WriteFragment writeFragment;
     HistoryFragment historyFragment;
