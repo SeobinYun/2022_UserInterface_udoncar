@@ -4,11 +4,11 @@ import java.util.List;
 
 public class ChatUserList {
     private String histId;
-    private List<String> userId;
+    private List<String> usersId;
 
     public ChatUserList(String histId, List<String> userId) {
         this.histId = histId;
-        this.userId = userId;
+        this.usersId = userId;
     }
 
     public ChatUserList(){
@@ -22,11 +22,11 @@ public class ChatUserList {
         this.histId = histId;
     }
 
-    public List<String> getUserId() {
-        return userId;
+    public List<String> getUsersId() {
+        return usersId;
     }
 
-    public void setUserId(List<String> userId) {
-        this.userId = userId;
+    public void setUsersId(List<String> userId) {
+        this.usersId = userId;
     }
 }
