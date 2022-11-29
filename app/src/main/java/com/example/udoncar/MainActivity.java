@@ -62,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        navigationBarView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+
+            }
+        });
     }
 
     public void checkCurrentUser(){

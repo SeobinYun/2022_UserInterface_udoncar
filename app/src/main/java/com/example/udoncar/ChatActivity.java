@@ -89,17 +89,9 @@ public class ChatActivity extends AppCompatActivity {
         //recyclerview 세팅
         chatRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
         chatRecyclerView.setHasFixedSize(true); // 크기 고정
-
         chatLayoutManager = new LinearLayoutManager(this);
         chatRecyclerView.setLayoutManager(chatLayoutManager);
 
-        // 다이얼로그 리사이클러뷰
-        numRecyclerView = (RecyclerView) findViewById(R.id.num_people_recycler);
-        numRecyclerView.setHasFixedSize(true); // 크기 고정
-        numLayoutManager = new LinearLayoutManager(this);
-        numRecyclerView.setLayoutManager(numLayoutManager);
-        numDialogAdapter = new NumDialogAdapter(users);
-        numRecyclerView.setAdapter(numDialogAdapter);
 
         //view 세팅
         titleTextView = findViewById(R.id.title_textview);
