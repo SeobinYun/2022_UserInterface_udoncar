@@ -58,5 +58,6 @@ dependencies {
 
     // firestore 연결
     implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 
 }
