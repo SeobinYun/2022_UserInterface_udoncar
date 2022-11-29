@@ -10,7 +10,7 @@
         app:showAsAction="always"
         />
     <item
-        android:id="@+id/wrt"
+        android:id="@+id/write"
         android:enabled="true"
         android:title="모집"
         android:icon="@drawable/wrt"
