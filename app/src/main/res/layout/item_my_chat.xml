@@ -6,26 +6,13 @@
     android:padding="8dp"
     android:layout_marginBottom="8dp">
 
-<!--
-    <TextView
-        android:id="@+id/textview_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="NAME"
-        android:textSize="15sp"
-        android:textColor="@android:color/black"
-        android:background="#FFFACB"
-        android:textStyle="bold"/>
--->
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         >
         <TextView
-            android:id="@+id/textview_sendtime"
+            android:id="@+id/textview_mysendtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -33,7 +20,7 @@
             android:textSize="11sp"
             android:textColor="@android:color/darker_gray"/>
         <TextView
-            android:id="@+id/textview_message"
+            android:id="@+id/textview_mymessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/image_chatbubble_b"

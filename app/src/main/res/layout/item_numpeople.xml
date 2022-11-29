@@ -7,11 +7,10 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/textview_entermem"
+        android:id="@+id/textview_numpeople"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="NAME님이 입장했습니다."
         android:textSize="15sp"
         android:textColor="#363839"
         android:textStyle="bold"/>

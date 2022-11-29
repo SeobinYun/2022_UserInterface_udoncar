@@ -49,7 +49,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     private EditText idEdittext;
     private EditText pwEdittext;
-    private Button doublecheckBtn;
     private EditText doublepwEdittext;
     private EditText nameEdittext;
     private Spinner regionSpinner1;
@@ -410,7 +409,7 @@ public class SignUpActivity extends AppCompatActivity {
         return selected.getText().toString();
     }
 
-    private void chooseRegion3(Spinner spinner1, Spinner spinner2) {
+    public void chooseRegion3(Spinner spinner1, Spinner spinner2) {
         if (spinnerToString(spinner1).equals("서울특별시")) {
             if (spinnerToString(spinner2).equals("강남구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gangnam, R.layout.item_spinner);

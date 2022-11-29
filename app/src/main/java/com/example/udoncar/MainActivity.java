@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,11 +19,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.TextView;
 
+import com.example.udoncar.model.User;
 import com.example.udoncar.model.Chat;
 import com.example.udoncar.model.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
 import com.example.udoncar.model.User;
@@ -30,6 +35,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,6 +44,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+public class MainActivity extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +61,8 @@ public class MainActivity<mDatabase> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        checkCurrentUser();
 
         homeFragment = new HomeFragment();
         writeFragment = new WriteFragment();
@@ -82,18 +94,94 @@ public class MainActivity<mDatabase> extends AppCompatActivity {
             }
         });
 
+        navigationBarView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
 
+            }
+        });
     }
 
 
-    public void checkCurrentUser(){
+    public void checkCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null){
+        if (user != null) {
             // User is signed in
-        }
-        else{
+            String email = user.getEmail();
+        } else {
             // No user is signed in
         }
+    }
+
+
+    // 정보 업데이트
+    public void updateDocument() {
+        // [START update_document]
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+
+        // Set the "isCapital" field of the city 'DC'
+        docRef.update("capital", true)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
+        // [END update_document]
+    }
+
+    // 로그아웃
+    public void signOut(FirebaseUser user) {
+        FirebaseAuth.getInstance().signOut();
+        Log.d(TAG, "User account logout");
+        Toast.makeText(MainActivity.this, "로그아웃 성공!", Toast.LENGTH_LONG).show();
+        // 시작화면으로 돌아가는 코드 필요
+        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    // 회원탈퇴
+    public void deleteUser(FirebaseUser user) {
+        user.delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // DB에서 문서 삭제 후 로그아웃
+                            db.collection("users").document(user.getEmail())
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                            FirebaseAuth.getInstance().signOut();
+                                            // 시작화면으로 돌아가는 코드
+                                            Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error deleting document", e);
+                                        }
+                                    });
+                            Log.d(TAG, "User account deleted.");
+                            Toast.makeText(MainActivity.this, "정상적으로 탈퇴처리 되었습니다.", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Log.d(TAG, "DB deletion failed.");
+                        }
+                    }
+                });
     }
 
 
