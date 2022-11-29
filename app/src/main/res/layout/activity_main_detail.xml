@@ -59,7 +59,7 @@
                 android:layout_marginTop="10dp" />
 
             <TextView
-                android:id="@+id/gen"
+                android:id="@+id/dialogsex_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(성별)"
@@ -67,7 +67,7 @@
                 android:layout_marginTop="10dp" />
 
             <TextView
-                android:id="@+id/age"
+                android:id="@+id/dialogage_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(나이)"
@@ -75,7 +75,7 @@
                 android:layout_marginTop="10dp" />
 
             <TextView
-                android:id="@+id/type"
+                android:id="@+id/dialogposition_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -108,7 +108,7 @@
                 android:text=" -> " />
 
             <TextView
-                android:id="@+id/arr"
+                android:id="@+id/dialogdest_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/dir"
@@ -192,7 +192,7 @@
                 android:text="##" />
 
             <TextView
-                android:id="@+id/age"
+                android:id="@+id/dialogage_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gen_con"
@@ -204,16 +204,16 @@
                 android:id="@+id/age_condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/age"
-                android:layout_toRightOf="@id/age"
+                android:layout_alignBaseline="@id/dialogage_tv"
+                android:layout_toRightOf="@id/dialogage_tv"
                 android:text="##" />
 
             <TextView
                 android:id="@+id/count_con"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/age"
-                android:layout_alignLeft="@id/age"
+                android:layout_below="@id/dialogage_tv"
+                android:layout_alignLeft="@id/dialogage_tv"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="일회성"

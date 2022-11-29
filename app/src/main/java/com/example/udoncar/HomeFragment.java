@@ -3,10 +3,19 @@ package com.example.udoncar;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.udoncar.model.Post;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +64,49 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    private RecyclerView mainRecyclerView;
+    private MainAdapter mainAdapter;
+    private RecyclerView.LayoutManager mainLayoutManager;
+    private List<Post> postList;
+
+    Button filterBtn;
+    MainDialogActiviy dial;
+
+    //    private FirebaseFirestore db;
+//    private String loca;
+//    private User curruntUser;
+//
+//    private TextView locaTextView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        filterBtn = v.findViewById(R.id.mainfilter_btn);
+        dial = new MainDialogActiviy((MainActivity)getActivity());
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dial.show();  //다이얼로그
+            }
+        });
+
+        //메인화면 리사이클러뷰
+        mainRecyclerView = v.findViewById(R.id.main_rv);
+        postList = new ArrayList<>();
+        //DB에서 불러오기
+        postList.add(new Post(null, "title", null, "dest", null,
+                null, null, null, null, null));
+
+//        mainRecyclerView.setHasFixedSize(true);
+        mainAdapter = new MainAdapter(postList);
+        mainLayoutManager = new LinearLayoutManager(getActivity());
+        mainRecyclerView.setLayoutManager(mainLayoutManager);
+        mainRecyclerView.setAdapter(mainAdapter);
+
+        return v;
     }
 }

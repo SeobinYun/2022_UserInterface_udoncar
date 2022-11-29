@@ -5,36 +5,54 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
-import android.net.Uri;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.udoncar.model.User;
+import com.example.udoncar.model.Chat;
+import com.example.udoncar.model.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
+import com.example.udoncar.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     HomeFragment homeFragment;
     WriteFragment writeFragment;
     HistoryFragment historyFragment;
     MypageFragment mypageFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void checkCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -162,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+
+/*
     @Override
     public void onStart() {
         // 활동 초기화 시 사용자가 로그인 되어있는지 확인
@@ -173,4 +194,5 @@ public class MainActivity extends AppCompatActivity {
 //        }
     }
 
+ */
 }
