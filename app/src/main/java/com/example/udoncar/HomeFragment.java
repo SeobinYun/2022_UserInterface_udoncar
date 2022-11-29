@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.udoncar.model.Post;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -71,12 +72,6 @@ public class HomeFragment extends Fragment {
 
     Button filterBtn;
     MainDialogActiviy dial;
-
-    //    private FirebaseFirestore db;
-//    private String loca;
-//    private User curruntUser;
-//
-//    private TextView locaTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

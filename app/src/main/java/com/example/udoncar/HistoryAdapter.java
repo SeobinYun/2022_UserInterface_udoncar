@@ -1,9 +1,13 @@
 package com.example.udoncar;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,9 +19,11 @@ import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<History> historyList;
+    Context context;
 
-    public HistoryAdapter(List<History> historyList) {
+    public HistoryAdapter(Context context, List<History> historyList) {
         this.historyList = historyList;
+        this.context = context;
     }
 
     @NonNull
@@ -36,13 +42,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((MainHolder) holder).textViewDest.setText(history.getpostId());
         ((MainHolder) holder).textViewTime.setText(history.getuserId());
 
-//        holder.itemView.setTag(position);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //짧게 클릭했을때 -> 화면전환
-//            }
-//        });
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra("history", history);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

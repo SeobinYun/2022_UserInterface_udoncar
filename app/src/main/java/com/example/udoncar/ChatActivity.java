@@ -82,10 +82,6 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         chatActivity = this;
 
-        //임시 history
-        history.sethistId("3RLVl6M40SX7yUtmqQMK");
-        history.setpostId("Nrzka3ucS3mZL1tIhQkW");
-
         //recyclerview 세팅
         chatRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
         chatRecyclerView.setHasFixedSize(true); // 크기 고정
