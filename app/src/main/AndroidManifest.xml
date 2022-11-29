@@ -20,12 +20,6 @@
             android:name=".MainDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".HistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".WriteActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainDialogActivity"
             android:exported="false" />
         <activity
@@ -33,9 +27,6 @@
             android:exported="false" />
         <activity
             android:name=".ChatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MyPageActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 
 import android.net.Uri;
@@ -13,15 +14,22 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.udoncar.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     HomeFragment homeFragment;
     WriteFragment writeFragment;
     HistoryFragment historyFragment;
@@ -32,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        checkCurrentUser();
 
         homeFragment = new HomeFragment();
         writeFragment = new WriteFragment();
@@ -45,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.home:
                         getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();
                         return true;
@@ -71,17 +81,86 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void checkCurrentUser(){
+    public void checkCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null){
+        if (user != null) {
             // User is signed in
-        }
-        else{
+            String email = user.getEmail();
+        } else {
             // No user is signed in
         }
     }
 
 
+    // 정보 업데이트
+    public void updateDocument() {
+        // [START update_document]
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+
+        // Set the "isCapital" field of the city 'DC'
+        docRef.update("capital", true)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
+        // [END update_document]
+    }
+
+    // 로그아웃
+    public void signOut(FirebaseUser user) {
+        FirebaseAuth.getInstance().signOut();
+        Log.d(TAG, "User account logout");
+        Toast.makeText(MainActivity.this, "로그아웃 성공!", Toast.LENGTH_LONG).show();
+        // 시작화면으로 돌아가는 코드 필요
+        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    // 회원탈퇴
+    public void deleteUser(FirebaseUser user) {
+        user.delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // DB에서 문서 삭제 후 로그아웃
+                            db.collection("users").document(user.getEmail())
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                            FirebaseAuth.getInstance().signOut();
+                                            // 시작화면으로 돌아가는 코드
+                                            Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error deleting document", e);
+                                        }
+                                    });
+                            Log.d(TAG, "User account deleted.");
+                            Toast.makeText(MainActivity.this, "정상적으로 탈퇴처리 되었습니다.", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Log.d(TAG, "DB deletion failed.");
+                        }
+                    }
+                });
+    }
 
     @Override
     public void onStart() {
