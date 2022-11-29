@@ -1,7 +1,10 @@
 package com.example.udoncar.model;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Post implements Serializable {
     private String postId;
@@ -14,6 +17,8 @@ public class Post implements Serializable {
     private String optSex;
     private Date createAt;
     private Date meetAt;
+//    private List<String> destspn;
+    //, List<String> destspn
 
     public Post(String postId, String title, String content, String dest, String position,
                 String userId, String optAge, String optSex, Date createAt, Date meetAt) {
@@ -27,8 +32,7 @@ public class Post implements Serializable {
         this.optSex = optSex;
         this.createAt = createAt;
         this.meetAt = meetAt;
-    }
-    public Post(){
+ //       this.destspn = destspn;
     }
 
     public String getpostId() {
@@ -110,4 +114,9 @@ public class Post implements Serializable {
     public void setMeetAt(Date meetAt) {
         this.meetAt = meetAt;
     }
+
+ //   public List<String> getDestspn(){
+ //       return destspn;
+//    }
+
 }

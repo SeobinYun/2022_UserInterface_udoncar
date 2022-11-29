@@ -1,5 +1,6 @@
 package com.example.udoncar;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,55 +9,58 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.example.udoncar.model.History;
+import com.example.udoncar.model.Post;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHolder> {
-    private ArrayList<MainData> arrayList;
+import java.util.List;
 
-    public MainAdapter(ArrayList<MainData> arrayList) {
-        this.arrayList = arrayList;
+public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private List<Post> postList;
+
+    public MainAdapter(List<Post> postList) {
+        this.postList = postList;
     }
 
     @NonNull
     @Override
-    public MainAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main,parent,false);
-        CustomViewHolder holder = new CustomViewHolder(view);
-
-        return holder;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService((Context.LAYOUT_INFLATER_SERVICE));
+        View view = inflater.inflate(R.layout.item_main, parent, false);
+        return new MainHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainAdapter.CustomViewHolder holder, int position) {
-        holder.main_title.setText(arrayList.get(position).getMaintitle());
-        holder.main_path.setText(arrayList.get(position).getMainpath());
-        holder.main_date.setText(arrayList.get(position).getMaindate());
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Post post = postList.get(position);
+        ((MainHolder) holder).textViewTitle.setText(post.getTitle());
+        ((MainHolder) holder).textViewDest.setText(post.getDest());
+        ((MainHolder) holder).textViewTime.setText((CharSequence) post.getMeetAt());
 
-        holder.itemView.setTag(position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //짧게 클릭했을때 -> 화면전환
-            }
-        });
+//        holder.itemView.setTag(position);
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //짧게 클릭했을때 -> 화면전환
+//            }
+//        });
     }
 
     @Override
     public int getItemCount() {
-        return (null != arrayList ? arrayList.size() : 0);
+        return postList == null ? 0 : postList.size();
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected TextView main_title;
-        protected TextView main_path;
-        protected TextView main_date;
+    public static class MainHolder extends RecyclerView.ViewHolder {
+        public TextView textViewTitle;
+        public TextView textViewDest;
+        public TextView textViewTime;
 
-        public CustomViewHolder(@NonNull View itemView) {
+        public MainHolder(@NonNull View itemView) {
             super(itemView);
-            this.main_title = (TextView) itemView.findViewById(R.id.main_title);
-            this.main_path = (TextView) itemView.findViewById(R.id.main_path);
-            this.main_date = (TextView) itemView.findViewById(R.id.main_date);
-
+            textViewTitle = itemView.findViewById(R.id.maintitle_tv);
+            textViewDest = itemView.findViewById(R.id.maindest_tv);
+            textViewTime = itemView.findViewById(R.id.maintime_tv);
         }
     }
 }

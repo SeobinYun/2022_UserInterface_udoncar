@@ -6,7 +6,7 @@
     android:layout_gravity="center">
 
     <TextView
-        android:id="@+id/set"
+        android:id="@+id/set_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -16,45 +16,45 @@
         android:textSize="10sp" />
 
     <TextView
-        android:id="@+id/arr"
+        android:id="@+id/dialogdest_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/set"
-        android:layout_alignLeft="@id/set"
+        android:layout_below="@id/set_tv"
+        android:layout_alignLeft="@id/set_tv"
         android:layout_marginTop="20dp"
         android:text="목적지"
         android:textSize="14sp" />
 
     <Spinner
-        android:id="@+id/arr_spn1"
+        android:id="@+id/dialogdest_spn1"
         android:layout_width="100dp"
         android:layout_height="20dp"
-        android:layout_alignTop="@id/arr"
+        android:layout_alignTop="@id/dialogdest_tv"
         android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/arr" />
+        android:layout_toRightOf="@id/dialogdest_tv" />
 
     <Spinner
-        android:id="@+id/arr_spn2"
+        android:id="@+id/dialogdest_spn2"
         android:layout_width="100dp"
         android:layout_height="20dp"
-        android:layout_alignTop="@id/arr"
+        android:layout_alignTop="@id/dialogdest_tv"
         android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/arr_spn1" />
+        android:layout_toRightOf="@id/dialogdest_spn1" />
 
     <Spinner
-        android:id="@+id/arr_spn3"
+        android:id="@+id/dialogdest_spn3"
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/arr_spn1"
-        android:layout_alignLeft="@id/arr_spn1"/>
+        android:layout_below="@id/dialogdest_spn1"
+        android:layout_alignLeft="@id/dialogdest_spn1"/>
 
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/dialogposition_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/arr_spn3"
-        android:layout_alignLeft="@id/arr"
+        android:layout_below="@id/dialogdest_spn3"
+        android:layout_alignLeft="@id/dialogdest_tv"
         android:layout_marginTop="20dp"
         android:text="종류"
         android:textSize="14sp" />
@@ -62,41 +62,41 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/arr_spn1"
-        android:layout_alignTop="@id/type"
+        android:layout_alignLeft="@id/dialogdest_spn1"
+        android:layout_alignTop="@id/dialogposition_tv"
         android:orientation="horizontal">
 
-    <RadioButton
-        android:id="@+id/type_btn1"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:text="운전자"
-        android:textSize="10sp" />
+        <RadioButton
+            android:id="@+id/dialogposition_btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="운전자"
+            android:textSize="10sp" />
 
-    <RadioButton
-        android:id="@+id/type_btn2"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginLeft="30dp"
-        android:text="탑승자"
-        android:textSize="10sp" />
+        <RadioButton
+            android:id="@+id/dialogposition_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:text="탑승자"
+            android:textSize="10sp" />
 
-    <RadioButton
-        android:id="@+id/type_btn3"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginLeft="30dp"
-        android:text="택시"
-        android:textSize="10sp" />
+        <RadioButton
+            android:id="@+id/dialogposition_btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:text="택시"
+            android:textSize="10sp" />
 
     </RadioGroup>
 
     <TextView
-        android:id="@+id/gen"
+        android:id="@+id/dialogsex_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/type"
-        android:layout_alignLeft="@id/arr"
+        android:layout_below="@id/dialogposition_tv"
+        android:layout_alignLeft="@id/dialogdest_tv"
         android:layout_marginTop="20dp"
         android:text="성별"
         android:textSize="14sp" />
@@ -104,19 +104,19 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/arr_spn1"
-        android:layout_alignTop="@id/gen"
+        android:layout_alignLeft="@id/dialogdest_spn1"
+        android:layout_alignTop="@id/dialogsex_tv"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/gen_btn1"
+            android:id="@+id/dialogsex_btn1"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="남"
             android:textSize="10sp" />
 
         <RadioButton
-            android:id="@+id/gen_btn2"
+            android:id="@+id/dialogsex_btn2"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginLeft="50dp"
@@ -126,48 +126,48 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/age"
+        android:id="@+id/dialogage_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/gen"
-        android:layout_alignLeft="@id/gen"
+        android:layout_below="@id/dialogsex_tv"
+        android:layout_alignLeft="@id/dialogsex_tv"
         android:layout_marginTop="20dp"
         android:text="나이대"
         android:textSize="14sp" />
 
     <Spinner
-        android:id="@+id/age_spn"
+        android:id="@+id/dialogage_spn"
         android:layout_width="100dp"
         android:layout_height="20dp"
-        android:layout_alignLeft="@id/arr_spn1"
-        android:layout_alignTop="@id/age" />
+        android:layout_alignLeft="@id/dialogdest_spn1"
+        android:layout_alignTop="@id/dialogage_tv" />
 
     <TextView
-        android:id="@+id/count"
+        android:id="@+id/dialogisrepeat_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="횟수"
         android:textSize="14sp"
-        android:layout_below="@id/age"
-        android:layout_alignLeft="@id/age"
+        android:layout_below="@id/dialogage_tv"
+        android:layout_alignLeft="@id/dialogsex_tv"
         android:layout_marginTop="20dp" />
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/arr_spn1"
-        android:layout_alignTop="@id/count"
+        android:layout_alignLeft="@id/dialogdest_spn1"
+        android:layout_alignTop="@id/dialogisrepeat_tv"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/count_btn1"
+            android:id="@+id/dialogisrepeat_btn1"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="일회성"
             android:textSize="10sp" />
 
         <RadioButton
-            android:id="@+id/count_btn2"
+            android:id="@+id/dialogisrepeat_btn2"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginLeft="30dp"
@@ -177,10 +177,34 @@
     </RadioGroup>
 
     <View
+        android:id="@+id/view"
         android:layout_width="330dp"
         android:layout_height="2dp"
-        android:layout_below="@id/count"
+        android:layout_below="@id/dialogisrepeat_tv"
         android:layout_marginTop="30dp"
         android:background="#D5D5D5" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view">
+
+        <Button
+            android:id="@+id/dialogcancel_btn"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:background="#FFFFFF"
+            android:text="CANCEL" />
+
+        <Button
+            android:id="@+id/dialogsubmit_btn"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="230dp"
+            android:text="SUBMIT"
+            android:background="#FFFFFF"/>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

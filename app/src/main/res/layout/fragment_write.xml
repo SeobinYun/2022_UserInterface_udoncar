@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     android:id="@+id/write">
 
@@ -40,7 +41,7 @@
 
     <LinearLayout
         android:layout_width="350dp"
-        android:layout_height="570dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:orientation="vertical">
@@ -60,7 +61,7 @@
                 android:padding="5dp" />
 
             <EditText
-                android:id="@+id/title_edittext"
+                android:id="@+id/writetitle_et"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/nanum_regular"
@@ -84,7 +85,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/dep_edittext"
+                android:id="@+id/writestart_et"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/nanum_regular"
@@ -108,7 +109,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/arr_edittext"
+                android:id="@+id/writedest_et"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:fontFamily="@font/nanum_regular"
@@ -133,13 +134,13 @@
 
             <Spinner
                 android:entries="@array/month"
-                android:id="@+id/month_spn"
+                android:id="@+id/writemonth_spn"
                 android:layout_width="100dp"
                 android:layout_height="20dp" />
 
             <Spinner
                 android:entries="@array/day"
-                android:id="@+id/day_spn"
+                android:id="@+id/writeday_spn"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="20dp" />
@@ -164,13 +165,13 @@
 
             <Spinner
                 android:entries="@array/hour"
-                android:id="@+id/hour_spn"
+                android:id="@+id/writehour_spn"
                 android:layout_width="100dp"
                 android:layout_height="20dp" />
 
             <Spinner
                 android:entries="@array/min"
-                android:id="@+id/min_spn"
+                android:id="@+id/writemin_spn"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="20dp" />
@@ -193,13 +194,14 @@
                 android:textSize="14sp" />
 
             <RadioGroup
+                android:id="@+id/writepos_rg"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/type_btn1"
+                    android:id="@+id/writepos_btn1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="운전자"
@@ -207,7 +209,7 @@
                     tools:ignore="InvalidId" />
 
                 <RadioButton
-                    android:id="@+id/type_btn2"
+                    android:id="@+id/writepos_btn2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="탑승자"
@@ -215,10 +217,53 @@
                     android:layout_marginLeft="20dp" />
 
                 <RadioButton
-                    android:id="@+id/type_btn3"
+                    android:id="@+id/writepos_btn3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="택시"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="20dp" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@xml/xml_border"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="횟수 :"
+                android:textSize="14sp" />
+
+            <RadioGroup
+                android:id="@+id/writeisre_rg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                tools:ignore="InvalidId">
+
+                <RadioButton
+                    android:id="@+id/writeisre_btn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일회성"
+                    android:textSize="14sp"
+                    tools:ignore="InvalidId" />
+
+                <RadioButton
+                    android:id="@+id/writeisre_btn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="다회성"
                     android:textSize="14sp"
                     android:layout_marginLeft="20dp" />
 
@@ -238,8 +283,7 @@
                 android:layout_height="wrap_content"
                 android:text="조건(선택)"
                 android:textSize="14sp"
-                android:layout_margin="10dp" />
-
+                android:layout_margin="10dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -253,20 +297,21 @@
                     android:text="성별 : " />
 
                 <RadioGroup
+                    android:id="@+id/writesex_rg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="17dp"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/gen_btn1"
+                        android:id="@+id/writesex_btn1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="남자"
                         android:textSize="14sp" />
 
                     <RadioButton
-                        android:id="@+id/gen_btn2"
+                        android:id="@+id/writesex_btn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="여자"
@@ -279,7 +324,8 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -289,7 +335,8 @@
                     android:layout_marginLeft="10dp" />
 
                 <Spinner
-                    android:id="@+id/age_spn"
+                    android:entries="@array/ages"
+                    android:id="@+id/writeage_spn"
                     android:layout_width="100dp"
                     android:layout_height="20dp"
                     android:layout_marginLeft="15dp"
@@ -297,57 +344,17 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:text="횟수 : " />
-
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/gen_con"
-                    android:layout_alignBaseline="@id/gen_con"
-                    android:layout_marginLeft="17dp"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/count_btn1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="일회성"
-                        android:textSize="14sp"/>
-
-                    <RadioButton
-                        android:id="@+id/count_btn2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="다회성"
-                        android:textSize="14sp"
-                        android:layout_marginLeft="20dp" />
-
-                </RadioGroup>
-
-            </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="80dp"
             android:background="@xml/xml_border"
             android:layout_marginTop="5dp"
             android:padding="5dp" >
 
             <EditText
-                android:id="@+id/content_edittext"
+                android:id="@+id/writecont_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
