@@ -60,7 +60,6 @@ public class SignUpActivity extends AppCompatActivity {
     private Spinner agesSpinner;
     private ArrayAdapter agesSpinnerAdapter;
     private Button createBtn;
-    private boolean isduplicated = false;
     private Pattern emailPattern = Patterns.EMAIL_ADDRESS;
 
     @Override
@@ -82,7 +81,6 @@ public class SignUpActivity extends AppCompatActivity {
         regionSpinner3 = (Spinner) findViewById(R.id.spinner_3);
         regionSpinner3.setPrompt("읍/면/동 선택");
         sexRadioGroup = (RadioGroup) findViewById(R.id.sex_radio);
-        sexRadioBtn = (RadioButton) findViewById(sexRadioGroup.getCheckedRadioButtonId());
         agesSpinner = (Spinner) findViewById(R.id.ages_spinner);
         agesSpinner.setPrompt("나이대 선택");
 
@@ -359,6 +357,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
+
         // 나이 부분
         agesSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.ages, R.layout.item_spinner);
         agesSpinnerAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
@@ -387,6 +386,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                     // 다 입력했을 경우
                     else {
+                        sexRadioBtn = (RadioButton) findViewById(sexRadioGroup.getCheckedRadioButtonId());
                         createUser(edittextToString(idEdittext), edittextToString(pwEdittext), edittextToString(nameEdittext), spinnerToString(regionSpinner1), spinnerToString(regionSpinner2), spinnerToString(regionSpinner3), radiobtnToString(sexRadioBtn), spinnerToString(agesSpinner));
                     }
                 }
