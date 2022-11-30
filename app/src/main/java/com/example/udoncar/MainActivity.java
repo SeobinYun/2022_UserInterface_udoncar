@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     public void checkCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -114,15 +113,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     // 로그아웃
     public void signOut(FirebaseUser user) {
         FirebaseAuth.getInstance().signOut();
         Log.d(TAG, "User account logout");
         Toast.makeText(MainActivity.this, "로그아웃 성공!", Toast.LENGTH_LONG).show();
-        // 시작화면으로 돌아가는 코드 필요
+        // 시작화면으로 돌아가는 코드
         Intent intent = new Intent(getApplicationContext(), StartActivity.class);
         startActivity(intent);
         finish();
@@ -157,13 +153,10 @@ public class MainActivity extends AppCompatActivity {
                                     });
                             Log.d(TAG, "User account deleted.");
                             Toast.makeText(MainActivity.this, "정상적으로 탈퇴처리 되었습니다.", Toast.LENGTH_LONG).show();
-                        }
-                        else{
+                        } else {
                             Log.d(TAG, "DB deletion failed.");
                         }
                     }
                 });
     }
-
-
 }
