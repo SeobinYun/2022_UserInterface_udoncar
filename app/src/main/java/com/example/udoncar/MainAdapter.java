@@ -1,6 +1,7 @@
 package com.example.udoncar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Post> postList;
+    Context context;
 
-    public MainAdapter(List<Post> postList) {
+    public MainAdapter(List<Post> postList, Context context) {
         this.postList = postList;
+        this.context = context;
     }
 
     @NonNull
@@ -35,15 +38,17 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Post post = postList.get(position);
         ((MainHolder) holder).textViewTitle.setText(post.getTitle());
         ((MainHolder) holder).textViewDest.setText(post.getDest());
-        ((MainHolder) holder).textViewTime.setText((CharSequence) post.getMeetAt());
+        ((MainHolder) holder).textViewTime.setText(post.getMeetAt().toString());
 
-//        holder.itemView.setTag(position);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //짧게 클릭했을때 -> 화면전환
-//            }
-//        });
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(context, MainDetailActivity.class);
+                intent.putExtra("post", post);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

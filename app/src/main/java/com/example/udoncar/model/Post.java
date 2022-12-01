@@ -2,6 +2,8 @@ package com.example.udoncar.model;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.intellij.lang.annotations.JdkConstants;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -17,11 +19,11 @@ public class Post implements Serializable {
     private String optSex;
     private Date createAt;
     private Date meetAt;
-//    private List<String> destspn;
-    //, List<String> destspn
+    private List<String> startspn;
+    private List<String> destspn;
 
     public Post(String postId, String title, String content, String dest, String position,
-                String userId, String optAge, String optSex, Date createAt, Date meetAt) {
+                String userId, String optAge, String optSex, Date createAt, Date meetAt, List<String> startspn, List<String> destspn) {
         this.postId = postId;
         this.title = title;
         this.content = content;
@@ -32,7 +34,8 @@ public class Post implements Serializable {
         this.optSex = optSex;
         this.createAt = createAt;
         this.meetAt = meetAt;
- //       this.destspn = destspn;
+        this.startspn = startspn;
+        this.destspn = destspn;
     }
 
     public String getpostId() {
@@ -115,8 +118,20 @@ public class Post implements Serializable {
         this.meetAt = meetAt;
     }
 
- //   public List<String> getDestspn(){
- //       return destspn;
-//    }
+    public void setStartspn(List<String> startspn) {
+        this.startspn = startspn;
+    }
+
+    public List<String> getStartspn(){
+        return startspn;
+    }
+
+    public void setDestspn(List<String> destspn) {
+        this.destspn = destspn;
+    }
+
+    public List<String> getDestspn(){
+        return destspn;
+    }
 
 }

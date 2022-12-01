@@ -27,14 +27,12 @@ public class MainDetailActivity extends AppCompatActivity {
 
         //글삭제버튼 클릭 시 DB에서 글 삭제 후 메인화면으로 이동
 
-        //참가하기버튼 클릭 시 채팅화면으로 이동
+        //참가하기버튼 클릭 시 history에 저장
         Button signupBtn = (Button)findViewById(R.id.signup_btn);
         signupBtn.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(intent);
+
             }
         });
     }

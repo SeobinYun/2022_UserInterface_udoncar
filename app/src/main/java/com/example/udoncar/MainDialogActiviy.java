@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
@@ -24,7 +23,7 @@ public class MainDialogActiviy extends Dialog {
         //다이얼로그 배경을 투명으로
         //왜인지 없으면 안 돌아감
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.activity_main_dialog);
+        setContentView(R.layout.dialog_main);
 
         dest1Spn = findViewById(R.id.dialogdest_spn1);
         dest2Spn = findViewById(R.id.dialogdest_spn2);
