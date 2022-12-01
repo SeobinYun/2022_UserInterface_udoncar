@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 public class User implements Serializable {
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String id;
     private String pw;
     private String name;
@@ -29,33 +28,7 @@ public class User implements Serializable {
     private String sex;
     private String age;
 
-
     public User(){}
-
-    public User(String id, String pw, String name, List<String> region, String sex, String age){
-        Map<String, Object> docData = new HashMap<>();
-        docData.put("id", id);
-        docData.put("pw", pw);
-        docData.put("name", name);
-        docData.put("region", region);
-        docData.put("sex", sex);
-        docData.put("age", age);
-
-        db.collection("users").document(id)
-                .set(docData)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error writing document", e);
-                    }
-                });
-    }
 
     public void setId(String id) {
         this.id = id;

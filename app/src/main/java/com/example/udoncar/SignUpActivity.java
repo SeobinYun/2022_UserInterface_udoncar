@@ -1,5 +1,7 @@
 package com.example.udoncar;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.udoncar.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,7 +40,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -60,7 +65,6 @@ public class SignUpActivity extends AppCompatActivity {
     private Spinner agesSpinner;
     private ArrayAdapter agesSpinnerAdapter;
     private Button createBtn;
-    private boolean isduplicated = false;
     private Pattern emailPattern = Patterns.EMAIL_ADDRESS;
 
     @Override
@@ -82,7 +86,6 @@ public class SignUpActivity extends AppCompatActivity {
         regionSpinner3 = (Spinner) findViewById(R.id.spinner_3);
         regionSpinner3.setPrompt("읍/면/동 선택");
         sexRadioGroup = (RadioGroup) findViewById(R.id.sex_radio);
-        sexRadioBtn = (RadioButton) findViewById(sexRadioGroup.getCheckedRadioButtonId());
         agesSpinner = (Spinner) findViewById(R.id.ages_spinner);
         agesSpinner.setPrompt("나이대 선택");
 
@@ -96,260 +99,52 @@ public class SignUpActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (regionSpinner1Adapter.getItem(i).equals("서울특별시")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("부산광역시")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_busan, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("대구광역시")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_daegu, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("인천광역시")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_incheon, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("광주광역시")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_gwangju, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("대전광역시")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_daejeon, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("울산광역시")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_ulsan, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("세종특별자치시")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_sejong, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("경기도")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_gyeonggi, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("강원도")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_gangwon, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("충청북도")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_chung_buk, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("충청남도")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_chung_nam, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("전라북도")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_jeon_buk, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("전라남도")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_jeon_nam, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("경상북도")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_gyeong_buk, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("경상남도")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_gyeong_nam, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 } else if (regionSpinner1Adapter.getItem(i).equals("제주특별자치도")) {
                     regionSpinner2Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_jeju, R.layout.item_spinner);
-                    regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                    regionSpinner2.setAdapter(regionSpinner2Adapter);
-                    regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            chooseRegion3(regionSpinner1, regionSpinner2);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
                 }
+                regionSpinner2Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+                regionSpinner2.setAdapter(regionSpinner2Adapter);
+                regionSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        chooseRegion3(regionSpinner1, regionSpinner2);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
             }
 
             @Override
@@ -357,6 +152,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+
 
 
         // 나이 부분
@@ -387,6 +183,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                     // 다 입력했을 경우
                     else {
+                        sexRadioBtn = (RadioButton) findViewById(sexRadioGroup.getCheckedRadioButtonId());
                         createUser(edittextToString(idEdittext), edittextToString(pwEdittext), edittextToString(nameEdittext), spinnerToString(regionSpinner1), spinnerToString(regionSpinner2), spinnerToString(regionSpinner3), radiobtnToString(sexRadioBtn), spinnerToString(agesSpinner));
                     }
                 }
@@ -413,110 +210,112 @@ public class SignUpActivity extends AppCompatActivity {
         if (spinnerToString(spinner1).equals("서울특별시")) {
             if (spinnerToString(spinner2).equals("강남구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gangnam, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if ("강동구".equals(spinnerToString(spinner2))) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gangdong, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("강북구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gangbuk, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("강서구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gangseo, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("관악구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gwanak, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("광진구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gwangjin, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("구로구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_guro, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("금천구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_geumcheon, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("노원구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_nowon, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("도봉구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_dobong, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("동대문구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_dongdaemun, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("동작구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_dongjag, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("마포구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_mapo, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("서대문구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_seodaemun, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("서초구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_seocho, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("성동구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_seongdong, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("성북구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_seongbuk, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("송파구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_songpa, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("양천구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_yangcheon, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("영등포구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_yeongdeungpo, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("용산구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_yongsan, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("은평구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_eunpyeong, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("종로구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_jongno, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("중구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_jung, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("중랑구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_jungnanggu, R.layout.item_spinner);
-                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-                regionSpinner3.setAdapter(regionSpinner3Adapter);
+//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             }
         } else {
             regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_empty, R.layout.item_spinner);
-            regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-            regionSpinner3.setAdapter(regionSpinner3Adapter);
+//            regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+//            regionSpinner3.setAdapter(regionSpinner3Adapter);
         }
+        regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+        regionSpinner3.setAdapter(regionSpinner3Adapter);
     }
 
     // 회원가입 함수
@@ -527,10 +326,38 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "createUserWithEmail:success");
-
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User dbuser = new User(email, password, name, Arrays.asList(region1,region2, region3), sex, age);
+                            List<String> region = Arrays.asList(region1,region2, region3);
+                            Map<String, Object> docData = new HashMap<>();
+                            if(email!=null){
+                                docData.put("id", email);}
+                            if(password!=null){
+                                docData.put("pw", password);}
+                            if(name!=null){
+                                docData.put("name", name);}
+                            if(region!=null){
+                                docData.put("region", region);}
+                            if(sex!=null){
+                                docData.put("sex", sex);}
+                            if(age!=null){
+                                docData.put("age", age);}
+                            db.collection("users").document(email)
+                                    .set(docData)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+
                             Toast.makeText(SignUpActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
+
                             // 로그인화면으로 화면 전환
                             Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                             startActivity(intent);
