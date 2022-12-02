@@ -37,6 +37,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -109,21 +110,16 @@ public class HomeFragment extends Fragment {
 
         filterBtn = v.findViewById(R.id.mainfilter_btn);
         dial = new MainDialogActiviy((MainActivity)getActivity());
+
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dial.show();  //다이얼로그
             }
+
         });
 
         DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
-        currentuserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                currentUser = documentSnapshot.toObject(User.class);
-            }
-        });
-
         currentuserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -141,25 +137,59 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
         //메인화면 리사이클러뷰
         mainRecyclerView = v.findViewById(R.id.main_rv);
         postList = new ArrayList<>();
         //DB에서 불러오기
-        //postList.add(new Post(null, "title", null, "dest", null, null, null, null, null, null));
+        postList.add(new Post(null, "title", null, "dest",
+                null, null, null, null, null, null,
+                new Date()));
 
-        db.collection("post")
-                //.whereEqualTo("user_id", currentUser.getId())
-                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
-                            Post post = doc.toObject(Post.class);
-                            postList.add(post);
-                        }
-                    }
-                });
+//        db.collection("post")
+//        .whereArrayContainsAny("startspn", currentUser.getRegions())
+//        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
+//                    Post post = doc.toObject(Post.class);
+//                    postList.add(post);
+////                    System.out.println("Data : "+doc);
+////                    System.out.println("Data2 : "+post.getTitle());
+//                }
+//                //mainAdapter.notifyDataSetChanged();
+//            }
+//        });
 
+//       DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
+//        currentuserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+////                //System.out.println("document : "+ documentSnapshot);
+////                //currentUser = documentSnapshot.toObject(User.class);
+////                currentUser.setRegion((List<String>) documentSnapshot.getData().get("region"));
+//////                List<String> regions = currentUser.getRegions();
+//////                System.out.println("지역 size : " + regions.size());
+//////                for(int i = 0; i<regions.size();i++){
+//////                    System.out.println("지역 : "+ regions.get(i));
+//////                }
+//
+//
+//                db.collection("post")
+//                        //.whereIn("startspn", currentUser.getRegions())
+//                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                                for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
+//                                    Post post = doc.toObject(Post.class);
+//                                    postList.add(post);
+////                                    System.out.println("Data : "+doc);
+////                                    System.out.println("Data2 : "+post.getTitle());
+//                                }
+//                                //mainAdapter.notifyDataSetChanged();
+//                            }
+//                        });
+//            }
+//        });
 
 
 //        mainRecyclerView.setHasFixedSize(true);

@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.udoncar.model.History;
 import com.example.udoncar.model.Post;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -33,12 +36,21 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return new MainHolder(view);
     }
 
+    private Date meetDate;
+    private String meetDateString;
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
         Post post = postList.get(position);
         ((MainHolder) holder).textViewTitle.setText(post.getTitle());
         ((MainHolder) holder).textViewDest.setText(post.getDest());
-        ((MainHolder) holder).textViewTime.setText(post.getMeetAt().toString());
+        meetDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+        meetDateString = formatter.format(meetDate);
+        ((MainHolder) holder).textViewTime.setText(meetDateString);
+
+
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

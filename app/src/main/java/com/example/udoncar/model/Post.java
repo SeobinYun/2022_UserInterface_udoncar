@@ -14,6 +14,7 @@ public class Post implements Serializable {
     private String content;
     private String dest;
     private String position;
+    private String isrepeat;
     private String userId;
     private String optAge;
     private String optSex;
@@ -23,12 +24,14 @@ public class Post implements Serializable {
     private List<String> destspn;
 
     public Post(String postId, String title, String content, String dest, String position,
-                String userId, String optAge, String optSex, Date createAt, Date meetAt, List<String> startspn, List<String> destspn) {
+                String isrepeat,
+                String userId, String optAge, String optSex, Date createAt, Date meetAt) {
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.dest = dest;
         this.position = position;
+        this.isrepeat = isrepeat;
         this.userId = userId;
         this.optAge = optAge;
         this.optSex = optSex;
@@ -76,6 +79,14 @@ public class Post implements Serializable {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String getIsrepeat() {
+        return isrepeat;
+    }
+
+    public void setIsrepeat(String isrepeat) {
+        this.isrepeat = isrepeat;
     }
 
     public String getuserId() {
