@@ -59,7 +59,7 @@
                 android:layout_marginTop="10dp" />
 
             <TextView
-                android:id="@+id/dialogsex_tv"
+                android:id="@+id/mysex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(성별)"
@@ -67,7 +67,7 @@
                 android:layout_marginTop="10dp" />
 
             <TextView
-                android:id="@+id/dialogage_tv"
+                android:id="@+id/myage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(나이)"
@@ -75,7 +75,7 @@
                 android:layout_marginTop="10dp" />
 
             <TextView
-                android:id="@+id/dialogposition_tv"
+                android:id="@+id/position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -91,65 +91,44 @@
             android:layout_marginTop="10dp" >
 
             <TextView
-                android:id="@+id/dep"
+                android:id="@+id/dest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:text="##"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/dir"
+                android:id="@+id/date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/dep"
-                android:layout_alignBaseline="@id/dep"
-                android:text=" -> " />
-
-            <TextView
-                android:id="@+id/dialogdest_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/dir"
-                android:layout_alignBaseline="@id/dep"
-                android:text="##" />
+                android:layout_below="@id/dest"
+                android:layout_alignLeft="@id/dest"
+                android:layout_marginTop="10dp"
+                android:text="날짜 : " />
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/dep"
-                android:layout_alignLeft="@id/dep"
-                android:text="날짜 : "
-                android:layout_marginTop="10dp" />
-
-            <TextView
-                android:id="@+id/datedetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/date"
-                android:layout_toRightOf="@id/date"
-                android:text="0000" />
+                android:layout_alignBaseline="@id/date_tv"
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@id/date_tv"
+                android:text="##" />
 
 
             <TextView
-                android:id="@+id/time"
+                android:id="@+id/isrepeat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/date"
-                android:layout_alignLeft="@id/date"
+                android:layout_below="@id/date_tv"
+                android:layout_alignLeft="@id/date_tv"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="시간 : " />
+                android:text="일회성"
+                android:textColor="#FF0000" />
 
-            <TextView
-                android:id="@+id/timedetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/time"
-                android:layout_toRightOf="@id/time"
-                android:text="0000" />
 
         </RelativeLayout>
 
@@ -184,7 +163,7 @@
                 android:layout_marginTop="10dp" />
 
             <TextView
-                android:id="@+id/gen_condition"
+                android:id="@+id/sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/gen_con"
@@ -201,23 +180,13 @@
                 android:text="나이대 : " />
 
             <TextView
-                android:id="@+id/age_condition"
+                android:id="@+id/age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/dialogage_tv"
+                android:layout_marginBottom="10dp"
                 android:layout_toRightOf="@id/dialogage_tv"
                 android:text="##" />
-
-            <TextView
-                android:id="@+id/count_con"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/dialogage_tv"
-                android:layout_alignLeft="@id/dialogage_tv"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="일회성"
-                android:textColor="#FF0000" />
 
         </RelativeLayout>
 

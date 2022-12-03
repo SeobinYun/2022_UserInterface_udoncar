@@ -46,6 +46,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                //histroy -> chat
                 Intent intent = new Intent(context, ChatActivity.class);
                 intent.putExtra("history", history);
                 context.startActivity(intent);

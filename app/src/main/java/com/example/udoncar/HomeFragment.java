@@ -30,7 +30,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -92,14 +94,17 @@ public class HomeFragment extends Fragment {
     private RecyclerView.LayoutManager mainLayoutManager;
     private List<Post> postList;
 
-    Button filterBtn;
-    MainDialogActiviy dial;
+    private  Button filterBtn;
+    private  MainDialogActiviy dial;
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    User currentUser;
-    Post post;
-    TextView locaTv;
+      FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+      FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private  User currentUser;
+    private  Post post;
+    private  TextView locaTv;
+
+    private Bundle bundle = null;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -140,56 +145,49 @@ public class HomeFragment extends Fragment {
         //메인화면 리사이클러뷰
         mainRecyclerView = v.findViewById(R.id.main_rv);
         postList = new ArrayList<>();
+
+        //dialog에서 불러오기
+        bundle = getArguments();
+        if (bundle != null) {
+            //postList = bundle.getParcelableArrayList("postListD");
+        }
         //DB에서 불러오기
-        postList.add(new Post(null, "title", null, "dest",
-                null, null, null, null, null, null,
-                new Date()));
+        else {
+            post = new Post(null, "title", null, "dest",
+                    null, null, null, null, null, null,
+                    new Date());
+            //post detail화면으로 넘기기
+            postList.add(post);
 
-//        db.collection("post")
-//        .whereArrayContainsAny("startspn", currentUser.getRegions())
-//        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("post")
+        //.whereEqualTo("startspn", currentUser.getRegions())
+        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (QueryDocumentSnapshot doc : value) {
+                    post = doc.toObject(Post.class);
+                    //post detail화면으로 넘기기
+                    postList.add(post);
+                }
+            }
+        });
+
+//        db.collection("users").document(user.getEmail())
+//        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 //            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
-//                    Post post = doc.toObject(Post.class);
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                DocumentSnapshot document = task.getResult();
+//                for (int i = 0; i < 3; i++) {
+//                    post.setTitle(document.getData().get("title").toString());
+//                    post.setDest(document.getData().get("dest").toString());
+//                    //post.setMeetAt(document.getData().get("meetAt"));
+//
 //                    postList.add(post);
-////                    System.out.println("Data : "+doc);
-////                    System.out.println("Data2 : "+post.getTitle());
 //                }
-//                //mainAdapter.notifyDataSetChanged();
 //            }
-//        });
+//        }) ;
+        }
 
-//       DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
-//        currentuserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-////                //System.out.println("document : "+ documentSnapshot);
-////                //currentUser = documentSnapshot.toObject(User.class);
-////                currentUser.setRegion((List<String>) documentSnapshot.getData().get("region"));
-//////                List<String> regions = currentUser.getRegions();
-//////                System.out.println("지역 size : " + regions.size());
-//////                for(int i = 0; i<regions.size();i++){
-//////                    System.out.println("지역 : "+ regions.get(i));
-//////                }
-//
-//
-//                db.collection("post")
-//                        //.whereIn("startspn", currentUser.getRegions())
-//                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                                for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
-//                                    Post post = doc.toObject(Post.class);
-//                                    postList.add(post);
-////                                    System.out.println("Data : "+doc);
-////                                    System.out.println("Data2 : "+post.getTitle());
-//                                }
-//                                //mainAdapter.notifyDataSetChanged();
-//                            }
-//                        });
-//            }
-//        });
 
 
 //        mainRecyclerView.setHasFixedSize(true);

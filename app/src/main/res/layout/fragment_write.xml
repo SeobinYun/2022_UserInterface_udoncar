@@ -303,53 +303,86 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:text="성별 : " />
+                    android:text="성별   " />
 
-                <RadioGroup
-                    android:id="@+id/writesex_rg"
+                <CheckBox
+                    android:id="@+id/writesex1_Cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="17dp"
-                    android:orientation="horizontal">
+                    android:text="남자"
+                    android:layout_marginLeft="20dp"/>
 
-                    <RadioButton
-                        android:id="@+id/writesex_btn1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="남자"
-                        android:textSize="14sp"/>
-
-                    <RadioButton
-                        android:id="@+id/writesex_btn2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="여자"
-                        android:textSize="14sp"
-                        android:layout_marginLeft="33dp"/>
-
-                </RadioGroup>
+                <CheckBox
+                    android:id="@+id/writesex2_Cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="여자"
+                    android:layout_marginLeft="32dp"/>
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:id="@+id/age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="나이대"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="나이대" />
 
-                <Spinner
-                    android:id="@+id/writeage_spn"
-                    android:layout_width="100dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="15dp" />
+                <CheckBox
+                    android:id="@+id/writeage1_Cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_toRightOf="@+id/age"
+                    android:text="10대" />
 
-            </LinearLayout>
+                <CheckBox
+                    android:id="@+id/writeage2_Cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="28dp"
+                    android:layout_toRightOf="@+id/writeage1_Cb"
+                    android:text="20대" />
+
+                <CheckBox
+                    android:id="@+id/writeage3_Cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/writeage2_Cb"
+                    android:text="30대" />
+
+                <CheckBox
+                    android:id="@+id/writeage4_Cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/writeage1_Cb"
+                    android:layout_below="@+id/writeage1_Cb"
+                    android:text="40대" />
+
+                <CheckBox
+                    android:id="@+id/writeage5_Cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/writeage2_Cb"
+                    android:layout_below="@+id/writeage1_Cb"
+                    android:text="50대" />
+
+                <CheckBox
+                    android:id="@+id/writeage6_Cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/writeage3_Cb"
+                    android:layout_below="@+id/writeage1_Cb"
+                    android:text="60대 이상" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
