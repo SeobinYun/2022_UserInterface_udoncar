@@ -143,11 +143,31 @@ public class WriteFragment extends Fragment {
         optageSpn = (Spinner) view.findViewById(R.id.writeage_spn);
         positionRg = (RadioGroup) view.findViewById(R.id.writepos_rg);
         positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
+        positionRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                positionRb = view.findViewById(positionRg.getCheckedRadioButtonId());
+            }
+        });
+
+
         isrepeatRg = (RadioGroup) view.findViewById(R.id.writeisre_rg);
         isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
+        isrepeatRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                isrepeatRb = view.findViewById(isrepeatRg.getCheckedRadioButtonId());
+            }
+        });
+
         optsexRg = (RadioGroup) view.findViewById(R.id.writesex_rg);
         optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
-
+        optsexRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                optsexRb = view.findViewById(optsexRg.getCheckedRadioButtonId());
+            }
+        });
 
         DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
         currentuserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
