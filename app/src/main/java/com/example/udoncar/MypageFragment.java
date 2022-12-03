@@ -330,6 +330,7 @@ public class MypageFragment extends Fragment{
     }
 
 
+
     // Edittext의 입력값을 String으로 리턴하는 함수
     private String edittextToString(EditText sentence) {
         return sentence.getText().toString();

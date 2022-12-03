@@ -26,8 +26,6 @@ import java.util.List;
  */
 public class HistoryFragment extends Fragment {
 
-    Context mainActivity;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -74,12 +72,6 @@ public class HistoryFragment extends Fragment {
     private List<History> historyList;
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mainActivity = context;
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -93,7 +85,7 @@ public class HistoryFragment extends Fragment {
         historyList.add(new History("title", "dest", "time"));
 
 //        historyRecyclerView.setHasFixedSize(true);
-        historyAdapter = new HistoryAdapter(mainActivity, historyList);
+        historyAdapter = new HistoryAdapter(historyList, getContext());
         historyRecyclerView.setAdapter(historyAdapter);
         historyLayoutManager = new LinearLayoutManager(getActivity());
         historyRecyclerView.setLayoutManager(historyLayoutManager);

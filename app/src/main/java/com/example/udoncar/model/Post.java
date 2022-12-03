@@ -2,6 +2,8 @@ package com.example.udoncar.model;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.intellij.lang.annotations.JdkConstants;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,27 +14,31 @@ public class Post implements Serializable {
     private String content;
     private String dest;
     private String position;
+    private String isrepeat;
     private String userId;
     private String optAge;
     private String optSex;
     private Date createAt;
     private Date meetAt;
-//    private List<String> destspn;
-    //, List<String> destspn
+    private List<String> startspn;
+    private List<String> destspn;
 
     public Post(String postId, String title, String content, String dest, String position,
+                String isrepeat,
                 String userId, String optAge, String optSex, Date createAt, Date meetAt) {
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.dest = dest;
         this.position = position;
+        this.isrepeat = isrepeat;
         this.userId = userId;
         this.optAge = optAge;
         this.optSex = optSex;
         this.createAt = createAt;
         this.meetAt = meetAt;
- //       this.destspn = destspn;
+        this.startspn = startspn;
+        this.destspn = destspn;
     }
 
     public String getpostId() {
@@ -75,6 +81,14 @@ public class Post implements Serializable {
         this.position = position;
     }
 
+    public String getIsrepeat() {
+        return isrepeat;
+    }
+
+    public void setIsrepeat(String isrepeat) {
+        this.isrepeat = isrepeat;
+    }
+
     public String getuserId() {
         return userId;
     }
@@ -115,8 +129,20 @@ public class Post implements Serializable {
         this.meetAt = meetAt;
     }
 
- //   public List<String> getDestspn(){
- //       return destspn;
-//    }
+    public void setStartspn(List<String> startspn) {
+        this.startspn = startspn;
+    }
+
+    public List<String> getStartspn(){
+        return startspn;
+    }
+
+    public void setDestspn(List<String> destspn) {
+        this.destspn = destspn;
+    }
+
+    public List<String> getDestspn(){
+        return destspn;
+    }
 
 }
