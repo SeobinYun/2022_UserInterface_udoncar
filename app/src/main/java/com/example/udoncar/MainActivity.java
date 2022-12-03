@@ -36,6 +36,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 //import com.google.firebase.database.DataSnapshot;
@@ -44,6 +45,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Arrays;
 import java.util.List;
@@ -154,10 +157,23 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "User account deleted.");
 
                             // firestore post 부분 document 삭제
-//                           db.collection("post").document().whereEqualTo("user_id", user.getEmail())
-//                                            .delete()
-//                                                    .addOnSuc
+                           db.collection("post").whereEqualTo("user_id", user.getEmail())
+                                           .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                       @Override
+                                       public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                           if(task.isSuccessful()){
+                                               Log.d(TAG, "task: " + task);
 
+                                               for(QueryDocumentSnapshot document : task.getResult()){
+                                                   Log.d(TAG, document.getData().toString());
+                                                   document.getReference().delete();
+                                               }
+                                           }
+                                           else{
+                                               Log.d(TAG, "Error getting document: ", task.getException());
+                                           }
+                                       }
+                                   });
 
                             Toast.makeText(MainActivity.this, "정상적으로 탈퇴처리 되었습니다.", Toast.LENGTH_LONG).show();
                         } else {
