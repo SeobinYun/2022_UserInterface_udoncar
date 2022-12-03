@@ -142,8 +142,11 @@ public class WriteFragment extends Fragment {
         //destspn3.setPrompt("읍/면/동 선택");
         optageSpn = (Spinner) view.findViewById(R.id.writeage_spn);
         positionRg = (RadioGroup) view.findViewById(R.id.writepos_rg);
+        positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
         isrepeatRg = (RadioGroup) view.findViewById(R.id.writeisre_rg);
+        isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
         optsexRg = (RadioGroup) view.findViewById(R.id.writesex_rg);
+        optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
 
 
         DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
@@ -164,9 +167,9 @@ public class WriteFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
-                isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
-                optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
+//                positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
+//                isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
+//                optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
 
                 System.out.println("포지션 : " + positionRg.getCheckedRadioButtonId());
                 //position = positionRb.getText().toString();
@@ -182,13 +185,12 @@ public class WriteFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-
                 //post만드는 함수
                 createpost(edittextToString(titleEt), edittextToString(destEt),
                         start1, start2, start3,
                         spinnerToString(destspn1) ,spinnerToString(destspn2), spinnerToString(destspn3),
-                        null,
-                        null,
+                        positionRb.getText().toString(),
+                        isrepeatRb.getText().toString(),
                         null, spinnerToString((optageSpn)),
                         meetDate, edittextToString(contentEt));
 
@@ -271,8 +273,6 @@ public class WriteFragment extends Fragment {
         });
 
     }
-
-
 
     public void choose3(Spinner spinner1, Spinner spinner2) {
         if (spinnerToString(spinner1).equals("서울특별시")) {
