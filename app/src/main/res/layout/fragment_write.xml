@@ -49,22 +49,24 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@xml/xml_border"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:padding="5dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="제목     :"
                 android:textSize="14sp"
-                android:padding="5dp" />
+                 />
 
             <EditText
                 android:id="@+id/writetitle_et"
-                android:layout_width="200dp"
+                android:layout_width="180dp"
                 android:layout_height="40dp"
                 android:fontFamily="@font/nanum_regular"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:paddingLeft="5dp"/>
 
         </LinearLayout>
 
@@ -90,7 +92,8 @@
                 android:text="출발지"
                 android:gravity="center_vertical"
                 android:fontFamily="@font/nanum_regular"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:paddingLeft="5dp"/>
 
         </LinearLayout>
 
@@ -116,21 +119,21 @@
 
                 <Spinner
                     android:id="@+id/writedest_spn1"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_width="200dp"
                     android:layout_height="30dp"
                     android:spinnerMode="dialog"/>
 
                 <Spinner
                     android:id="@+id/writedest_spn2"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_width="200dp"
                     android:layout_height="30dp"
                     android:spinnerMode="dialog"/>
 
                 <Spinner
                     android:id="@+id/writedest_spn3"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_width="200dp"
                     android:layout_height="30dp"
                     android:spinnerMode="dialog"/>
