@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">udoncar</string>
+    <string name="app_name">우동카</string>
     <string-array name="month">
         <item>1월</item>
         <item>2월</item>
