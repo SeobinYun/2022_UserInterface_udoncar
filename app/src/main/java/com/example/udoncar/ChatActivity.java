@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -69,10 +70,10 @@ public class ChatActivity extends AppCompatActivity {
     private Button chatSendBtn;
 
     private FirebaseFirestore db;
-    private String email;
-    private User currentUser;
+    private String userName;
 
     private History history;
+    private String postTitle;
     List<String> users;
 
     Dialog numDialog;
@@ -81,6 +82,10 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         chatActivity = this;
+
+        Intent historyIntent = getIntent();
+        history = (History) historyIntent.getSerializableExtra("history");
+        System.out.println(history.toString());
 
         //recyclerview 세팅
         chatRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
@@ -100,15 +105,12 @@ public class ChatActivity extends AppCompatActivity {
 
         //user의 이메일 정보로 유저 정보 db에서 가져옴
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            email = user.getEmail();
-        }
 
-        DocumentReference currentuserRef = db.collection("users").document(email);
+        DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
         currentuserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                currentUser = documentSnapshot.toObject(User.class);
+                userName = documentSnapshot.getData().get("name").toString();
             }
         });
 
@@ -136,10 +138,10 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });*/
 
-        chatAdapter = new ChatAdapter(chatList, currentUser.getName());
+        chatAdapter = new ChatAdapter(chatList, userName);
         chatRecyclerView.setAdapter(chatAdapter);
 
-        CollectionReference chatRef = db.collection("msg");
+        DocumentReference chatRef = db.collection("msg").document();
         // send 버튼 리스너
         chatSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,10 +150,10 @@ public class ChatActivity extends AppCompatActivity {
                 if(msg != null){
                     Chat chat = new Chat();
                     chat.setMessage(msg);
-                    chat.setUserId(currentUser.getId());
-                    chat.setName(currentUser.getName());;
-                    //timestamp세팅........
-                    chatRef.add(chat);
+                    chat.setUserId(user.getEmail());
+                    chat.setName(userName);;
+                    //chat.setcreateAt(Timestamp.now());
+                    chatRef.set(chat);
                 }
             }
         });
@@ -179,8 +181,8 @@ public class ChatActivity extends AppCompatActivity {
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Post post = documentSnapshot.toObject(Post.class);
-                        titleTextView.setText(post.getTitle());
+                        postTitle = documentSnapshot.getData().get("title").toString();
+                        titleTextView.setText(postTitle);
                     }
                 });
 
