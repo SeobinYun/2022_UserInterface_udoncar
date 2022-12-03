@@ -210,109 +210,57 @@ public class SignUpActivity extends AppCompatActivity {
         if (spinnerToString(spinner1).equals("서울특별시")) {
             if (spinnerToString(spinner2).equals("강남구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gangnam, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if ("강동구".equals(spinnerToString(spinner2))) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gangdong, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("강북구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gangbuk, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("강서구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gangseo, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("관악구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gwanak, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("광진구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_gwangjin, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("구로구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_guro, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("금천구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_geumcheon, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("노원구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_nowon, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("도봉구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_dobong, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("동대문구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_dongdaemun, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("동작구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_dongjag, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("마포구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_mapo, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("서대문구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_seodaemun, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("서초구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_seocho, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("성동구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_seongdong, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("성북구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_seongbuk, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("송파구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_songpa, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("양천구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_yangcheon, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("영등포구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_yeongdeungpo, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("용산구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_yongsan, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("은평구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_eunpyeong, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("종로구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_jongno, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("중구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_jung, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("중랑구")) {
                 regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_seoul_jungnanggu, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             }
         } else {
             regionSpinner3Adapter = ArrayAdapter.createFromResource(SignUpActivity.this, R.array.spinner_region_empty, R.layout.item_spinner);
-//            regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//            regionSpinner3.setAdapter(regionSpinner3Adapter);
         }
         regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         regionSpinner3.setAdapter(regionSpinner3Adapter);

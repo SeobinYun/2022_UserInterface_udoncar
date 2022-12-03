@@ -104,6 +104,10 @@ public class WriteFragment extends Fragment {
     private RadioButton positionRb;
     private RadioGroup isrepeatRg;
     private RadioButton isrepeatRb;
+    private RadioGroup optsexRg;
+    private RadioButton optsexRb;
+    private Spinner optageSpn;
+    private ArrayAdapter optageSpnAdapter;
     private Spinner destspn1;
     private Spinner destspn2;
     private Spinner destspn3;
@@ -149,7 +153,33 @@ public class WriteFragment extends Fragment {
         destspn3 = (Spinner) view.findViewById(R.id.writedest_spn3);
         //destspn3.setPrompt("읍/면/동 선택");
         positionRg = (RadioGroup) view.findViewById(R.id.writepos_rg);
+        positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
+        positionRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                positionRb = view.findViewById(positionRg.getCheckedRadioButtonId());
+            }
+        });
+
+
         isrepeatRg = (RadioGroup) view.findViewById(R.id.writeisre_rg);
+        isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
+        isrepeatRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                isrepeatRb = view.findViewById(isrepeatRg.getCheckedRadioButtonId());
+            }
+        });
+
+        optsexRg = (RadioGroup) view.findViewById(R.id.writesex_rg);
+        optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
+        optsexRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                optsexRb = view.findViewById(optsexRg.getCheckedRadioButtonId());
+            }
+        });
+
         sexCb1 = (CheckBox) view.findViewById(R.id.writesex1_Cb);
         sexCb2 = (CheckBox) view.findViewById(R.id.writesex2_Cb);
         ageCb1 = (CheckBox) view.findViewById(R.id.writeage1_Cb);
@@ -158,7 +188,6 @@ public class WriteFragment extends Fragment {
         ageCb4 = (CheckBox) view.findViewById(R.id.writeage4_Cb);
         ageCb5 = (CheckBox) view.findViewById(R.id.writeage5_Cb);
         ageCb6 = (CheckBox) view.findViewById(R.id.writeage6_Cb);
-
 
 
         DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
@@ -179,8 +208,8 @@ public class WriteFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
-                isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
+//                positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
+//                isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
 
                 System.out.println("포지션 : " + positionRg.getCheckedRadioButtonId());
                 //position = positionRb.getText().toString();
@@ -201,9 +230,9 @@ public class WriteFragment extends Fragment {
                 createpost(edittextToString(titleEt), edittextToString(destEt),
                         start1, start2, start3,
                         spinnerToString(destspn1) ,spinnerToString(destspn2), spinnerToString(destspn3),
-                        null,
-                        null,
-                        sexCb(sexCb1,sexCb2), ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6),
+                        positionRb.getText().toString(),
+                        isrepeatRb.getText().toString(),
+                        null, spinnerToString((optageSpn)),
                         meetDate, edittextToString(contentEt));
 
                 Intent intent = new Intent(getContext(), MainActivity.class);
