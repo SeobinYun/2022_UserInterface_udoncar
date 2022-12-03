@@ -47,30 +47,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:background="@xml/xml_border"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:padding="5dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="제목     :"
                 android:textSize="14sp"
-                android:padding="5dp" />
+                 />
 
             <EditText
                 android:id="@+id/writetitle_et"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
                 android:fontFamily="@font/nanum_regular"
-                android:textSize="10sp" />
+                android:textSize="12sp"
+                android:paddingLeft="5dp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:background="@xml/xml_border"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
@@ -83,18 +85,66 @@
                 android:text="출발지 :"
                 android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/writestart_et"
+            <TextView
+                android:id="@+id/writestart_tv"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
+                android:text="출발지"
+                android:gravity="center_vertical"
                 android:fontFamily="@font/nanum_regular"
-                android:textSize="10sp" />
+                android:textSize="12sp"
+                android:paddingLeft="5dp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
+            android:background="@xml/xml_border"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="목적지 :"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/writedest_spn1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:spinnerMode="dialog"/>
+
+                <Spinner
+                    android:id="@+id/writedest_spn2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:spinnerMode="dialog"/>
+
+                <Spinner
+                    android:id="@+id/writedest_spn3"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:spinnerMode="dialog"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:background="@xml/xml_border"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
@@ -118,7 +168,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:background="@xml/xml_border"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
@@ -131,55 +181,22 @@
                 android:text="날짜 :"
                 android:textSize="14sp" />
 
-            <Spinner
-                android:entries="@array/month"
-                android:id="@+id/writemonth_spn"
-                android:layout_width="100dp"
-                android:layout_height="20dp" />
+            <EditText
+                android:id="@+id/writedate_et"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:fontFamily="@font/nanum_regular"
+                android:digits="0123456789/: "
+                android:hint="00/00 00:00"
+                android:textSize="12sp" />
 
-            <Spinner
-                android:entries="@array/day"
-                android:id="@+id/writeday_spn"
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="20dp" />
 
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@xml/xml_border"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="시간 :"
-                android:textSize="14sp" />
-
-            <Spinner
-                android:entries="@array/hour"
-                android:id="@+id/writehour_spn"
-                android:layout_width="100dp"
-                android:layout_height="20dp" />
-
-            <Spinner
-                android:entries="@array/min"
-                android:id="@+id/writemin_spn"
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="20dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:background="@xml/xml_border"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
@@ -205,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:text="운전자"
                     android:textSize="14sp"
-                    tools:ignore="InvalidId" />
+                    android:checked="true"/>
 
                 <RadioButton
                     android:id="@+id/writepos_btn2"
@@ -213,7 +230,8 @@
                     android:layout_height="wrap_content"
                     android:text="탑승자"
                     android:textSize="14sp"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="20dp"
+                    android:checked="false"/>
 
                 <RadioButton
                     android:id="@+id/writepos_btn3"
@@ -221,7 +239,8 @@
                     android:layout_height="wrap_content"
                     android:text="택시"
                     android:textSize="14sp"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="20dp"
+                    android:checked="false"/>
 
             </RadioGroup>
 
@@ -229,7 +248,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:background="@xml/xml_border"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
@@ -247,8 +266,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal"
-                tools:ignore="InvalidId">
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/writeisre_btn1"
@@ -256,7 +274,7 @@
                     android:layout_height="wrap_content"
                     android:text="일회성"
                     android:textSize="14sp"
-                    tools:ignore="InvalidId" />
+                    android:checked="true"/>
 
                 <RadioButton
                     android:id="@+id/writeisre_btn2"
@@ -264,7 +282,8 @@
                     android:layout_height="wrap_content"
                     android:text="다회성"
                     android:textSize="14sp"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="20dp"
+                    android:checked="false"/>
 
             </RadioGroup>
 
@@ -307,7 +326,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="남자"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"/>
 
                     <RadioButton
                         android:id="@+id/writesex_btn2"
@@ -315,7 +334,7 @@
                         android:layout_height="wrap_content"
                         android:text="여자"
                         android:textSize="14sp"
-                        android:layout_marginLeft="33dp" />
+                        android:layout_marginLeft="33dp"/>
 
                 </RadioGroup>
 
@@ -334,12 +353,10 @@
                     android:layout_marginLeft="10dp" />
 
                 <Spinner
-                    android:entries="@array/ages"
                     android:id="@+id/writeage_spn"
                     android:layout_width="100dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="15dp"
-                    tools:ignore="InvalidId" />
+                    android:layout_marginLeft="15dp" />
 
             </LinearLayout>
 
@@ -354,8 +371,8 @@
 
             <EditText
                 android:id="@+id/writecont_et"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:hint="내용을 입력하세요."
                 android:textSize="14sp" />
