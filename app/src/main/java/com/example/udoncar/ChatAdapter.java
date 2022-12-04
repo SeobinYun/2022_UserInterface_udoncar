@@ -7,21 +7,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.udoncar.model.Chat;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Chat> chatList;
+    private List<Chat> chatList = new ArrayList<Chat>();
     private String myName;
 
     // 어댑터에 넣을 데이터set를 매개변수로 하는 생성자 - myName은 내 닉네임 구분하려고
     public ChatAdapter(List<Chat> chatList, String myName){
         this.chatList = chatList;
         this.myName = myName;
+        System.out.println("생성시 유저의 이름"+myName);
     }
 
     @NonNull
@@ -30,15 +33,18 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         View view;
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (viewType == TYPE_RECEIVED_MESSAGE){
+        if (viewType == ViewCode.TYPE_RECEIVED_MESSAGE){
             view = inflater.inflate(R.layout.item_chat, parent, false); //어떤 레이아웃을 쓸지
             return new ChatHolder(view);
         }
-        else {
+        else if (viewType == ViewCode.TYPE_SENT_MESSAGE){
             view = inflater.inflate(R.layout.item_my_chat, parent, false); //어떤 레이아웃을 쓸지
             return new MyChatHolder(view);
         }
-
+        else{
+            System.out.println("VIEWTYPE_ERROR");
+            return null;
+        }
     }
 
     @Override
@@ -71,22 +77,19 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
     // view type
-    private int TYPE_SENT_MESSAGE = 101;
-    private int TYPE_RECEIVED_MESSAGE = 102;
-    private int getViewSrc(int viewType){
-        if (viewType==TYPE_RECEIVED_MESSAGE){
-            return R.layout.item_chat;
-        } else {
-            return R.layout.item_my_chat;
-        }
+    public static class ViewCode {
+        private static final int TYPE_SENT_MESSAGE = 101;
+        private static final int TYPE_RECEIVED_MESSAGE = 102;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (chatList.get(position).getName().equals(myName)){
-            return TYPE_SENT_MESSAGE;
+        String chatName = chatList.get(position).getName();
+        System.out.println("현재 유저의 이름"+myName);
+        if (chatName.equals(myName)){
+            return ViewCode.TYPE_SENT_MESSAGE;
         } else {
-            return TYPE_RECEIVED_MESSAGE;
+            return ViewCode.TYPE_RECEIVED_MESSAGE;
         }
     }
 

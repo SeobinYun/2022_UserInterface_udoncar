@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
         <Button
             android:id="@+id/num_people_btn"
             android:layout_width="wrap_content"
@@ -28,7 +29,7 @@
             android:gravity="center"
             android:text="인원수"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="16sp"
             style="?android:borderlessButtonStyle"
             />
     </RelativeLayout>
