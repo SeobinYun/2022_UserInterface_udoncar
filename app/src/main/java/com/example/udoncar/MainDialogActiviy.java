@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -46,6 +47,7 @@ public class MainDialogActiviy extends Dialog {
 
     private Post post;
     private List<Post> postListD;
+    private Toast toast;
 
 
     public MainDialogActiviy(Context context) {
@@ -58,8 +60,6 @@ public class MainDialogActiviy extends Dialog {
         dest1Spn = findViewById(R.id.dialogdest_spn1);
         dest2Spn = findViewById(R.id.dialogdest_spn2);
         dest3Spn = findViewById(R.id.dialogdest_spn3);
-        posRg = findViewById(R.id.dialogpos_rg);
-        isreRg = findViewById(R.id.dialogisre_rg);
         sexCb1 = findViewById(R.id.dialogsex_cb1);
         sexCb2 = findViewById(R.id.dialogsex_cb2);
         ageCb1 = findViewById(R.id.dialogage_cb1);
@@ -70,6 +70,23 @@ public class MainDialogActiviy extends Dialog {
         ageCb6 = findViewById(R.id.dialogage_cb6);
         cancelBtn = findViewById(R.id.dialogcancel_btn);
         submitBtn = findViewById(R.id.dialogsubmit_btn);
+
+        posRg = (RadioGroup) findViewById(R.id.dialogpos_rg);
+        posRb = (RadioButton) findViewById(posRg.getCheckedRadioButtonId());
+        posRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                posRb = findViewById(posRg.getCheckedRadioButtonId());
+            }
+        });
+        isreRg = (RadioGroup) findViewById(R.id.dialogisre_rg);
+        isreRb = (RadioButton) findViewById(isreRg.getCheckedRadioButtonId());
+        isreRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                isreRb = findViewById(isreRg.getCheckedRadioButtonId());
+            }
+        });
 
         destspnAdpater1 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region, R.layout.item_spinner);
         destspnAdpater1.setDropDownViewResource(R.layout.item_spinner_dropdown);
@@ -148,8 +165,8 @@ public class MainDialogActiviy extends Dialog {
             @Override
             public void onClick(View view) {
 
-                posRb = (RadioButton) view.findViewById(posRg.getCheckedRadioButtonId());
-                isreRb = (RadioButton) view.findViewById(isreRg.getCheckedRadioButtonId());
+//                posRb = (RadioButton) view.findViewById(posRg.getCheckedRadioButtonId());
+//                isreRb = (RadioButton) view.findViewById(isreRg.getCheckedRadioButtonId());
 
                 destList = Arrays.asList(spinnerToString(dest1Spn), spinnerToString(dest2Spn), spinnerToString(dest3Spn));
 
@@ -157,10 +174,10 @@ public class MainDialogActiviy extends Dialog {
                 postListD = new ArrayList<>();
                 db.collection("post")
                         .whereEqualTo("destspn", destList)
-                        //.whereEqualTo("position", radiobtnToString(posRb))
+                        .whereEqualTo("position", posRb.getText().toString())
                         .whereEqualTo("optsex", sexCb(sexCb1, sexCb2))
                         .whereEqualTo("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6))
-                        //.whereEqualTo("isrepeat", radiobtnToString(isreRb))
+                        .whereEqualTo("isrepeat", isreRb.getText().toString())
                         .addSnapshotListener(new EventListener<QuerySnapshot>() {
                             @Override
                             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -174,8 +191,10 @@ public class MainDialogActiviy extends Dialog {
                 //homefragment에 넘기기
 //                HomeFragment homeFragment = new HomeFragment();
 //                Bundle bundle = new Bundle();
-//                bundle.putParcelableArrayList("postListD", (ArrayList<? extends Parcelable>) postListD);
+//                bundle.putParcelableArrayList("postListD", (ArrayList<? extends Parcelable>) (ArrayList)postListD);
 //                homeFragment.setArguments(bundle);
+
+                toast.makeText(getContext(), "필터링 성공!", Toast.LENGTH_SHORT).show();
 
 
                 dismiss();

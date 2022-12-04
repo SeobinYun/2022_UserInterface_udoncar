@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.udoncar.model.Chat;
 import com.example.udoncar.model.ChatUserList;
 import com.example.udoncar.model.Post;
 import com.example.udoncar.model.User;
@@ -38,7 +39,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.ktx.Firebase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -94,17 +98,21 @@ public class HomeFragment extends Fragment {
     private RecyclerView.LayoutManager mainLayoutManager;
     private List<Post> postList;
 
-    private  Button filterBtn;
-    private  MainDialogActiviy dial;
+    private Button filterBtn;
+    private MainDialogActiviy dial;
 
-      FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-      FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private  User currentUser;
-    private  Post post;
-    private  TextView locaTv;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private User currentUser;
+    private Post post;
+    private TextView locaTv;
 
     private Bundle bundle = null;
 
+    private List<String> region;
+    private Date date;
+    private  List<String> startList;
+    private  List<String> destList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,7 +122,7 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         filterBtn = v.findViewById(R.id.mainfilter_btn);
-        dial = new MainDialogActiviy((MainActivity)getActivity());
+        dial = new MainDialogActiviy((MainActivity) getActivity());
 
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +143,7 @@ public class HomeFragment extends Fragment {
 //                locaTv.setText(region.substring(13,16));
 
                 DocumentSnapshot document = task.getResult();
-                List<String> region = (List<String>) document.getData().get("region");
+                region = (List<String>) document.getData().get("region");
                 String region2 = region.toArray()[2].toString();
                 locaTv = v.findViewById(R.id.mainloca_tv);
                 locaTv.setText(region2);
@@ -153,49 +161,60 @@ public class HomeFragment extends Fragment {
         }
         //DB에서 불러오기
         else {
-            post = new Post(null, "title", null, "dest",
-                    null, null, null, null, null, null,
-                    new Date());
-            //post detail화면으로 넘기기
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+            date = null;
+            try {
+                date = formatter.parse("12/12 12:12");
+            } catch (ParseException e) {
+            }
+            startList = Arrays.asList("서울특별시", "강남구", "세곡동");
+            destList = Arrays.asList("서울특별시", "강남구", "개포동");
+            post = new Post("yFLRpxnj0xQWAxwf3Wyd", "ttttt", "ccccc", "ddddd",
+                    "택시", "일회성", "qwer@naver.com", "20대", "여자",
+                    new Date(), date, startList, destList);
             postList.add(post);
 
-        db.collection("post")
-        //.whereEqualTo("startspn", currentUser.getRegions())
-        .addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                for (QueryDocumentSnapshot doc : value) {
-                    post = doc.toObject(Post.class);
-                    //post detail화면으로 넘기기
-                    postList.add(post);
-                }
-            }
-        });
 
-//        db.collection("users").document(user.getEmail())
-//        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                DocumentSnapshot document = task.getResult();
-//                for (int i = 0; i < 3; i++) {
-//                    post.setTitle(document.getData().get("title").toString());
-//                    post.setDest(document.getData().get("dest").toString());
-//                    //post.setMeetAt(document.getData().get("meetAt"));
+            db.collection("post")
+                    //.whereEqualTo("startspn", region)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            for (QueryDocumentSnapshot doc : value) {
+                                //에러 안 나고 아무것도 안 뜸
+                                post = doc.toObject(Post.class);
+                                post.setTitle(doc.getData().get("title").toString());
+                                post.setDest(doc.getData().get("dest").toString());
+                                //post.setMeetAt((Date) doc.getData().get("meetAt"));
+                                postList.add(post);
+                            }
+                        }
+                    });
+
+//            DocumentReference docRef = db.collection("post").document();
+//            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                    DocumentSnapshot document = task.getResult();
+//                    for (int i = 0; i < 3; i++) {
+//                        post.setTitle(document.getData().get("title").toString());
+//                        post.setDest(document.getData().get("dest").toString());
+//                        //post.setMeetAt(document.getData().get("meetAt"));
 //
-//                    postList.add(post);
+//                        postList.add(post);
+//                    }
 //                }
-//            }
-//        }) ;
+//            });
+//        }
         }
 
-
-
 //        mainRecyclerView.setHasFixedSize(true);
-        mainAdapter = new MainAdapter(postList, getContext());
-        mainLayoutManager = new LinearLayoutManager(getActivity());
-        mainRecyclerView.setLayoutManager(mainLayoutManager);
-        mainRecyclerView.setAdapter(mainAdapter);
+            mainAdapter = new MainAdapter(postList, getContext());
+            mainLayoutManager = new LinearLayoutManager(getActivity());
+            mainRecyclerView.setLayoutManager(mainLayoutManager);
+            mainRecyclerView.setAdapter(mainAdapter);
 
-        return v;
+            return v;
+
     }
 }

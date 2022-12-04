@@ -99,24 +99,20 @@ public class HistoryFragment extends Fragment {
         historyList = new ArrayList<>();
 
         //DB에서 불러오기
-        historyList.add(new History("title", "dest", "time"));
+        historyList.add(new History("68rmZ3wQoyVhoFXuc2GW", "M3CdoVBK5r5ihau75OHE", "qwer@naver.com"));
 
+        //오류안뜸.. 근데 아무것도 안뜸
         db.collection("history")
-                .whereEqualTo("user_id", user.getEmail())
+                //.whereEqualTo("userId", user.getEmail())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         for (QueryDocumentSnapshot doc : value) {
-                            db.collection("post").document(doc.getData().get("post_id").toString())
-                                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            history.sethistId(doc.getData().get("hist_id").toString());
-                                            history.setpostId(doc.getData().get("post_id").toString());
-                                            history.setuserId(user.getEmail());
-                                            historyList.add(history);
-                                        }
-                                    });
+//                            history.sethistId(doc.getData().get("hist_id").toString());
+//                            history.setpostId(doc.getData().get("post_id").toString());
+//                            history.setuserId(user.getEmail());
+                            history = doc.toObject(History.class);
+                            historyList.add(history);
                         }
                     }
                 });

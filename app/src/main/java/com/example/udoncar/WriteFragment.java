@@ -21,6 +21,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.udoncar.model.Chat;
 import com.example.udoncar.model.User;
@@ -152,6 +153,7 @@ public class WriteFragment extends Fragment {
         //destspn2.setPrompt("시/군/구 선택");
         destspn3 = (Spinner) view.findViewById(R.id.writedest_spn3);
         //destspn3.setPrompt("읍/면/동 선택");
+
         positionRg = (RadioGroup) view.findViewById(R.id.writepos_rg);
         positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
         positionRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -160,8 +162,6 @@ public class WriteFragment extends Fragment {
                 positionRb = view.findViewById(positionRg.getCheckedRadioButtonId());
             }
         });
-
-
         isrepeatRg = (RadioGroup) view.findViewById(R.id.writeisre_rg);
         isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
         isrepeatRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -170,15 +170,14 @@ public class WriteFragment extends Fragment {
                 isrepeatRb = view.findViewById(isrepeatRg.getCheckedRadioButtonId());
             }
         });
-
-        optsexRg = (RadioGroup) view.findViewById(R.id.writesex_rg);
-        optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
-        optsexRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                optsexRb = view.findViewById(optsexRg.getCheckedRadioButtonId());
-            }
-        });
+//        optsexRg = (RadioGroup) view.findViewById(R.id.writesex);
+//        optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
+//        optsexRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                optsexRb = view.findViewById(optsexRg.getCheckedRadioButtonId());
+//            }
+//        });
 
         sexCb1 = (CheckBox) view.findViewById(R.id.writesex1_Cb);
         sexCb2 = (CheckBox) view.findViewById(R.id.writesex2_Cb);
@@ -211,7 +210,7 @@ public class WriteFragment extends Fragment {
 //                positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
 //                isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
 
-                System.out.println("포지션 : " + positionRg.getCheckedRadioButtonId());
+                //System.out.println("포지션 : " + positionRg.getCheckedRadioButtonId());
                 //position = positionRb.getText().toString();
 
                 start1 = startList.toArray()[0].toString();
@@ -230,9 +229,8 @@ public class WriteFragment extends Fragment {
                 createpost(edittextToString(titleEt), edittextToString(destEt),
                         start1, start2, start3,
                         spinnerToString(destspn1) ,spinnerToString(destspn2), spinnerToString(destspn3),
-                        positionRb.getText().toString(),
-                        isrepeatRb.getText().toString(),
-                        null, spinnerToString((optageSpn)),
+                        positionRb.getText().toString(), isrepeatRb.getText().toString(),
+                        sexCb(sexCb1, sexCb2), ageCb(ageCb1, ageCb2, ageCb3, ageCb4, ageCb5, ageCb6),
                         meetDate, edittextToString(contentEt));
 
                 Intent intent = new Intent(getContext(), MainActivity.class);
@@ -493,8 +491,8 @@ public class WriteFragment extends Fragment {
         List<String> startList = Arrays.asList(startspn1,startspn2, startspn3);
         List<String> destList = Arrays.asList(destspn1,destspn2, destspn3);
         Map<String, Object> docData = new HashMap<>();
-        docData.put("post_id", randomString() );
-        docData.put("user_id", user.getEmail() );
+        docData.put("postId", randomString() );
+        docData.put("userId", user.getEmail() );
         docData.put("startspn", startList);
         docData.put("destspn", destList);
         docData.put("title", title);
@@ -508,6 +506,8 @@ public class WriteFragment extends Fragment {
         docData.put("meetAt", meetAt);
 
         db.collection("post").document().set(docData);
+
+        Toast.makeText(getContext(), "작성 완료!", Toast.LENGTH_SHORT).show();
 
     }
 

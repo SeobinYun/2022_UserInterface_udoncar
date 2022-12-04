@@ -11,10 +11,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.udoncar.model.History;
+import com.example.udoncar.model.Post;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -35,12 +44,28 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return new MainHolder(view);
     }
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Post post;
+    private String meetDateString;
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         History history = historyList.get(position);
         ((MainHolder) holder).textViewTitle.setText(history.gethistId());
         ((MainHolder) holder).textViewDest.setText(history.getpostId());
-        ((MainHolder) holder).textViewTime.setText(history.getuserId());
+        ((MainHolder) holder).textViewDest.setText(history.getuserId());
+//        db.collection("post")
+//                .document(history.getpostId())
+//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        post = documentSnapshot.toObject(Post.class);
+//                    }
+//                });
+//        ((MainHolder) holder).textViewTitle.setText(post.getTitle());
+//        ((MainHolder) holder).textViewDest.setText(post.getDest());
+//        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+//        meetDateString = formatter.format(post.getMeetAt());
+//        ((MainHolder) holder).textViewTime.setText(meetDateString);
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

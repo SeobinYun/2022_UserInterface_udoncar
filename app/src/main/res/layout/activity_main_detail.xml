@@ -114,9 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/date_tv"
                 android:layout_marginBottom="10dp"
-                android:layout_toRightOf="@id/date_tv"
-                android:text="##" />
-
+                android:layout_toRightOf="@id/date_tv"/>
 
             <TextView
                 android:id="@+id/isrepeat"
