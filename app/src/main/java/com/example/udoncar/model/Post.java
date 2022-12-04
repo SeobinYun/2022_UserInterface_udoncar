@@ -25,7 +25,7 @@ public class Post implements Serializable {
 
     public Post(String postId, String title, String content, String dest, String position,
                 String isrepeat,
-                String userId, String optAge, String optSex, Date createAt, Date meetAt) {
+                String userId, String optAge, String optSex, Date createAt, Date meetAt, List<String> startspn, List<String> destspn) {
         this.postId = postId;
         this.title = title;
         this.content = content;
@@ -40,6 +40,8 @@ public class Post implements Serializable {
         this.startspn = startspn;
         this.destspn = destspn;
     }
+
+    public Post(){}
 
     public String getpostId() {
         return postId;
