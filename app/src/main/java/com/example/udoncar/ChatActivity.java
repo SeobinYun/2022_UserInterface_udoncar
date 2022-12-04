@@ -29,6 +29,7 @@ import com.example.udoncar.model.History;
 import com.example.udoncar.model.Post;
 import com.example.udoncar.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -54,7 +55,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
-    public static ChatActivity chatActivity;
     private RecyclerView chatRecyclerView;
     private RecyclerView.Adapter chatAdapter;
     private RecyclerView.LayoutManager chatLayoutManager;
@@ -69,6 +69,7 @@ public class ChatActivity extends AppCompatActivity {
     private EditText chatEditText;
     private Button chatSendBtn;
 
+    private FirebaseUser user;
     private FirebaseFirestore db;
     private String userName;
 
@@ -81,18 +82,11 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        chatActivity = this;
 
         Intent historyIntent = getIntent();
         history = (History) historyIntent.getSerializableExtra("history");
         System.out.println(history.toString());
-
-        //recyclerview 세팅
-        chatRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
-        chatRecyclerView.setHasFixedSize(true); // 크기 고정
-        chatLayoutManager = new LinearLayoutManager(this);
-        chatRecyclerView.setLayoutManager(chatLayoutManager);
-
+        chatList = new ArrayList<Chat>();
 
         //view 세팅
         titleTextView = findViewById(R.id.title_textview);
@@ -104,7 +98,7 @@ public class ChatActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //user의 이메일 정보로 유저 정보 db에서 가져옴
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
         currentuserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -114,14 +108,10 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        /*FirebaseFirestore database = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings.Builder settings = new FirebaseFirestoreSettings.Builder();
-        settings.setTimestampsInSnapshotsEnabled(true);
-        database.setFirestoreSettings(settings.build());*/
-
         // db에서 채팅 가져오기
-        /*chatList = new ArrayList<Chat>();
-        db.collection("history").document(histId).collection("msg")
+        chatList = new ArrayList<Chat>();
+        db.collection("history").document(history.gethistId()).collection("msg")
+                .orderBy("createAt", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -131,17 +121,23 @@ public class ChatActivity extends AppCompatActivity {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Chat chat = document.toObject(Chat.class);
                                 chatList.add(chat);
+                                chatRecyclerView.setAdapter(chatAdapter);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
-                });*/
-
+                });
+        //recyclerview 세팅
+        chatRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler);
+        chatRecyclerView.setHasFixedSize(true); // 크기 고정
+        chatLayoutManager = new LinearLayoutManager(this);
+        chatRecyclerView.setLayoutManager(chatLayoutManager);
         chatAdapter = new ChatAdapter(chatList, userName);
         chatRecyclerView.setAdapter(chatAdapter);
+        System.out.println("현재 유저의 이름"+userName);
 
-        DocumentReference chatRef = db.collection("msg").document();
+        CollectionReference chatRef = db.collection("history").document(history.gethistId()).collection("msg");
         // send 버튼 리스너
         chatSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,28 +148,13 @@ public class ChatActivity extends AppCompatActivity {
                     chat.setMessage(msg);
                     chat.setUserId(user.getEmail());
                     chat.setName(userName);;
-                    //chat.setcreateAt(Timestamp.now());
-                    chatRef.set(chat);
+                    chat.setcreateAt(new Date());
+                    chatRef.document().set(chat);
+                    readAddChat();
                 }
             }
         });
-        db.collection("history").document(history.gethistId()).collection("msg")
-                .orderBy("createAt", Query.Direction.DESCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
 
-                        for (QueryDocumentSnapshot doc : value) {
-                            Chat chat = doc.toObject(Chat.class);
-                            chatList.add(chat);
-                        }
-                    }
-                });
 
 
         //title 넣기
@@ -188,7 +169,7 @@ public class ChatActivity extends AppCompatActivity {
 
         //인원수 버튼
         db.collection("chatUserList")
-                .whereEqualTo("hist_id", history.gethistId())
+                .whereEqualTo("histId", history.gethistId())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots,
@@ -198,7 +179,9 @@ public class ChatActivity extends AppCompatActivity {
                             return;
                         }
                         for (QueryDocumentSnapshot doc : snapshots) {
-                            ChatUserList chatUserList = doc.toObject(ChatUserList.class);
+                            ChatUserList chatUserList = new ChatUserList();
+                            chatUserList = doc.toObject(ChatUserList.class);
+                            users = new ArrayList<String>();
                             users = chatUserList.getUsersId();
                             setNumUsers(users.size());
                         }
@@ -251,5 +234,39 @@ public class ChatActivity extends AppCompatActivity {
     //인원수 세팅 함수
     public void setNumUsers(int numUsers){
         numPeopleBtn.setText(String.format("인원수 %d명", numUsers));
+    }
+
+    //chat 추가 받아오는 함수
+    public void readAddChat(){
+        db.collection("history").document(history.gethistId()).collection("msg")
+                .orderBy("createAt", Query.Direction.DESCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Listen failed.", e);
+                            return;
+                        }
+
+                        /*for (QueryDocumentSnapshot doc : value) {
+                            Chat chat = new Chat();
+                            chat = doc.toObject(Chat.class);
+                            ((ChatAdapter) chatAdapter).addChat(chat);
+                            break;
+                        }*/
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    Log.d(TAG, "New city: " + dc.getDocument().getData());
+                                    Chat chat = dc.getDocument().toObject(Chat.class);
+                                    ((ChatAdapter) chatAdapter).addChat(chat);
+                                    break;
+                            }
+                            break;
+                        }
+                        Log.d(TAG, "Current chats: " + chatList);
+                    }
+                });
     }
 }
