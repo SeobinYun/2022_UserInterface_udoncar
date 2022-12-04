@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.udoncar.model.Chat;
 import com.example.udoncar.model.History;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,10 +78,14 @@ public class HistoryFragment extends Fragment {
         }
     }
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private RecyclerView historyRecyclerView;
     private RecyclerView.Adapter historyAdapter;
     private RecyclerView.LayoutManager historyLayoutManager;
     private List<History> historyList;
+    private History history;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,8 +97,25 @@ public class HistoryFragment extends Fragment {
         //뷰
         historyRecyclerView = v.findViewById(R.id.history_rv);
         historyList = new ArrayList<>();
+
         //DB에서 불러오기
-        historyList.add(new History("title", "dest", "time"));
+        historyList.add(new History("68rmZ3wQoyVhoFXuc2GW", "M3CdoVBK5r5ihau75OHE", "qwer@naver.com"));
+
+        //오류안뜸.. 근데 아무것도 안뜸
+        db.collection("history")
+                //.whereEqualTo("userId", user.getEmail())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        for (QueryDocumentSnapshot doc : value) {
+//                            history.sethistId(doc.getData().get("hist_id").toString());
+//                            history.setpostId(doc.getData().get("post_id").toString());
+//                            history.setuserId(user.getEmail());
+                            history = doc.toObject(History.class);
+                            historyList.add(history);
+                        }
+                    }
+                });
 
 //        historyRecyclerView.setHasFixedSize(true);
         historyAdapter = new HistoryAdapter(historyList, getContext());

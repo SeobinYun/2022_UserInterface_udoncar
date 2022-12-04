@@ -60,6 +60,7 @@
         android:textSize="14sp" />
 
     <RadioGroup
+        android:id="@+id/dialogpos_rg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/dialogdest_spn1"
@@ -92,67 +93,17 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/dialogsex_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dialogposition_tv"
-        android:layout_alignLeft="@id/dialogdest_tv"
-        android:layout_marginTop="20dp"
-        android:text="성별"
-        android:textSize="14sp" />
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/dialogdest_spn1"
-        android:layout_alignTop="@id/dialogsex_tv"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/dialogsex_btn1"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text="남"
-            android:textSize="10sp" />
-
-        <RadioButton
-            android:id="@+id/dialogsex_btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginLeft="50dp"
-            android:text="여"
-            android:textSize="10sp" />
-
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/dialogage_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dialogsex_tv"
-        android:layout_alignLeft="@id/dialogsex_tv"
-        android:layout_marginTop="20dp"
-        android:text="나이대"
-        android:textSize="14sp" />
-
-    <Spinner
-        android:id="@+id/dialogage_spn"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_alignLeft="@id/dialogdest_spn1"
-        android:layout_alignTop="@id/dialogage_tv" />
-
-    <TextView
         android:id="@+id/dialogisrepeat_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="횟수"
-        android:textSize="14sp"
-        android:layout_below="@id/dialogage_tv"
+        android:layout_below="@id/dialogposition_tv"
         android:layout_alignLeft="@id/dialogsex_tv"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:text="횟수"
+        android:textSize="14sp" />
 
     <RadioGroup
+        android:id="@+id/dialogisre_rg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/dialogdest_spn1"
@@ -176,12 +127,111 @@
 
     </RadioGroup>
 
+    <TextView
+        android:id="@+id/dialogsex_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialogisrepeat_tv"
+        android:layout_alignLeft="@id/dialogdest_tv"
+        android:layout_marginTop="20dp"
+        android:text="성별"
+        android:textSize="14sp" />
+
+    <CheckBox
+        android:id="@+id/dialogsex_cb1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialogisrepeat_tv"
+        android:layout_alignLeft="@id/dialogdest_spn1"
+        android:layout_marginTop="13dp"
+        android:text="남자"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/dialogsex_cb2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/dialogsex_cb1"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/dialogsex_cb1"
+        android:text="여자"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/dialogage_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialogsex_tv"
+        android:layout_alignLeft="@id/dialogsex_tv"
+        android:layout_marginTop="20dp"
+        android:text="나이대"
+        android:textSize="14sp" />
+
+    <CheckBox
+        android:id="@+id/dialogage_cb1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialogsex_cb1"
+        android:layout_alignLeft="@id/dialogdest_spn1"
+        android:layout_marginTop="5dp"
+        android:text="10대"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/dialogage_cb2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/dialogage_cb1"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/dialogsex_cb1"
+        android:text="20대"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/dialogage_cb3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/dialogage_cb1"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/dialogsex_cb2"
+        android:text="30대"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/dialogage_cb4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialogage_cb1"
+        android:layout_alignLeft="@id/dialogage_cb1"
+        android:text="40대"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/dialogage_cb5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/dialogage_cb4"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/dialogsex_cb1"
+        android:text="50대"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/dialogage_cb6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/dialogage_cb4"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/dialogage_cb5"
+        android:text="60대"
+        android:textSize="10sp" />
+
     <View
         android:id="@+id/view"
         android:layout_width="330dp"
         android:layout_height="2dp"
-        android:layout_below="@id/dialogisrepeat_tv"
-        android:layout_marginTop="30dp"
+        android:layout_below="@id/dialogage_cb4"
+        android:layout_marginTop="20dp"
         android:background="#D5D5D5" />
 
     <RelativeLayout
@@ -201,8 +251,8 @@
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:layout_marginLeft="230dp"
-            android:text="SUBMIT"
-            android:background="#FFFFFF"/>
+            android:background="#FFFFFF"
+            android:text="SUBMIT" />
 
     </RelativeLayout>
 

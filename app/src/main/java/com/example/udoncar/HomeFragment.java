@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.udoncar.model.Chat;
 import com.example.udoncar.model.ChatUserList;
 import com.example.udoncar.model.Post;
 import com.example.udoncar.model.User;
@@ -30,13 +31,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.ktx.Firebase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -92,14 +98,21 @@ public class HomeFragment extends Fragment {
     private RecyclerView.LayoutManager mainLayoutManager;
     private List<Post> postList;
 
-    Button filterBtn;
-    MainDialogActiviy dial;
+    private Button filterBtn;
+    private MainDialogActiviy dial;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    User currentUser;
-    Post post;
-    TextView locaTv;
+    private User currentUser;
+    private Post post;
+    private TextView locaTv;
+
+    private Bundle bundle = null;
+
+    private List<String> region;
+    private Date date;
+    private  List<String> startList;
+    private  List<String> destList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,7 +122,7 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         filterBtn = v.findViewById(R.id.mainfilter_btn);
-        dial = new MainDialogActiviy((MainActivity)getActivity());
+        dial = new MainDialogActiviy((MainActivity) getActivity());
 
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +143,7 @@ public class HomeFragment extends Fragment {
 //                locaTv.setText(region.substring(13,16));
 
                 DocumentSnapshot document = task.getResult();
-                List<String> region = (List<String>) document.getData().get("region");
+                region = (List<String>) document.getData().get("region");
                 String region2 = region.toArray()[2].toString();
                 locaTv = v.findViewById(R.id.mainloca_tv);
                 locaTv.setText(region2);
@@ -140,64 +153,68 @@ public class HomeFragment extends Fragment {
         //메인화면 리사이클러뷰
         mainRecyclerView = v.findViewById(R.id.main_rv);
         postList = new ArrayList<>();
+
+        //dialog에서 불러오기
+        bundle = getArguments();
+        if (bundle != null) {
+            //postList = bundle.getParcelableArrayList("postListD");
+        }
         //DB에서 불러오기
-        postList.add(new Post(null, "title", null, "dest",
-                null, null, null, null, null, null,
-                new Date()));
+        else {
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+            date = null;
+            try {
+                date = formatter.parse("12/12 12:12");
+            } catch (ParseException e) {
+            }
+            startList = Arrays.asList("서울특별시", "강남구", "세곡동");
+            destList = Arrays.asList("서울특별시", "강남구", "개포동");
+            post = new Post("yFLRpxnj0xQWAxwf3Wyd", "ttttt", "ccccc", "ddddd",
+                    "택시", "일회성", "qwer@naver.com", "20대", "여자",
+                    new Date(), date, startList, destList);
+            postList.add(post);
 
-//        db.collection("post")
-//        .whereArrayContainsAny("startspn", currentUser.getRegions())
-//        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
-//                    Post post = doc.toObject(Post.class);
-//                    postList.add(post);
-////                    System.out.println("Data : "+doc);
-////                    System.out.println("Data2 : "+post.getTitle());
+
+            db.collection("post")
+                    //.whereEqualTo("startspn", region)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            for (QueryDocumentSnapshot doc : value) {
+                                //에러 안 나고 아무것도 안 뜸
+                                post = doc.toObject(Post.class);
+                                post.setTitle(doc.getData().get("title").toString());
+                                post.setDest(doc.getData().get("dest").toString());
+                                //post.setMeetAt((Date) doc.getData().get("meetAt"));
+                                postList.add(post);
+                            }
+                        }
+                    });
+
+//            DocumentReference docRef = db.collection("post").document();
+//            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                    DocumentSnapshot document = task.getResult();
+//                    for (int i = 0; i < 3; i++) {
+//                        post.setTitle(document.getData().get("title").toString());
+//                        post.setDest(document.getData().get("dest").toString());
+//                        //post.setMeetAt(document.getData().get("meetAt"));
+//
+//                        postList.add(post);
+//                    }
 //                }
-//                //mainAdapter.notifyDataSetChanged();
-//            }
-//        });
-
-//       DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
-//        currentuserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-////                //System.out.println("document : "+ documentSnapshot);
-////                //currentUser = documentSnapshot.toObject(User.class);
-////                currentUser.setRegion((List<String>) documentSnapshot.getData().get("region"));
-//////                List<String> regions = currentUser.getRegions();
-//////                System.out.println("지역 size : " + regions.size());
-//////                for(int i = 0; i<regions.size();i++){
-//////                    System.out.println("지역 : "+ regions.get(i));
-//////                }
-//
-//
-//                db.collection("post")
-//                        //.whereIn("startspn", currentUser.getRegions())
-//                        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                                for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
-//                                    Post post = doc.toObject(Post.class);
-//                                    postList.add(post);
-////                                    System.out.println("Data : "+doc);
-////                                    System.out.println("Data2 : "+post.getTitle());
-//                                }
-//                                //mainAdapter.notifyDataSetChanged();
-//                            }
-//                        });
-//            }
-//        });
-
+//            });
+//        }
+        }
 
 //        mainRecyclerView.setHasFixedSize(true);
-        mainAdapter = new MainAdapter(postList, getContext());
-        mainLayoutManager = new LinearLayoutManager(getActivity());
-        mainRecyclerView.setLayoutManager(mainLayoutManager);
-        mainRecyclerView.setAdapter(mainAdapter);
+            mainAdapter = new MainAdapter(postList, getContext());
+            mainLayoutManager = new LinearLayoutManager(getActivity());
+            mainRecyclerView.setLayoutManager(mainLayoutManager);
+            mainRecyclerView.setAdapter(mainAdapter);
 
-        return v;
+            return v;
+
     }
 }

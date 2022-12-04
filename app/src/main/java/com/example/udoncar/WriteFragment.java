@@ -15,12 +15,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.udoncar.model.Chat;
 import com.example.udoncar.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,6 +40,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -109,18 +113,27 @@ public class WriteFragment extends Fragment {
     private Spinner destspn2;
     private Spinner destspn3;
     private ArrayAdapter<CharSequence> destspnAdpater1, destspnAdapter2, destspnAdapter3;
+    private CheckBox sexCb1;
+    private CheckBox sexCb2;
+    private CheckBox ageCb1;
+    private CheckBox ageCb2;
+    private CheckBox ageCb3;
+    private CheckBox ageCb4;
+    private CheckBox ageCb5;
+    private CheckBox ageCb6;
 
     private FirebaseAuth mAuth;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView startTv;
-    List<String> startList;
-    String startS;
-    String start1;
-    String start2;
-    String start3;
-    Date meetDate;
-    String position;
+    private List<String> startList;
+    private String startS;
+    private String start1;
+    private String start2;
+    private String start3;
+    private Date meetDate;
+    private String position;
+    private String postIdS;
 
 
     @Override
@@ -140,7 +153,7 @@ public class WriteFragment extends Fragment {
         //destspn2.setPrompt("시/군/구 선택");
         destspn3 = (Spinner) view.findViewById(R.id.writedest_spn3);
         //destspn3.setPrompt("읍/면/동 선택");
-        optageSpn = (Spinner) view.findViewById(R.id.writeage_spn);
+
         positionRg = (RadioGroup) view.findViewById(R.id.writepos_rg);
         positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
         positionRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -149,8 +162,6 @@ public class WriteFragment extends Fragment {
                 positionRb = view.findViewById(positionRg.getCheckedRadioButtonId());
             }
         });
-
-
         isrepeatRg = (RadioGroup) view.findViewById(R.id.writeisre_rg);
         isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
         isrepeatRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -159,15 +170,24 @@ public class WriteFragment extends Fragment {
                 isrepeatRb = view.findViewById(isrepeatRg.getCheckedRadioButtonId());
             }
         });
+//        optsexRg = (RadioGroup) view.findViewById(R.id.writesex);
+//        optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
+//        optsexRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                optsexRb = view.findViewById(optsexRg.getCheckedRadioButtonId());
+//            }
+//        });
 
-        optsexRg = (RadioGroup) view.findViewById(R.id.writesex_rg);
-        optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
-        optsexRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                optsexRb = view.findViewById(optsexRg.getCheckedRadioButtonId());
-            }
-        });
+        sexCb1 = (CheckBox) view.findViewById(R.id.writesex1_Cb);
+        sexCb2 = (CheckBox) view.findViewById(R.id.writesex2_Cb);
+        ageCb1 = (CheckBox) view.findViewById(R.id.writeage1_Cb);
+        ageCb2 = (CheckBox) view.findViewById(R.id.writeage2_Cb);
+        ageCb3 = (CheckBox) view.findViewById(R.id.writeage3_Cb);
+        ageCb4 = (CheckBox) view.findViewById(R.id.writeage4_Cb);
+        ageCb5 = (CheckBox) view.findViewById(R.id.writeage5_Cb);
+        ageCb6 = (CheckBox) view.findViewById(R.id.writeage6_Cb);
+
 
         DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
         currentuserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -189,9 +209,8 @@ public class WriteFragment extends Fragment {
 
 //                positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
 //                isrepeatRb = (RadioButton) view.findViewById(isrepeatRg.getCheckedRadioButtonId());
-//                optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
 
-                System.out.println("포지션 : " + positionRg.getCheckedRadioButtonId());
+                //System.out.println("포지션 : " + positionRg.getCheckedRadioButtonId());
                 //position = positionRb.getText().toString();
 
                 start1 = startList.toArray()[0].toString();
@@ -205,27 +224,19 @@ public class WriteFragment extends Fragment {
                     e.printStackTrace();
                 }
 
+
                 //post만드는 함수
                 createpost(edittextToString(titleEt), edittextToString(destEt),
                         start1, start2, start3,
                         spinnerToString(destspn1) ,spinnerToString(destspn2), spinnerToString(destspn3),
-                        positionRb.getText().toString(),
-                        isrepeatRb.getText().toString(),
-                        null, spinnerToString((optageSpn)),
+                        positionRb.getText().toString(), isrepeatRb.getText().toString(),
+                        sexCb(sexCb1, sexCb2), ageCb(ageCb1, ageCb2, ageCb3, ageCb4, ageCb5, ageCb6),
                         meetDate, edittextToString(contentEt));
 
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
-
-        optageSpnAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.ages, R.layout.item_spinner);
-        optageSpnAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-        optageSpn.setAdapter(optageSpnAdapter);
-
-//        optageSpn = view.findViewById(R.id.writeage_spn);
-//        optageSpnAdapter = ArrayAdapter.createFromResource(getContext(), R.array.ages, android.R.layout.simple_spinner_dropdown_item);
-//        optageSpn.setAdapter(optageSpnAdapter);
 
         //startspn1Adapter.notifyDataSetChanged();
         destspnAdpater1 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region, R.layout.item_spinner);
@@ -292,6 +303,32 @@ public class WriteFragment extends Fragment {
             }
         });
 
+    }
+
+    public String sexCb(CheckBox cb1, CheckBox cb2){
+        if (cb1.isChecked())
+            return checkboxToString(cb1);
+        else if (cb2.isChecked())
+            return  checkboxToString(cb2);
+        else
+            return null;
+    }
+
+    public String ageCb(CheckBox cb1, CheckBox cb2, CheckBox cb3, CheckBox cb4, CheckBox cb5, CheckBox cb6){
+        if (cb1.isChecked())
+            return checkboxToString(cb1);
+        else if (cb2.isChecked())
+            return  checkboxToString(cb2);
+        else if (cb3.isChecked())
+            return  checkboxToString(cb3);
+        else if (cb4.isChecked())
+            return  checkboxToString(cb4);
+        else if (cb5.isChecked())
+            return  checkboxToString(cb5);
+        else if (cb6.isChecked())
+            return  checkboxToString(cb6);
+        else
+            return null;
     }
 
     public void choose3(Spinner spinner1, Spinner spinner2) {
@@ -423,21 +460,39 @@ public class WriteFragment extends Fragment {
         return selected.getText().toString();
     }
 
+    private String checkboxToString(CheckBox selected) {
+        return selected.getText().toString();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String randomString(){
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
+    }
 
 
-
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void createpost(String title, String dest,
                             String startspn1, String startspn2, String startspn3,
                             String destspn1, String destspn2, String destspn3,
                             String position, String isrepeat, String optsex, String optage,
                             Date meetAt, String content) {
 
+        //postIdS = Integer.toString((int) Math.random()*100000000);
+
         List<String> startList = Arrays.asList(startspn1,startspn2, startspn3);
         List<String> destList = Arrays.asList(destspn1,destspn2, destspn3);
         Map<String, Object> docData = new HashMap<>();
-        //docData.put("post_id", postIdS );
-        docData.put("user_id", user.getEmail() );
+        docData.put("postId", randomString() );
+        docData.put("userId", user.getEmail() );
         docData.put("startspn", startList);
         docData.put("destspn", destList);
         docData.put("title", title);
@@ -451,6 +506,8 @@ public class WriteFragment extends Fragment {
         docData.put("meetAt", meetAt);
 
         db.collection("post").document().set(docData);
+
+        Toast.makeText(getContext(), "작성 완료!", Toast.LENGTH_SHORT).show();
 
     }
 
