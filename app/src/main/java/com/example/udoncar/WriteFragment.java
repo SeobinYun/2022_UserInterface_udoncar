@@ -162,7 +162,7 @@ public class WriteFragment extends Fragment {
 
         // build.gradle - minSDK 21-> 26
         datePicker = (DatePicker) view.findViewById(R.id.date);
-        datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+        datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                 Log.d("디버깅", "날짜: " + i + "년 " + (i1 + 1) + "월 " + i2 + "일");
@@ -178,8 +178,27 @@ public class WriteFragment extends Fragment {
                 catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         });
+//        datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+//            @Override
+//            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+//                Log.d("디버깅", "날짜: " + i + "년 " + (i1 + 1) + "월 " + i2 + "일");
+//                selectedDate = i + "/" + (i1 + 1) + "/" + i2;
+//                Log.d("디버깅", "selectedDate: " + selectedDate);
+//
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//                try {
+//                    Date date = dateFormat.parse(selectedDate); // 기존 string을 date 클래스로 변환
+//                    selectedDate = dateFormat.format(date); // 변환한 값의 format 변경
+//                    Log.d("디버깅", "포맷 후 selectedDate: " + selectedDate);
+//                }
+//                catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
 
         timePicker = (TimePicker) view.findViewById(R.id.time);
