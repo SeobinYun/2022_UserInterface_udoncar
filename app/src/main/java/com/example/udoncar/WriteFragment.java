@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -40,7 +41,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -144,6 +147,18 @@ public class WriteFragment extends Fragment {
     private Date meetDate;
     private String selectedDate;
     private String selectedTime;
+
+
+//    private List<Arrays> optSex;
+//    private List<Arrays> optAge;
+
+
+    private List<Boolean> optSex;
+    private List<Boolean> optAge;
+
+//    private boolean[] optSex;
+//    private boolean[] optAge;
+
 
     private String position;
     private String postIdS;
@@ -251,14 +266,91 @@ public class WriteFragment extends Fragment {
             }
         });
 
+
+        optSex = new ArrayList<Boolean>(Arrays.asList(new Boolean[2]));
+        Collections.fill(optSex,Boolean.FALSE);
+        Log.w("디버깅", "optSex: " + optSex.toArray().toString());
+
+
         sexCb1 = (CheckBox) view.findViewById(R.id.writesex1_Cb);
+        sexCb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                //optSex.toArray()[0] = true;
+                optSex.set(0, true);
+
+                Log.w("디버그", "sexCb1 checked");
+            }
+        });
         sexCb2 = (CheckBox) view.findViewById(R.id.writesex2_Cb);
+        sexCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optSex.toArray()[1] = true;
+                optSex.set(1, true);
+                Log.w("디버그", "sexCb2 checked");
+            }
+        });
+
+
+
+        optAge = new ArrayList<Boolean>(Arrays.asList(new Boolean[6]));
+        Collections.fill(optAge,Boolean.FALSE);
+        Log.w("디버깅", "optAge: " + optAge.toArray().toString());
         ageCb1 = (CheckBox) view.findViewById(R.id.writeage1_Cb);
+        ageCb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.toArray()[0] = true;
+                optAge.set(0, true);
+                Log.w("디버그", "ageCb1 checked");
+            }
+        });
         ageCb2 = (CheckBox) view.findViewById(R.id.writeage2_Cb);
+        ageCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.toArray()[1] = true;
+                optAge.set(1, true);
+                Log.w("디버그", "ageCb2 checked");
+            }
+        });
         ageCb3 = (CheckBox) view.findViewById(R.id.writeage3_Cb);
+        ageCb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.toArray()[2] = true;
+                optAge.set(2, true);
+                Log.w("디버그", "ageCb3 checked");
+            }
+        });
         ageCb4 = (CheckBox) view.findViewById(R.id.writeage4_Cb);
+        ageCb4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.toArray()[3] = true;
+                optAge.set(3, true);
+                Log.w("디버그", "ageCb4 checked");
+            }
+        });
         ageCb5 = (CheckBox) view.findViewById(R.id.writeage5_Cb);
+        ageCb5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.toArray()[4] = true;
+                optAge.set(4, true);
+                Log.w("디버그", "ageCb5 checked");
+            }
+        });
         ageCb6 = (CheckBox) view.findViewById(R.id.writeage6_Cb);
+        ageCb6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.toArray()[5] = true;
+                optAge.set(5, true);
+                Log.w("디버그", "ageCb6 checked");
+            }
+        });
 
 
         DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
@@ -302,8 +394,10 @@ public class WriteFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                //post만드는 함수
+                Log.w("디버깅", optAge.toArray().toString());
 
+
+                //post만드는 함수
                 if(edittextToString(titleEt).equals("") || edittextToString(destEt).equals("")) {
                     Toast.makeText((MainActivity)getActivity(), "필수 정보를 입력해주세요. ", Toast.LENGTH_LONG).show();
                 }
@@ -312,7 +406,7 @@ public class WriteFragment extends Fragment {
                             start1, start2, start3,
                             spinnerToString(destspn1), spinnerToString(destspn2), spinnerToString(destspn3),
                             positionRb.getText().toString(), isrepeatRb.getText().toString(),
-                            sexCb(sexCb1, sexCb2), ageCb(ageCb1, ageCb2, ageCb3, ageCb4, ageCb5, ageCb6),
+                            optSex, optAge,
                             meetDate, edittextToString(contentEt));
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     startActivity(intent);
@@ -512,13 +606,14 @@ public class WriteFragment extends Fragment {
     private void createpost(String title, String dest,
                             String startspn1, String startspn2, String startspn3,
                             String destspn1, String destspn2, String destspn3,
-                            String position, String isrepeat, String optsex, String optage,
+                            String position, String isrepeat, List<Boolean> optsex, List<Boolean> optage,
                             Date meetAt, String content) {
 
         //postIdS = Integer.toString((int) Math.random()*100000000);
 
         List<String> startList = Arrays.asList(startspn1, startspn2, startspn3);
         List<String> destList = Arrays.asList(destspn1, destspn2, destspn3);
+
         Map<String, Object> docData = new HashMap<>();
         docData.put("postId", randomString());
         docData.put("userId", user.getEmail());
