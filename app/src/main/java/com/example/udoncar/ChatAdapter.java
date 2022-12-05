@@ -24,7 +24,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public ChatAdapter(List<Chat> chatList, String myName){
         this.chatList = chatList;
         this.myName = myName;
-        System.out.println("생성시 유저의 이름"+myName);
     }
 
     @NonNull
@@ -85,7 +84,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         String chatName = chatList.get(position).getName();
-        System.out.println("현재 유저의 이름"+myName);
         if (chatName.equals(myName)){
             return ViewCode.TYPE_SENT_MESSAGE;
         } else {
