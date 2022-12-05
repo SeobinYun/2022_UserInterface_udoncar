@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="70dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,401 +18,467 @@
             android:gravity="center"
             android:text="WRITE"
             android:textColor="#FF5B59"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/write_btn"
             android:layout_width="70dp"
             android:layout_height="48dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="11dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/btn_pink"
             android:text="등록"
             android:textColor="#FFF" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:background="#E76B6B" />
+
     </RelativeLayout>
 
-    <View
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#E76B6B" />
-
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
+        android:layout_weight="1">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@xml/xml_border"
-            android:gravity="center_vertical"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="제목     :"
-                android:textSize="14sp"
-                 />
-
-            <EditText
-                android:id="@+id/writetitle_et"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:fontFamily="@font/nanum_regular"
-                android:textSize="12sp"
-                android:paddingLeft="5dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@xml/xml_border"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="출발지 :"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/writestart_tv"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
-                android:text="출발지"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/nanum_regular"
-                android:textSize="12sp"
-                android:paddingLeft="5dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@xml/xml_border"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="목적지 :"
-                android:textSize="14sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="520dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@xml/xml_border"
+                android:gravity="center_vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="제목     :"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/writetitle_et"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/nanum_regular"
+                    android:inputType="text"
+                    android:paddingLeft="5dp"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@xml/xml_border"
+                android:gravity="center_vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="출발지 :"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/writestart_tv"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:fontFamily="@font/nanum_regular"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="출발지"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:background="@xml/xml_border"
+                android:gravity="center_vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="목적지 :"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/writedest_spn1"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:spinnerMode="dialog" />
+
+                    <Spinner
+                        android:id="@+id/writedest_spn2"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:spinnerMode="dialog" />
+
+                    <Spinner
+                        android:id="@+id/writedest_spn3"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:spinnerMode="dialog" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@xml/xml_border"
+                android:gravity="center_vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="목적지 :"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/writedest_et"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/nanum_regular"
+                    android:inputType="text"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@xml/xml_border"
+                android:gravity="center_vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="날짜 :"
+                    android:textSize="14sp" />
+
+                <!--            <EditText-->
+                <!--                android:id="@+id/writedate_et"-->
+                <!--                android:layout_width="200dp"-->
+                <!--                android:layout_height="48dp"-->
+                <!--                android:fontFamily="@font/nanum_regular"-->
+                <!--                android:digits="0123456789/: "-->
+                <!--                android:hint="00/00 00:00"-->
+                <!--                android:textSize="12sp"-->
+                <!--                android:inputType="datetime"/>-->
+
+                <DatePicker
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@xml/xml_border"
+                android:gravity="center_vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="시간 :"
+                    android:textSize="14sp" />
+
+                <TimePicker
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:timePickerMode="spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@xml/xml_border"
+                android:gravity="center_vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="종류 :"
+                    android:textSize="14sp" />
+
+                <RadioGroup
+                    android:id="@+id/writepos_rg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/writepos_btn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#FF5B59"
+                        android:checked="true"
+                        android:text="운전자"
+                        android:textSize="13sp" />
+
+                    <RadioButton
+                        android:id="@+id/writepos_btn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:buttonTint="#FF5B59"
+                        android:checked="false"
+                        android:text="탑승자"
+                        android:textSize="13sp" />
+
+                    <RadioButton
+                        android:id="@+id/writepos_btn3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:buttonTint="#FF5B59"
+                        android:checked="false"
+                        android:text="택시"
+                        android:textSize="13sp" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:background="@xml/xml_border"
+                android:gravity="center_vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="횟수 :"
+                    android:textSize="14sp" />
+
+                <RadioGroup
+                    android:id="@+id/writeisre_rg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/writeisre_btn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#FF5B59"
+                        android:checked="true"
+                        android:text="일회성"
+                        android:textSize="13sp" />
+
+                    <RadioButton
+                        android:id="@+id/writeisre_btn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:buttonTint="#FF5B59"
+                        android:checked="false"
+                        android:text="다회성"
+                        android:textSize="13sp" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="#f0f0f0"
                 android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/writedest_spn1"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="200dp"
-                    android:layout_height="30dp"
-                    android:spinnerMode="dialog"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text=" 조건(선택)"
+                    android:textSize="16sp" />
 
-                <Spinner
-                    android:id="@+id/writedest_spn2"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="200dp"
-                    android:layout_height="30dp"
-                    android:spinnerMode="dialog"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/writedest_spn3"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="200dp"
-                    android:layout_height="30dp"
-                    android:spinnerMode="dialog"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:text="성별" />
+
+                    <CheckBox
+                        android:id="@+id/writesex1_Cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:buttonTint="#FF5B59"
+                        android:fontFamily="@font/nanum_regular"
+                        android:text="남자"
+                        android:textSize="13sp" />
+
+                    <CheckBox
+                        android:id="@+id/writesex2_Cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="23dp"
+                        android:buttonTint="#FF5B59"
+                        android:fontFamily="@font/nanum_regular"
+                        android:text="여자"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="나이대" />
+
+                    <CheckBox
+                        android:id="@+id/writeage1_Cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:layout_toRightOf="@+id/age"
+                        android:buttonTint="#FF5B59"
+                        android:fontFamily="@font/nanum_regular"
+                        android:text="10대"
+                        android:textSize="13sp" />
+
+                    <CheckBox
+                        android:id="@+id/writeage2_Cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/writeage1_Cb"
+                        android:buttonTint="#FF5B59"
+                        android:fontFamily="@font/nanum_regular"
+                        android:text="20대"
+                        android:textSize="13sp" />
+
+                    <CheckBox
+                        android:id="@+id/writeage3_Cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/writeage2_Cb"
+                        android:buttonTint="#FF5B59"
+                        android:fontFamily="@font/nanum_regular"
+                        android:text="30대"
+                        android:textSize="13sp" />
+
+                    <CheckBox
+                        android:id="@+id/writeage4_Cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/writeage1_Cb"
+                        android:layout_alignLeft="@+id/writeage1_Cb"
+                        android:buttonTint="#FF5B59"
+                        android:fontFamily="@font/nanum_regular"
+                        android:text="40대"
+                        android:textSize="13sp" />
+
+                    <CheckBox
+                        android:id="@+id/writeage5_Cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/writeage1_Cb"
+                        android:layout_alignLeft="@+id/writeage2_Cb"
+                        android:buttonTint="#FF5B59"
+                        android:fontFamily="@font/nanum_regular"
+                        android:text="50대"
+                        android:textSize="13sp" />
+
+                    <CheckBox
+                        android:id="@+id/writeage6_Cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/writeage1_Cb"
+                        android:layout_alignLeft="@+id/writeage3_Cb"
+                        android:buttonTint="#FF5B59"
+                        android:fontFamily="@font/nanum_regular"
+                        android:text="60대 이상"
+                        android:textSize="13sp" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@xml/xml_border"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="목적지 :"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/writedest_et"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
-                android:fontFamily="@font/nanum_regular"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@xml/xml_border"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="날짜 :"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/writedate_et"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
-                android:fontFamily="@font/nanum_regular"
-                android:digits="0123456789/: "
-                android:hint="00/00 00:00"
-                android:textSize="12sp" />
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@xml/xml_border"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="종류 :"
-                android:textSize="14sp" />
-
-            <RadioGroup
-                android:id="@+id/writepos_rg"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/writepos_btn1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="운전자"
-                    android:textSize="14sp"
-                    android:checked="true"/>
-
-                <RadioButton
-                    android:id="@+id/writepos_btn2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="탑승자"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="20dp"
-                    android:checked="false"/>
-
-                <RadioButton
-                    android:id="@+id/writepos_btn3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="택시"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="20dp"
-                    android:checked="false"/>
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@xml/xml_border"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="횟수 :"
-                android:textSize="14sp" />
-
-            <RadioGroup
-                android:id="@+id/writeisre_rg"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/writeisre_btn1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="일회성"
-                    android:textSize="14sp"
-                    android:checked="true"/>
-
-                <RadioButton
-                    android:id="@+id/writeisre_btn2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="다회성"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="20dp"
-                    android:checked="false"/>
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#f0f0f0"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="조건(선택)"
-                android:textSize="14sp"
-                android:layout_margin="10dp"/>
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:background="@xml/xml_border"
+                android:padding="5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:text="성별   " />
-
-                <CheckBox
-                    android:id="@+id/writesex1_Cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="남자"
-                    android:layout_marginLeft="20dp"/>
-
-                <CheckBox
-                    android:id="@+id/writesex2_Cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="여자"
-                    android:layout_marginLeft="32dp"/>
+                <EditText
+                    android:id="@+id/writecont_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/nanum_regular"
+                    android:hint="내용을 입력하세요."
+                    android:inputType="none"
+                    android:textSize="12sp" />
 
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:id="@+id/age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="나이대" />
-
-                <CheckBox
-                    android:id="@+id/writeage1_Cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
-                    android:layout_toRightOf="@+id/age"
-                    android:text="10대" />
-
-                <CheckBox
-                    android:id="@+id/writeage2_Cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="28dp"
-                    android:layout_toRightOf="@+id/writeage1_Cb"
-                    android:text="20대" />
-
-                <CheckBox
-                    android:id="@+id/writeage3_Cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_toRightOf="@+id/writeage2_Cb"
-                    android:text="30대" />
-
-                <CheckBox
-                    android:id="@+id/writeage4_Cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/writeage1_Cb"
-                    android:layout_below="@+id/writeage1_Cb"
-                    android:text="40대" />
-
-                <CheckBox
-                    android:id="@+id/writeage5_Cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/writeage2_Cb"
-                    android:layout_below="@+id/writeage1_Cb"
-                    android:text="50대" />
-
-                <CheckBox
-                    android:id="@+id/writeage6_Cb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/writeage3_Cb"
-                    android:layout_below="@+id/writeage1_Cb"
-                    android:text="60대 이상" />
-
-            </RelativeLayout>
-
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@xml/xml_border"
-            android:layout_marginTop="5dp"
-            android:padding="5dp" >
-
-            <EditText
-                android:id="@+id/writecont_et"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:hint="내용을 입력하세요."
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
+    </ScrollView>
 </LinearLayout>

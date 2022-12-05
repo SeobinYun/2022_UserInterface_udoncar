@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -99,7 +100,6 @@ public class ChatActivity extends AppCompatActivity {
 
         //user의 이메일 정보로 유저 정보 db에서 가져옴
         user = FirebaseAuth.getInstance().getCurrentUser();
-
         DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
         currentuserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
