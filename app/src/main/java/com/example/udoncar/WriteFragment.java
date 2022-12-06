@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.util.ArraySet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -152,13 +153,8 @@ public class WriteFragment extends Fragment {
 //    private List<Arrays> optSex;
 //    private List<Arrays> optAge;
 
-
-    private List<Boolean> optSex;
-    private List<Boolean> optAge;
-
-//    private boolean[] optSex;
-//    private boolean[] optAge;
-
+    private List<String> optSex;
+    private List<String> optAge;
 
     private String position;
     private String postIdS;
@@ -196,24 +192,6 @@ public class WriteFragment extends Fragment {
 
             }
         });
-//        datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-//            @Override
-//            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-//                Log.d("디버깅", "날짜: " + i + "년 " + (i1 + 1) + "월 " + i2 + "일");
-//                selectedDate = i + "/" + (i1 + 1) + "/" + i2;
-//                Log.d("디버깅", "selectedDate: " + selectedDate);
-//
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-//                try {
-//                    Date date = dateFormat.parse(selectedDate); // 기존 string을 date 클래스로 변환
-//                    selectedDate = dateFormat.format(date); // 변환한 값의 format 변경
-//                    Log.d("디버깅", "포맷 후 selectedDate: " + selectedDate);
-//                }
-//                catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
 
 
         timePicker = (TimePicker) view.findViewById(R.id.time);
@@ -267,42 +245,34 @@ public class WriteFragment extends Fragment {
         });
 
 
-        optSex = new ArrayList<Boolean>(Arrays.asList(new Boolean[2]));
-        Collections.fill(optSex,Boolean.FALSE);
-        Log.w("디버깅", "optSex: " + optSex.toArray().toString());
-
+        optSex = new ArrayList<String>(Arrays.asList());
 
         sexCb1 = (CheckBox) view.findViewById(R.id.writesex1_Cb);
         sexCb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                //optSex.toArray()[0] = true;
-                optSex.set(0, true);
-
+//                optSex.add("남자");
                 Log.w("디버그", "sexCb1 checked");
             }
         });
+//
         sexCb2 = (CheckBox) view.findViewById(R.id.writesex2_Cb);
         sexCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                optSex.toArray()[1] = true;
-                optSex.set(1, true);
+//                optSex.add("여자");
                 Log.w("디버그", "sexCb2 checked");
             }
         });
-
-
-
-        optAge = new ArrayList<Boolean>(Arrays.asList(new Boolean[6]));
-        Collections.fill(optAge,Boolean.FALSE);
-        Log.w("디버깅", "optAge: " + optAge.toArray().toString());
+//
+//
+//
+        optAge = new ArrayList<String>(Arrays.asList());
         ageCb1 = (CheckBox) view.findViewById(R.id.writeage1_Cb);
         ageCb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                optAge.toArray()[0] = true;
-                optAge.set(0, true);
+//                optAge.add("10대");
                 Log.w("디버그", "ageCb1 checked");
             }
         });
@@ -310,8 +280,7 @@ public class WriteFragment extends Fragment {
         ageCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                optAge.toArray()[1] = true;
-                optAge.set(1, true);
+   //             optAge.add("20대");
                 Log.w("디버그", "ageCb2 checked");
             }
         });
@@ -319,8 +288,7 @@ public class WriteFragment extends Fragment {
         ageCb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                optAge.toArray()[2] = true;
-                optAge.set(2, true);
+//                optAge.add("30대");
                 Log.w("디버그", "ageCb3 checked");
             }
         });
@@ -328,8 +296,7 @@ public class WriteFragment extends Fragment {
         ageCb4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                optAge.toArray()[3] = true;
-                optAge.set(3, true);
+//                optAge.add("40대");
                 Log.w("디버그", "ageCb4 checked");
             }
         });
@@ -337,8 +304,7 @@ public class WriteFragment extends Fragment {
         ageCb5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                optAge.toArray()[4] = true;
-                optAge.set(4, true);
+//                optAge.add("50대");
                 Log.w("디버그", "ageCb5 checked");
             }
         });
@@ -346,8 +312,7 @@ public class WriteFragment extends Fragment {
         ageCb6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                optAge.toArray()[5] = true;
-                optAge.set(5, true);
+//                optAge.add("60대");
                 Log.w("디버그", "ageCb6 checked");
             }
         });
@@ -394,7 +359,34 @@ public class WriteFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                Log.w("디버깅", optAge.toArray().toString());
+                
+                if(sexCb1.isChecked()){
+                    optSex.add("남자");
+                }
+                if(sexCb2.isChecked()){
+                    optSex.add("여자");
+                }
+
+                
+                if(ageCb1.isChecked()){
+                    optAge.add("10대");
+                }
+                if(ageCb2.isChecked()){
+                    optAge.add("20대");
+                }
+                if(ageCb3.isChecked()){
+                    optAge.add("30대");
+                }
+                if(ageCb4.isChecked()){
+                    optAge.add("40대");
+                }
+                if(ageCb5.isChecked()){
+                    optAge.add("50대");
+                }
+                if(ageCb6.isChecked()){
+                    optAge.add("60대");
+                }
+
 
 
                 //post만드는 함수
@@ -408,8 +400,7 @@ public class WriteFragment extends Fragment {
                             positionRb.getText().toString(), isrepeatRb.getText().toString(),
                             optSex, optAge,
                             meetDate, edittextToString(contentEt));
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
+
                 }
             }
         });
@@ -606,31 +597,49 @@ public class WriteFragment extends Fragment {
     private void createpost(String title, String dest,
                             String startspn1, String startspn2, String startspn3,
                             String destspn1, String destspn2, String destspn3,
-                            String position, String isrepeat, List<Boolean> optsex, List<Boolean> optage,
+                            String position, String isrepeat, List<String> optsex, List<String> optage,
                             Date meetAt, String content) {
 
         //postIdS = Integer.toString((int) Math.random()*100000000);
+        if(meetAt!=null) {
+            List<String> startList = Arrays.asList(startspn1, startspn2, startspn3);
+            List<String> destList = Arrays.asList(destspn1, destspn2, destspn3);
 
-        List<String> startList = Arrays.asList(startspn1, startspn2, startspn3);
-        List<String> destList = Arrays.asList(destspn1, destspn2, destspn3);
+            Map<String, Object> docData = new HashMap<>();
+            String postId = randomString();
 
-        Map<String, Object> docData = new HashMap<>();
-        docData.put("postId", randomString());
-        docData.put("userId", user.getEmail());
-        docData.put("startspn", startList);
-        docData.put("destspn", destList);
-        docData.put("title", title);
-        docData.put("dest", dest);
-        docData.put("content", content);
-        docData.put("position", position);
-        docData.put("isrepeat", isrepeat);
-        docData.put("optsex", optsex);
-        docData.put("optage", optage);
-        docData.put("creatAt", new Date());
-        docData.put("meetAt", meetAt);
+            docData.put("postId", postId);
+            docData.put("userId", user.getEmail());
+            docData.put("startspn", startList);
+            docData.put("destspn", destList);
+            docData.put("title", title);
+            docData.put("dest", dest);
+            docData.put("content", content);
+            docData.put("position", position);
+            docData.put("isrepeat", isrepeat);
+            docData.put("optsex", optsex);
+            docData.put("optage", optage);
+            docData.put("creatAt", new Date());
+            docData.put("meetAt", meetAt);
+            db.collection("post").document().set(docData);
 
-        db.collection("post").document().set(docData);
-        Toast.makeText((MainActivity)getActivity(), "작성 완료!", Toast.LENGTH_LONG).show();
-    }
+            List<String> usersId = Arrays.asList(user.getEmail());
+            Map<String, Object> histData = new HashMap<>();
+            String histId = randomString();
+            histData.put("histId", histId);
+            histData.put("postId", postId);
+            histData.put("usersId", usersId);
+            db.collection("history").document(histId).set(histData);
+
+            Toast.makeText((MainActivity) getActivity(), "작성 완료!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+
+        }
+        else{
+            Toast.makeText((MainActivity) getActivity(), "날짜 및 시간을 선택해주세요.", Toast.LENGTH_LONG).show();
+            return ;
+        }
+        }
 
 }
