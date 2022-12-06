@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="닉네임"
-                android:textSize="13sp"/>
+                android:textSize="14sp"/>
 
             <EditText
                 android:id="@+id/name_edittext"
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="지역"
-                android:textSize="13sp"/>
+                android:textSize="14sp"/>
 
             <LinearLayout
                 android:layout_width="250dp"
@@ -181,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="성별"
-                android:textSize="13sp"/>
+                android:textSize="14sp"/>
 
             <RadioGroup
                 android:id="@+id/sex_radio"
@@ -227,7 +227,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="나이"
-                android:textSize="13sp"/>
+                android:textSize="14sp"/>
 
             <Spinner
                 android:id="@+id/ages_spinner"

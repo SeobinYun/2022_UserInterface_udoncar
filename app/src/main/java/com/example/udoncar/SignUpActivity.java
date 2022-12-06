@@ -166,7 +166,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // ID, PW, PW확인, 닉네임이 공백인 경우
-                if (idEdittext.getText().toString().equals("") || pwEdittext.getText().toString().equals("") || doublepwEdittext.getText().toString().equals("") || nameEdittext.getText().toString().equals("")) {
+                if (edittextToString(idEdittext).equals("") || edittextToString(pwEdittext).equals("") || edittextToString(doublepwEdittext).equals("") || edittextToString(nameEdittext).equals("")) {
                     Toast.makeText(SignUpActivity.this, "필수 정보를 입력해주세요.", Toast.LENGTH_LONG).show();
                 } else {
                     // ID가 이메일 형식이 아닌 경우
@@ -174,11 +174,11 @@ public class SignUpActivity extends AppCompatActivity {
                         Toast.makeText(SignUpActivity.this, "ID를 이메일 형식으로 지정해주세요.", Toast.LENGTH_LONG).show();
                     }
                     // PW 길이가 8 미만일 경우
-                    else if (pwEdittext.getText().toString().length() < 8) {
+                    else if (edittextToString(pwEdittext).length() < 8) {
                         Toast.makeText(SignUpActivity.this, "PW는 최소 8자리로 설정해주세요.", Toast.LENGTH_LONG).show();
                     }
                     // PW, PW확인이 일치하지 않을 경우
-                    else if (!pwEdittext.getText().toString().equals(doublepwEdittext.getText().toString())) {
+                    else if (!edittextToString(pwEdittext).equals(edittextToString(doublepwEdittext))) {
                         Toast.makeText(SignUpActivity.this, "PW와 PW확인이 일치하지 않습니다.", Toast.LENGTH_LONG).show();
                     }
                     // 다 입력했을 경우

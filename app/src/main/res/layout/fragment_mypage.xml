@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="성별"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
 
             <RadioGroup
                 android:id="@+id/sex_radio"
@@ -150,7 +150,8 @@
                     android:layout_height="48dp"
                     android:enabled="false"
                     android:text="남자"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:buttonTint="#FF5B59"/>
 
                 <RadioButton
                     android:id="@+id/woman_btn"
@@ -159,7 +160,9 @@
                     android:layout_marginLeft="50dp"
                     android:enabled="false"
                     android:text="여자"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:buttonTint="#FF5B59"
+                    />
             </RadioGroup>
 
         </LinearLayout>
@@ -177,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="나이"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/ages_spinner"
@@ -185,7 +188,7 @@
                 android:layout_height="48dp"
                 android:enabled="false"
                 android:fontFamily="@font/nanum_regular"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 android:spinnerMode="dialog"/>
         </LinearLayout>
 
