@@ -2,7 +2,6 @@ package com.example.udoncar;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,9 +17,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.udoncar.model.Post;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -46,7 +45,7 @@ public class MainDialogActiviy extends Dialog {
     private ArrayAdapter<CharSequence> destspnAdpater1, destspnAdapter2, destspnAdapter3;
 
     private Post post;
-    private List<Post> postListD;
+    private ArrayList<Post> postListD;
     private Toast toast;
 
 
@@ -70,23 +69,8 @@ public class MainDialogActiviy extends Dialog {
         ageCb6 = findViewById(R.id.dialogage_cb6);
         cancelBtn = findViewById(R.id.dialogcancel_btn);
         submitBtn = findViewById(R.id.dialogsubmit_btn);
-
         posRg = (RadioGroup) findViewById(R.id.dialogpos_rg);
-        posRb = (RadioButton) findViewById(posRg.getCheckedRadioButtonId());
-        posRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                posRb = findViewById(posRg.getCheckedRadioButtonId());
-            }
-        });
         isreRg = (RadioGroup) findViewById(R.id.dialogisre_rg);
-        isreRb = (RadioButton) findViewById(isreRg.getCheckedRadioButtonId());
-        isreRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                isreRb = findViewById(isreRg.getCheckedRadioButtonId());
-            }
-        });
 
         destspnAdpater1 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region, R.layout.item_spinner);
         destspnAdpater1.setDropDownViewResource(R.layout.item_spinner_dropdown);
@@ -165,18 +149,35 @@ public class MainDialogActiviy extends Dialog {
             @Override
             public void onClick(View view) {
 
-//                posRb = (RadioButton) view.findViewById(posRg.getCheckedRadioButtonId());
-//                isreRb = (RadioButton) view.findViewById(isreRg.getCheckedRadioButtonId());
+                posRb = (RadioButton) findViewById(posRg.getCheckedRadioButtonId());
+                posRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        posRb = findViewById(posRg.getCheckedRadioButtonId());
+                    }
+                });
+                isreRb = (RadioButton) findViewById(isreRg.getCheckedRadioButtonId());
+                isreRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        isreRb = findViewById(isreRg.getCheckedRadioButtonId());
+                    }
+                });
+
+                //isreRb = (RadioButton) view.findViewById(isreRg.getCheckedRadioButtonId());
+                //Log.w("디버그", "posRb: " + posRb.getText().toString());
 
                 destList = Arrays.asList(spinnerToString(dest1Spn), spinnerToString(dest2Spn), spinnerToString(dest3Spn));
 
                 //필터링
                 postListD = new ArrayList<>();
+
+                //Query query = db.collection("post").
                 db.collection("post")
-                        .whereEqualTo("destspn", destList)
-                        .whereEqualTo("position", posRb.getText().toString())
-                        .whereEqualTo("optsex", sexCb(sexCb1, sexCb2))
-                        .whereEqualTo("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6))
+                        .whereArrayContains("destspn", spinnerToString(dest3Spn))
+                        //.whereEqualTo("position", posRb.getText().toString())
+                        //.whereEqualTo("optsex", sexCb(sexCb1, sexCb2))
+                        //.whereEqualTo("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6))
                         .whereEqualTo("isrepeat", isreRb.getText().toString())
                         .addSnapshotListener(new EventListener<QuerySnapshot>() {
                             @Override
@@ -184,15 +185,17 @@ public class MainDialogActiviy extends Dialog {
                                 for (QueryDocumentSnapshot doc : value) {
                                     post = doc.toObject(Post.class);
                                     postListD.add(post);
+
+                                    HomeFragment homeFragment = new HomeFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("postListD", (ArrayList<Post>)postListD);
+                                    homeFragment.setArguments(bundle);
+
                                 }
                             }
                         });
 
-                //homefragment에 넘기기
-//                HomeFragment homeFragment = new HomeFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelableArrayList("postListD", (ArrayList<? extends Parcelable>) (ArrayList)postListD);
-//                homeFragment.setArguments(bundle);
+
 
                 toast.makeText(getContext(), "필터링 성공!", Toast.LENGTH_SHORT).show();
 
@@ -214,15 +217,26 @@ public class MainDialogActiviy extends Dialog {
         return selected.getText().toString();
     }
 
-
-    public String sexCb(CheckBox cb1, CheckBox cb2){
+    public String sexCb(CheckBox cb1, CheckBox cb2) {
         if (cb1.isChecked())
             return checkboxToString(cb1);
         else if (cb2.isChecked())
-            return  checkboxToString(cb2);
+            return checkboxToString(cb2);
         else
             return null;
     }
+
+/*
+    public ArrayList<String> sexCb(CheckBox cb1, CheckBox cb2) {
+        ArrayList<String> optsex = new ArrayList<>();
+        if (cb1.isChecked())
+            optsex.add("남자");
+        else if (cb2.isChecked())
+            optsex.add("여자");
+        return optsex;
+    }
+
+ */
 
     public String ageCb(CheckBox cb1, CheckBox cb2, CheckBox cb3, CheckBox cb4, CheckBox cb5, CheckBox cb6){
         if (cb1.isChecked())

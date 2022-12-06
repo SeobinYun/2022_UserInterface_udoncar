@@ -99,11 +99,10 @@ public class HistoryFragment extends Fragment {
         historyList = new ArrayList<>();
 
         //DB에서 불러오기
-        historyList.add(new History("68rmZ3wQoyVhoFXuc2GW", "M3CdoVBK5r5ihau75OHE", "qwer@naver.com"));
+        //historyList.add(new History("68rmZ3wQoyVhoFXuc2GW", "M3CdoVBK5r5ihau75OHE", "qwer@naver.com"));
 
-        //오류안뜸.. 근데 아무것도 안뜸
         db.collection("history")
-                //.whereEqualTo("userId", user.getEmail())
+                .whereArrayContains("usersId", user.getEmail())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -113,15 +112,15 @@ public class HistoryFragment extends Fragment {
 //                            history.setuserId(user.getEmail());
                             history = doc.toObject(History.class);
                             historyList.add(history);
+
+//        historyRecyclerView.setHasFixedSize(true);
+                            historyAdapter = new HistoryAdapter(historyList, getContext());
+                            historyRecyclerView.setAdapter(historyAdapter);
+                            historyLayoutManager = new LinearLayoutManager(getActivity());
+                            historyRecyclerView.setLayoutManager(historyLayoutManager);
                         }
                     }
                 });
-
-//        historyRecyclerView.setHasFixedSize(true);
-        historyAdapter = new HistoryAdapter(historyList, getContext());
-        historyRecyclerView.setAdapter(historyAdapter);
-        historyLayoutManager = new LinearLayoutManager(getActivity());
-        historyRecyclerView.setLayoutManager(historyLayoutManager);
 
         return v;
     }

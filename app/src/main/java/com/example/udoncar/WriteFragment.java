@@ -487,11 +487,11 @@ public class WriteFragment extends Fragment {
                             Date meetAt, String content) {
 
         //postIdS = Integer.toString((int) Math.random()*100000000);
-
+        String randomS = randomString();
         List<String> startList = Arrays.asList(startspn1,startspn2, startspn3);
         List<String> destList = Arrays.asList(destspn1,destspn2, destspn3);
         Map<String, Object> docData = new HashMap<>();
-        docData.put("postId", randomString() );
+        docData.put("postId", randomS );
         docData.put("userId", user.getEmail() );
         docData.put("startspn", startList);
         docData.put("destspn", destList);
@@ -505,7 +505,8 @@ public class WriteFragment extends Fragment {
         docData.put("creatAt", new Date());
         docData.put("meetAt", meetAt);
 
-        db.collection("post").document().set(docData);
+        db.collection("post").document(randomS).set(docData);
+
 
         Toast.makeText(getContext(), "작성 완료!", Toast.LENGTH_SHORT).show();
 
