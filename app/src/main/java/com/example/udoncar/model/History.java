@@ -1,16 +1,17 @@
 package com.example.udoncar.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class History implements Serializable {
     private String histId;
     private String postId;
-    private String userId;
+    private List<String> usersId;
 
-    public History(String histId, String postId, String userId) {
+    public History(String histId, String postId, List<String> usersId) {
         this.histId = histId;
         this.postId = postId;
-        this.userId = userId;
+        this.usersId = usersId;
     }
     public History(){
     }
@@ -31,11 +32,11 @@ public class History implements Serializable {
         this.postId = postId;
     }
 
-    public String getuserId() {
-        return userId;
+    public List<String> getUsersId() {
+        return usersId;
     }
 
-    public void setuserId(String userId) {
-        this.userId = userId;
+    public void setUsersId(List<String> usersId) {
+        this.usersId = usersId;
     }
 }

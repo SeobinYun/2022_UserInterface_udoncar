@@ -98,8 +98,8 @@ public class HistoryFragment extends Fragment {
         historyRecyclerView = v.findViewById(R.id.history_rv);
         historyList = new ArrayList<>();
 
-        //DB에서 불러오기
-        historyList.add(new History("68rmZ3wQoyVhoFXuc2GW", "M3CdoVBK5r5ihau75OHE", "qwer@naver.com"));
+        /*//DB에서 불러오기
+        historyList.add(new History("68rmZ3wQoyVhoFXuc2GW", "M3CdoVBK5r5ihau75OHE", "qwer@naver.com"));*/
 
         //오류안뜸.. 근데 아무것도 안뜸
         db.collection("history")
