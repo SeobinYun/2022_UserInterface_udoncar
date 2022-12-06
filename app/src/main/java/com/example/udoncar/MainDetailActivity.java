@@ -11,11 +11,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.udoncar.model.History;
 import com.example.udoncar.model.Post;
 import com.example.udoncar.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -133,8 +136,7 @@ public class MainDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //DB에서 삭제 (currentid같으면)
-                if (post.getuserId() == user.getEmail()){
-                    Toast.makeText(getApplicationContext(), "작성자가 맞음", Toast.LENGTH_SHORT).show();
+                if (post.getuserId().equals(user.getEmail())){
                     db.collection("post").document(post.getpostId()).delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -164,16 +166,29 @@ public class MainDetailActivity extends AppCompatActivity {
                 //history에 저장
                 //histIdS = Integer.toString((int) Math.random()*1000000000);
 
-                Map<String, Object> docData = new HashMap<>();
-                docData.put("histId", randomString() );
-                docData.put("postId", post.getpostId() );
-                docData.put("userId", user.getEmail() );
-                db.collection("history").document().set(docData);
+                //String randomS = randomString();
+                db.collection("history").whereEqualTo("postId", post.getpostId())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String id = (String)document.getData().get("histId");
+                                        db.collection("history").document(id)
+                                                        .update("usersId", FieldValue.arrayUnion(user.getEmail()));
+                                    }
+                                }
+                            }
+                        });
+                //Map<String, Object> docData = new HashMap<>();
+                //docData.put("histId", randomS );
+                //docData.put("postId", post.getpostId() );
+                //docData.put("userId", user.getEmail() );
+                //db.collection("history").document(randomS).set(docData);
 
                 Toast.makeText(getApplicationContext(), "HISTORY에서 확인하세요.", Toast.LENGTH_SHORT).show();
 
-
-                //history로 이동
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.containers, historyFragment).commit();

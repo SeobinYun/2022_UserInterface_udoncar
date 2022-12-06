@@ -280,7 +280,7 @@ public class WriteFragment extends Fragment {
         ageCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-   //             optAge.add("20대");
+                //             optAge.add("20대");
                 Log.w("디버그", "ageCb2 checked");
             }
         });
@@ -359,7 +359,7 @@ public class WriteFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                
+
                 if(sexCb1.isChecked()){
                     optSex.add("남자");
                 }
@@ -367,7 +367,7 @@ public class WriteFragment extends Fragment {
                     optSex.add("여자");
                 }
 
-                
+
                 if(ageCb1.isChecked()){
                     optAge.add("10대");
                 }
@@ -621,7 +621,7 @@ public class WriteFragment extends Fragment {
             docData.put("optage", optage);
             docData.put("creatAt", new Date());
             docData.put("meetAt", meetAt);
-            db.collection("post").document().set(docData);
+            db.collection("post").document(postId).set(docData);
 
             List<String> usersId = Arrays.asList(user.getEmail());
             Map<String, Object> histData = new HashMap<>();
@@ -640,6 +640,6 @@ public class WriteFragment extends Fragment {
             Toast.makeText((MainActivity) getActivity(), "날짜 및 시간을 선택해주세요.", Toast.LENGTH_LONG).show();
             return ;
         }
-        }
+    }
 
 }

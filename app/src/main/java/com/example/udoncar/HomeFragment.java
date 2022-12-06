@@ -4,7 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.StateSet;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.udoncar.model.Post;
 import com.example.udoncar.model.User;
@@ -85,7 +88,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView mainRecyclerView;
     private MainAdapter mainAdapter;
     private RecyclerView.LayoutManager mainLayoutManager;
-    private List<Post> postList;
+    private ArrayList<Post> postList;
 
     private Button filterBtn;
     private MainDialogActiviy dial;
@@ -102,6 +105,8 @@ public class HomeFragment extends Fragment {
     private Date date;
     private  List<String> startList;
     private  List<String> destList;
+    private String region2;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,7 +138,7 @@ public class HomeFragment extends Fragment {
 
                 DocumentSnapshot document = task.getResult();
                 region = (List<String>) document.getData().get("region");
-                String region2 = region.toArray()[2].toString();
+                region2 = region.toArray()[2].toString();
                 locaTv = v.findViewById(R.id.mainloca_tv);
                 locaTv.setText(region2);
             }
@@ -144,66 +149,80 @@ public class HomeFragment extends Fragment {
         postList = new ArrayList<>();
 
         //dialog에서 불러오기
-        bundle = getArguments();
-        if (bundle != null) {
-            //postList = bundle.getParcelableArrayList("postListD");
-        }
-        //DB에서 불러오기
-        else {
-            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
-            date = null;
-            try {
-                date = formatter.parse("12/12 12:12");
-            } catch (ParseException e) {
-            }
-            startList = Arrays.asList("서울특별시", "강남구", "세곡동");
-            destList = Arrays.asList("서울특별시", "강남구", "개포동");
-            post = new Post("yFLRpxnj0xQWAxwf3Wyd", "ttttt", "ccccc", "ddddd",
-                    "택시", "일회성", "qwer@naver.com", "20대", "여자",
-                    new Date(), date, startList, destList);
-            postList.add(post);
-
-
-            db.collection("post")
-                    //.whereEqualTo("startspn", region)
-                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            for (QueryDocumentSnapshot doc : value) {
-                                //에러 안 나고 아무것도 안 뜸
-                                post = doc.toObject(Post.class);
-                                post.setTitle(doc.getData().get("title").toString());
-                                post.setDest(doc.getData().get("dest").toString());
-                                //post.setMeetAt((Date) doc.getData().get("meetAt"));
-                                postList.add(post);
-                            }
-                        }
-                    });
-
-//            DocumentReference docRef = db.collection("post").document();
-//            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                    DocumentSnapshot document = task.getResult();
-//                    for (int i = 0; i < 3; i++) {
-//                        post.setTitle(document.getData().get("title").toString());
-//                        post.setDest(document.getData().get("dest").toString());
-//                        //post.setMeetAt(document.getData().get("meetAt"));
+//        Bundle bundle = new Bundle();
+//        if (bundle != null) {
+//            postList = (ArrayList<Post>)bundle.getSerializable("postListD");
 //
-//                        postList.add(post);
-//                    }
-//                }
-//            });
+//            mainAdapter = new MainAdapter(postList, getContext());
+//            mainLayoutManager = new LinearLayoutManager(getActivity());
+//            mainRecyclerView.setLayoutManager(mainLayoutManager);
+//            mainRecyclerView.setAdapter(mainAdapter);
 //        }
-        }
+        //DB에서 불러오기
 
-//        mainRecyclerView.setHasFixedSize(true);
+//            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+//            date = null;
+//            try {
+//                date = formatter.parse("12/12 12:12");
+//            } catch (ParseException e) {
+//            }
+//            startList = Arrays.asList("서울특별시", "강남구", "세곡동");
+//            destList = Arrays.asList("서울특별시", "강남구", "개포동");
+//            post = new Post("CdLB5vxPVN", "ttttt", "ccccc", "ddddd",
+//                    "택시", "일회성", "qwer@naver.com", "20대", "여자",
+//                    new Date(), date, startList, destList);
+//            postList.add(post);
+
+            db.collection("users").document(user.getEmail());
+            currentuserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot document = task.getResult();
+                    region = (List<String>) document.getData().get("region");
+                    region2 = region.toArray()[2].toString();
+                    db.collection("post")
+                            .whereArrayContains("startspn", region2)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        post = new Post();
+                                        post = document.toObject(Post.class);
+                                        postList.add(post);
+                                        System.out.println("실패" + postList.size());
+                                        //System.out.println("제목 : " + post.getTitle());
+                                        //System.out.println(postList.size());
+
+                                        //        mainRecyclerView.setHasFixedSize(true);
+                                        mainAdapter = new MainAdapter(postList, getContext());
+                                        mainLayoutManager = new LinearLayoutManager(getActivity());
+                                        mainRecyclerView.setLayoutManager(mainLayoutManager);
+                                        mainRecyclerView.setAdapter(mainAdapter);
+                                    }
+                                }
+                            });
+                }
+            });
+        Bundle bundle = getArguments();
+        if (bundle != null){
+//            Bundle bundle = new Bundle();
+            //refresh();
+            postList = (ArrayList<Post>) bundle.getSerializable("postListD");
+            System.out.println("성공" + postList.size());
             mainAdapter = new MainAdapter(postList, getContext());
             mainLayoutManager = new LinearLayoutManager(getActivity());
             mainRecyclerView.setLayoutManager(mainLayoutManager);
             mainRecyclerView.setAdapter(mainAdapter);
+        }
+
+
 
             return v;
 
+    }
+    private void refresh() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
     }
 }

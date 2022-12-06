@@ -4,6 +4,7 @@ import static java.security.AccessController.getContext;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.udoncar.model.History;
 import com.example.udoncar.model.Post;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -50,19 +56,34 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         History history = historyList.get(position);
-        ((MainHolder) holder).textViewTitle.setText(history.gethistId());
+ /*       ((MainHolder) holder).textViewTitle.setText(history.gethistId());
         ((MainHolder) holder).textViewDest.setText(history.getpostId());
         ((MainHolder) holder).textViewDest.setText(history.getuserId());
-//        db.collection("post")
-//                .document(history.getpostId())
-//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        post = documentSnapshot.toObject(Post.class);
-//                    }
-//                });
-//        ((MainHolder) holder).textViewTitle.setText(post.getTitle());
-//        ((MainHolder) holder).textViewDest.setText(post.getDest());
+
+  */
+        DocumentReference docRef = db.collection("post").document(history.getpostId());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        //post.setMeetAt((Date)document.getData().get("meetAt"));
+                        ((MainHolder) holder).textViewTitle.setText((String)document.getData().get("title"));
+                        ((MainHolder) holder).textViewDest.setText((String)document.getData().get("dest"));
+                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+                        meetDateString = formatter.format(new Date());
+                        ((MainHolder) holder).textViewTime.setText(meetDateString);
+
+                        //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                    }
+                }
+            }
+        });
+
+
+
+
 //        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
 //        meetDateString = formatter.format(post.getMeetAt());
 //        ((MainHolder) holder).textViewTime.setText(meetDateString);
