@@ -204,17 +204,18 @@ public class HomeFragment extends Fragment {
                             });
                 }
             });
-        Bundle bundle = getArguments();
-        if (bundle != null){
-//            Bundle bundle = new Bundle();
-            //refresh();
-            postList = (ArrayList<Post>) bundle.getSerializable("postListD");
-            System.out.println("성공" + postList.size());
-            mainAdapter = new MainAdapter(postList, getContext());
-            mainLayoutManager = new LinearLayoutManager(getActivity());
-            mainRecyclerView.setLayoutManager(mainLayoutManager);
-            mainRecyclerView.setAdapter(mainAdapter);
-        }
+
+            Bundle bundle = getArguments();
+            if (bundle != null){
+                //Bundle bundle = new Bundle();
+                //refresh();
+                postList = (ArrayList<Post>) bundle.getSerializable("postListD");
+                System.out.println("성공" + postList.size());
+                mainAdapter = new MainAdapter(postList, getContext());
+                mainLayoutManager = new LinearLayoutManager(getActivity());
+                mainRecyclerView.setLayoutManager(mainLayoutManager);
+                mainRecyclerView.setAdapter(mainAdapter);
+            }
 
 
 
