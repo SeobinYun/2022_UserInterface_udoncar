@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,10 +35,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
@@ -60,8 +56,6 @@ public class MainDetailActivity extends AppCompatActivity {
     private TextView destTv, dateTv, isrepeatTv;
     private TextView contentTv;
     private TextView ageTv, sexTv;
-
-    private String optsex, optage;
 
     private String name, sex, age;
 
@@ -84,7 +78,7 @@ public class MainDetailActivity extends AppCompatActivity {
         myageTv = (TextView) findViewById(R.id.myage);
         positionTv = (TextView) findViewById(R.id.position);
         destTv = (TextView) findViewById(R.id.dest);
-        dateTv = (TextView) findViewById(R.id.date_tv);
+        dateTv = (TextView) findViewById(R.id.date);
         isrepeatTv = (TextView) findViewById(R.id.isrepeat);
         contentTv = (TextView) findViewById(R.id.content);
         ageTv = (TextView) findViewById(R.id.age);
@@ -102,31 +96,41 @@ public class MainDetailActivity extends AppCompatActivity {
         isrepeatTv.setText(post.getIsrepeat());
         contentTv.setText(post.getContent());
 
-post.get
-        optage = post.getStartspn().toString();
-        ageTv.setText(optage);
-        sexTv.setText(optage);
+        String optAge = "";
+        for(int i = 0; i<post.getOptage().size(); i++){
+            optAge = optAge + post.getOptage().get(i);
+            if (i < post.getOptage().size()-1)
+                optAge = optAge + ", ";
+        }
+        ageTv.setText(optAge);
 
+        String optSex = "";
+        for(int i = 0; i<post.getOptsex().size(); i++){
+            optSex = optSex + post.getOptsex().get(i);
+            if (i < post.getOptsex().size()-1)
+                optSex = optSex + ", ";
+        }
+        sexTv.setText(optSex);
 
 
         //넘겨받은 post의 user의 정보
         db.collection("users").document(post.getuserId())
-        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
-                writeuser = document.toObject(User.class);
-                mynameTv.setText(writeuser.getName());
-                mysexTv.setText(writeuser.getSex());
-                myageTv.setText(writeuser.getAge());
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot document = task.getResult();
+                        writeuser = document.toObject(User.class);
+                        mynameTv.setText(writeuser.getName());
+                        mysexTv.setText("("+writeuser.getSex()+")");
+                        myageTv.setText("("+writeuser.getAge()+")");
 //                name = (String) document.getData().get("name");
 //                sex = (String) document.getData().get("sex");
 //                age = (String) document.getData().get("age");
 //                mynameTv.setText(name);
 //                sexTv.setText(sex);
 //                ageTv.setText(age);
-            }
-        });
+                    }
+                });
 
 
 
@@ -186,7 +190,7 @@ post.get
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         String id = (String)document.getData().get("histId");
                                         db.collection("history").document(id)
-                                                        .update("usersId", FieldValue.arrayUnion(user.getEmail()));
+                                                .update("usersId", FieldValue.arrayUnion(user.getEmail()));
                                     }
                                 }
                             }
