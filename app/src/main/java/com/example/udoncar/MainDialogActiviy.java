@@ -178,7 +178,7 @@ public class MainDialogActiviy extends Dialog {
                         //.whereEqualTo("position", posRb.getText().toString())
                         //.whereEqualTo("optsex", sexCb(sexCb1, sexCb2))
                         //.whereEqualTo("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6))
-                        .whereEqualTo("isrepeat", isreRb.getText().toString())
+                        //.whereEqualTo("isrepeat", isreRb.getText().toString())
                         .addSnapshotListener(new EventListener<QuerySnapshot>() {
                             @Override
                             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

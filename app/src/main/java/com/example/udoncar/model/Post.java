@@ -16,8 +16,8 @@ public class Post implements Serializable {
     private String position;
     private String isrepeat;
     private String userId;
-    private String optAge;
-    private String optSex;
+    private List<String> optAge;
+    private List<String> optSex;
     private Date createAt;
     private Date meetAt;
     private List<String> startspn;
@@ -25,7 +25,7 @@ public class Post implements Serializable {
 
     public Post(String postId, String title, String content, String dest, String position,
                 String isrepeat,
-                String userId, String optAge, String optSex, Date createAt, Date meetAt, List<String> startspn, List<String> destspn) {
+                String userId, List<String> optAge, List<String> optSex, Date createAt, Date meetAt, List<String> startspn, List<String> destspn) {
         this.postId = postId;
         this.title = title;
         this.content = content;
@@ -99,19 +99,19 @@ public class Post implements Serializable {
         this.userId = userId;
     }
 
-    public String getoptAge() {
+    public List<String> getoptAge() {
         return optAge;
     }
 
-    public void setoptAge(String optAge) {
+    public void setoptAge(List<String> optAge) {
         this.optAge = optAge;
     }
 
-    public String getoptSex() {
+    public List<String> getoptSex() {
         return optSex;
     }
 
-    public void setoptSex(String optSex) {
+    public void setoptSex(List<String> optSex) {
         this.optSex = optSex;
     }
 
