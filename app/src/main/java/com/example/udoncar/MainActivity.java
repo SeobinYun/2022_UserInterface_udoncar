@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -53,6 +54,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+    long initTime;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -156,11 +158,46 @@ public class MainActivity extends AppCompatActivity {
                                     });
                             Log.d(TAG, "User account deleted.");
 
+                            // firestore post 부분 document 삭제
+                            db.collection("post").whereEqualTo("user_id", user.getEmail())
+                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if(task.isSuccessful()){
+                                                Log.d(TAG, "task: " + task);
+
+                                                for(QueryDocumentSnapshot document : task.getResult()){
+                                                    Log.d(TAG, document.getData().toString());
+                                                    document.getReference().delete();
+                                                }
+                                            }
+                                            else{
+                                                Log.d(TAG, "Error getting document: ", task.getException());
+                                            }
+                                        }
+                                    });
+
                             Toast.makeText(MainActivity.this, "정상적으로 탈퇴처리 되었습니다.", Toast.LENGTH_LONG).show();
                         } else {
                             Log.d(TAG, "DB deletion failed.");
                         }
                     }
                 });
+    }
+    private void showToast(String message){
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - initTime > 3000) {showToast("종료할려면 한번 더 누르세요.");
+                initTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

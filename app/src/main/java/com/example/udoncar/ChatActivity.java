@@ -22,16 +22,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.udoncar.model.Chat;
-import com.example.udoncar.model.ChatUserList;
 import com.example.udoncar.model.History;
-import com.example.udoncar.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -133,25 +129,9 @@ public class ChatActivity extends AppCompatActivity {
                 });
 
         //인원수 버튼
-        db.collection("chatUserList")
-                .whereEqualTo("histId", history.gethistId())
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot snapshots,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "listen:error", e);
-                            return;
-                        }
-                        for (QueryDocumentSnapshot doc : snapshots) {
-                            ChatUserList chatUserList = new ChatUserList();
-                            chatUserList = doc.toObject(ChatUserList.class);
-                            users = new ArrayList<String>();
-                            users = chatUserList.getUsersId();
-                            setNumUsers(users.size());
-                        }
-                    }
-                });
+        users = new ArrayList<String>();
+        users = history.getUsersId();
+        setNumUsers(users.size());
 
         numPeopleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
