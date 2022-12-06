@@ -190,7 +190,7 @@ public class HomeFragment extends Fragment {
                                         post = new Post();
                                         post = document.toObject(Post.class);
                                         postList.add(post);
-                                        System.out.println("실패" + postList.size());
+                                        //System.out.println("실패" + postList.size());
                                         //System.out.println("제목 : " + post.getTitle());
                                         //System.out.println(postList.size());
 

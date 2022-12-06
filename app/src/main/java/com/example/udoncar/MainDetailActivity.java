@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,7 +36,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
@@ -56,6 +60,8 @@ public class MainDetailActivity extends AppCompatActivity {
     private TextView destTv, dateTv, isrepeatTv;
     private TextView contentTv;
     private TextView ageTv, sexTv;
+
+    private String optsex, optage;
 
     private String name, sex, age;
 
@@ -95,8 +101,12 @@ public class MainDetailActivity extends AppCompatActivity {
         dateTv.setText(formatter.format(post.getMeetAt()));
         isrepeatTv.setText(post.getIsrepeat());
         contentTv.setText(post.getContent());
-        ageTv.setText(post.getoptAge());
-        sexTv.setText(post.getoptSex());
+
+post.get
+        optage = post.getStartspn().toString();
+        ageTv.setText(optage);
+        sexTv.setText(optage);
+
 
 
         //넘겨받은 post의 user의 정보
