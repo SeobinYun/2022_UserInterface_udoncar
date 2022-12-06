@@ -1,5 +1,6 @@
 package com.example.udoncar;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,18 +10,24 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.util.ArraySet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.udoncar.model.Chat;
@@ -35,12 +42,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,7 +110,10 @@ public class WriteFragment extends Fragment {
     private Button writeBtn;
     private EditText titleEt;
     private EditText destEt;
-    private EditText dateEt;
+
+    private DatePicker datePicker;
+    private TimePicker timePicker;
+
     private EditText contentEt;
     private RadioGroup positionRg;
     private RadioButton positionRb;
@@ -132,6 +146,16 @@ public class WriteFragment extends Fragment {
     private String start2;
     private String start3;
     private Date meetDate;
+    private String selectedDate;
+    private String selectedTime;
+
+
+//    private List<Arrays> optSex;
+//    private List<Arrays> optAge;
+
+    private List<String> optSex;
+    private List<String> optAge;
+
     private String position;
     private String postIdS;
 
@@ -145,14 +169,62 @@ public class WriteFragment extends Fragment {
         writeBtn = view.findViewById(R.id.write_btn);
         titleEt = view.findViewById(R.id.writetitle_et);
         destEt = view.findViewById(R.id.writedest_et);
-        dateEt = view.findViewById(R.id.writedate_et);
+
+
+
+        // build.gradle - minSDK 21-> 26
+        datePicker = (DatePicker) view.findViewById(R.id.date);
+        datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+                Log.d("디버깅", "날짜: " + i + "년 " + (i1 + 1) + "월 " + i2 + "일");
+                selectedDate = i + "/" + (i1 + 1) + "/" + i2;
+                Log.d("디버깅", "selectedDate: " + selectedDate);
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                try {
+                    Date date = dateFormat.parse(selectedDate); // 기존 string을 date 클래스로 변환
+                    selectedDate = dateFormat.format(date); // 변환한 값의 format 변경
+                    Log.d("디버깅", "포맷 후 selectedDate: " + selectedDate);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
+        timePicker = (TimePicker) view.findViewById(R.id.time);
+        timePicker.setIs24HourView(false);
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
+                Log.d("디버깅", "시간: " + hour + "시 " + minute + "분");
+                selectedTime = " " + hour + ":" + minute;
+                Log.d("디버깅", "selectTime: " + selectedTime);
+
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                try {
+                    Date date = timeFormat.parse(selectedTime); // 기존 string을 date 클래스로 변환
+                    selectedTime = timeFormat.format(date); // 변환한 값의 format 변경
+                    Log.d("디버깅", "포맷 후 selectedTime: " + selectedTime);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
         contentEt = view.findViewById(R.id.writecont_et);
         destspn1 = (Spinner) view.findViewById(R.id.writedest_spn1);
-        //destspn1.setPrompt("시/도 선택");
+        destspn1.setPrompt("시/도 선택");
         destspn2 = (Spinner) view.findViewById(R.id.writedest_spn2);
-        //destspn2.setPrompt("시/군/구 선택");
+        destspn2.setPrompt("시/군/구 선택");
         destspn3 = (Spinner) view.findViewById(R.id.writedest_spn3);
-        //destspn3.setPrompt("읍/면/동 선택");
+        destspn3.setPrompt("읍/면/동 선택");
 
         positionRg = (RadioGroup) view.findViewById(R.id.writepos_rg);
         positionRb = (RadioButton) view.findViewById(positionRg.getCheckedRadioButtonId());
@@ -160,6 +232,7 @@ public class WriteFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 positionRb = view.findViewById(positionRg.getCheckedRadioButtonId());
+                Log.d("디버깅", "선택: " + positionRb.getText().toString());
             }
         });
         isrepeatRg = (RadioGroup) view.findViewById(R.id.writeisre_rg);
@@ -168,25 +241,82 @@ public class WriteFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 isrepeatRb = view.findViewById(isrepeatRg.getCheckedRadioButtonId());
+                Log.d("디버깅", "선택: " + isrepeatRb.getText().toString());
             }
         });
-//        optsexRg = (RadioGroup) view.findViewById(R.id.writesex);
-//        optsexRb = (RadioButton) view.findViewById(optsexRg.getCheckedRadioButtonId());
-//        optsexRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//                optsexRb = view.findViewById(optsexRg.getCheckedRadioButtonId());
-//            }
-//        });
+
+
+        optSex = new ArrayList<String>(Arrays.asList());
 
         sexCb1 = (CheckBox) view.findViewById(R.id.writesex1_Cb);
+        sexCb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optSex.add("남자");
+                Log.w("디버그", "sexCb1 checked");
+            }
+        });
+//
         sexCb2 = (CheckBox) view.findViewById(R.id.writesex2_Cb);
+        sexCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optSex.add("여자");
+                Log.w("디버그", "sexCb2 checked");
+            }
+        });
+//
+//
+//
+        optAge = new ArrayList<String>(Arrays.asList());
         ageCb1 = (CheckBox) view.findViewById(R.id.writeage1_Cb);
+        ageCb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.add("10대");
+                Log.w("디버그", "ageCb1 checked");
+            }
+        });
         ageCb2 = (CheckBox) view.findViewById(R.id.writeage2_Cb);
+        ageCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+   //             optAge.add("20대");
+                Log.w("디버그", "ageCb2 checked");
+            }
+        });
         ageCb3 = (CheckBox) view.findViewById(R.id.writeage3_Cb);
+        ageCb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.add("30대");
+                Log.w("디버그", "ageCb3 checked");
+            }
+        });
         ageCb4 = (CheckBox) view.findViewById(R.id.writeage4_Cb);
+        ageCb4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.add("40대");
+                Log.w("디버그", "ageCb4 checked");
+            }
+        });
         ageCb5 = (CheckBox) view.findViewById(R.id.writeage5_Cb);
+        ageCb5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.add("50대");
+                Log.w("디버그", "ageCb5 checked");
+            }
+        });
         ageCb6 = (CheckBox) view.findViewById(R.id.writeage6_Cb);
+        ageCb6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                optAge.add("60대");
+                Log.w("디버그", "ageCb6 checked");
+            }
+        });
 
 
         DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
@@ -217,24 +347,62 @@ public class WriteFragment extends Fragment {
                 start2 = startList.toArray()[1].toString();
                 start3 = startList.toArray()[2].toString();
 
-                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+
+                selectedDate = selectedDate + " " + selectedTime;
+                Log.w("디버깅", selectedDate);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                // String을 Date로 변환
                 try {
-                    meetDate = formatter.parse(dateEt.getText().toString());
+                    meetDate = dateFormat.parse(selectedDate);
+                    Log.w("디버깅", "meetDate parse: " + meetDate);
+                    Log.w("디버깅", "meetDate parse: " + meetDate.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
 
-                //post만드는 함수
-                createpost(edittextToString(titleEt), edittextToString(destEt),
-                        start1, start2, start3,
-                        spinnerToString(destspn1) ,spinnerToString(destspn2), spinnerToString(destspn3),
-                        positionRb.getText().toString(), isrepeatRb.getText().toString(),
-                        sexCb(sexCb1, sexCb2), ageCb(ageCb1, ageCb2, ageCb3, ageCb4, ageCb5, ageCb6),
-                        meetDate, edittextToString(contentEt));
+                if(sexCb1.isChecked()){
+                    optSex.add("남자");
+                }
+                if(sexCb2.isChecked()){
+                    optSex.add("여자");
+                }
 
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+
+                if(ageCb1.isChecked()){
+                    optAge.add("10대");
+                }
+                if(ageCb2.isChecked()){
+                    optAge.add("20대");
+                }
+                if(ageCb3.isChecked()){
+                    optAge.add("30대");
+                }
+                if(ageCb4.isChecked()){
+                    optAge.add("40대");
+                }
+                if(ageCb5.isChecked()){
+                    optAge.add("50대");
+                }
+                if(ageCb6.isChecked()){
+                    optAge.add("60대");
+                }
+
+
+
+                //post만드는 함수
+                if(edittextToString(titleEt).equals("") || edittextToString(destEt).equals("")) {
+                    Toast.makeText((MainActivity)getActivity(), "필수 정보를 입력해주세요. ", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    createpost(edittextToString(titleEt), edittextToString(destEt),
+                            start1, start2, start3,
+                            spinnerToString(destspn1), spinnerToString(destspn2), spinnerToString(destspn3),
+                            positionRb.getText().toString(), isrepeatRb.getText().toString(),
+                            optSex, optAge,
+                            meetDate, edittextToString(contentEt));
+
+                }
             }
         });
 
@@ -247,11 +415,10 @@ public class WriteFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (destspnAdpater1.getItem(i).equals("서울특별시")) {
-                     destspnAdapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("부산광역시")) {
                     destspnAdapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_busan, R.layout.item_spinner);
-                }
-                else if (destspnAdpater1.getItem(i).equals("대구광역시")) {
+                } else if (destspnAdpater1.getItem(i).equals("대구광역시")) {
                     destspnAdapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_daegu, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("인천광역시")) {
                     destspnAdapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_incheon, R.layout.item_spinner);
@@ -305,28 +472,29 @@ public class WriteFragment extends Fragment {
 
     }
 
-    public String sexCb(CheckBox cb1, CheckBox cb2){
+
+    public String sexCb(CheckBox cb1, CheckBox cb2) {
         if (cb1.isChecked())
             return checkboxToString(cb1);
         else if (cb2.isChecked())
-            return  checkboxToString(cb2);
+            return checkboxToString(cb2);
         else
             return null;
     }
 
-    public String ageCb(CheckBox cb1, CheckBox cb2, CheckBox cb3, CheckBox cb4, CheckBox cb5, CheckBox cb6){
+    public String ageCb(CheckBox cb1, CheckBox cb2, CheckBox cb3, CheckBox cb4, CheckBox cb5, CheckBox cb6) {
         if (cb1.isChecked())
             return checkboxToString(cb1);
         else if (cb2.isChecked())
-            return  checkboxToString(cb2);
+            return checkboxToString(cb2);
         else if (cb3.isChecked())
-            return  checkboxToString(cb3);
+            return checkboxToString(cb3);
         else if (cb4.isChecked())
-            return  checkboxToString(cb4);
+            return checkboxToString(cb4);
         else if (cb5.isChecked())
-            return  checkboxToString(cb5);
+            return checkboxToString(cb5);
         else if (cb6.isChecked())
-            return  checkboxToString(cb6);
+            return checkboxToString(cb6);
         else
             return null;
     }
@@ -335,110 +503,57 @@ public class WriteFragment extends Fragment {
         if (spinnerToString(spinner1).equals("서울특별시")) {
             if (spinnerToString(spinner2).equals("강남구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_gangnam, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if ("강동구".equals(spinnerToString(spinner2))) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_gangdong, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
-            }
-            else if (spinnerToString(spinner2).equals("강북구")) {
+            } else if (spinnerToString(spinner2).equals("강북구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_gangbuk, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("강서구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_gangseo, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("관악구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_gwanak, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("광진구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_gwangjin, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("구로구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_guro, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("금천구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_geumcheon, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("노원구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_nowon, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("도봉구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_dobong, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("동대문구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_dongdaemun, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("동작구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_dongjag, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("마포구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_mapo, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("서대문구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_seodaemun, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("서초구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_seocho, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("성동구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_seongdong, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("성북구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_seongbuk, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("송파구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_songpa, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("양천구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_yangcheon, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("영등포구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_yeongdeungpo, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("용산구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_yongsan, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("은평구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_eunpyeong, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("종로구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_jongno, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("중구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_jung, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("중랑구")) {
                 destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_seoul_jungnanggu, R.layout.item_spinner);
-//                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//                regionSpinner3.setAdapter(regionSpinner3Adapter);
             }
         } else {
             destspnAdapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_region_empty, R.layout.item_spinner);
-//            regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-//            regionSpinner3.setAdapter(regionSpinner3Adapter);
         }
         destspnAdapter3.setDropDownViewResource(R.layout.item_spinner_dropdown);
         destspn3.setAdapter(destspnAdapter3);
@@ -465,7 +580,7 @@ public class WriteFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public String randomString(){
+    public String randomString() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
@@ -483,10 +598,31 @@ public class WriteFragment extends Fragment {
     private void createpost(String title, String dest,
                             String startspn1, String startspn2, String startspn3,
                             String destspn1, String destspn2, String destspn3,
-                            String position, String isrepeat, String optsex, String optage,
+                            String position, String isrepeat, List<String> optsex, List<String> optage,
                             Date meetAt, String content) {
 
         //postIdS = Integer.toString((int) Math.random()*100000000);
+        if(meetAt!=null) {
+            List<String> startList = Arrays.asList(startspn1, startspn2, startspn3);
+            List<String> destList = Arrays.asList(destspn1, destspn2, destspn3);
+
+            Map<String, Object> docData = new HashMap<>();
+            String postId = randomString();
+
+            docData.put("postId", postId);
+            docData.put("userId", user.getEmail());
+            docData.put("startspn", startList);
+            docData.put("destspn", destList);
+            docData.put("title", title);
+            docData.put("dest", dest);
+            docData.put("content", content);
+            docData.put("position", position);
+            docData.put("isrepeat", isrepeat);
+            docData.put("optsex", optsex);
+            docData.put("optage", optage);
+            docData.put("creatAt", new Date());
+            docData.put("meetAt", meetAt);
+            db.collection("post").document().set(docData);
         String randomS = randomString();
         List<String> startList = Arrays.asList(startspn1,startspn2, startspn3);
         List<String> destList = Arrays.asList(destspn1,destspn2, destspn3);
@@ -508,8 +644,23 @@ public class WriteFragment extends Fragment {
         db.collection("post").document(randomS).set(docData);
 
 
-        Toast.makeText(getContext(), "작성 완료!", Toast.LENGTH_SHORT).show();
+            List<String> usersId = Arrays.asList(user.getEmail());
+            Map<String, Object> histData = new HashMap<>();
+            String histId = randomString();
+            histData.put("histId", histId);
+            histData.put("postId", postId);
+            histData.put("usersId", usersId);
+            db.collection("history").document(histId).set(histData);
 
-    }
+            Toast.makeText((MainActivity) getActivity(), "작성 완료!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+
+        }
+        else{
+            Toast.makeText((MainActivity) getActivity(), "날짜 및 시간을 선택해주세요.", Toast.LENGTH_LONG).show();
+            return ;
+        }
+        }
 
 }
