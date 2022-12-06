@@ -159,7 +159,6 @@ public class WriteFragment extends Fragment {
     private String position;
     private String postIdS;
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -281,7 +280,7 @@ public class WriteFragment extends Fragment {
         ageCb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-   //             optAge.add("20대");
+                //             optAge.add("20대");
                 Log.w("디버그", "ageCb2 checked");
             }
         });
@@ -622,27 +621,7 @@ public class WriteFragment extends Fragment {
             docData.put("optage", optage);
             docData.put("creatAt", new Date());
             docData.put("meetAt", meetAt);
-            db.collection("post").document().set(docData);
-        String randomS = randomString();
-        List<String> startList = Arrays.asList(startspn1,startspn2, startspn3);
-        List<String> destList = Arrays.asList(destspn1,destspn2, destspn3);
-        Map<String, Object> docData = new HashMap<>();
-        docData.put("postId", randomS );
-        docData.put("userId", user.getEmail() );
-        docData.put("startspn", startList);
-        docData.put("destspn", destList);
-        docData.put("title", title);
-        docData.put("dest", dest);
-        docData.put("content", content);
-        docData.put("position", position);
-        docData.put("isrepeat", isrepeat);
-        docData.put("optsex", optsex);
-        docData.put("optage", optage);
-        docData.put("creatAt", new Date());
-        docData.put("meetAt", meetAt);
-
-        db.collection("post").document(randomS).set(docData);
-
+            db.collection("post").document(postId).set(docData);
 
             List<String> usersId = Arrays.asList(user.getEmail());
             Map<String, Object> histData = new HashMap<>();
@@ -661,6 +640,6 @@ public class WriteFragment extends Fragment {
             Toast.makeText((MainActivity) getActivity(), "날짜 및 시간을 선택해주세요.", Toast.LENGTH_LONG).show();
             return ;
         }
-        }
+    }
 
 }
