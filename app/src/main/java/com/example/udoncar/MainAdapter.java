@@ -45,7 +45,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Post post = postList.get(position);
         ((MainHolder) holder).textViewTitle.setText(post.getTitle());
         ((MainHolder) holder).textViewDest.setText(post.getDest());
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd EEE HH:mm");
         meetDateString = formatter.format(post.getMeetAt());
         ((MainHolder) holder).textViewTime.setText(meetDateString);
 

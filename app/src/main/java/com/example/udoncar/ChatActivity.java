@@ -102,7 +102,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DocumentReference chatRef = db.collection("history").document(history.gethistId()).collection("msg").document();
                 String msg = chatEditText.getText().toString();
-                if(msg != null){
+                if(msg.length() != 0){
                     chatEditText.setText(null);
                     Chat chat = new Chat();
                     chat.setMessage(msg);

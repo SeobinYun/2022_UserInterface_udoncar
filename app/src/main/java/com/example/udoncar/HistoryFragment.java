@@ -97,7 +97,8 @@ public class HistoryFragment extends Fragment {
         //뷰
         historyRecyclerView = v.findViewById(R.id.history_rv);
         historyList = new ArrayList<>();
-
+        historyLayoutManager = new LinearLayoutManager(getActivity());
+        historyRecyclerView.setLayoutManager(historyLayoutManager);
         /*//DB에서 불러오기
         historyList.add(new History("68rmZ3wQoyVhoFXuc2GW", "M3CdoVBK5r5ihau75OHE", "qwer@naver.com"));*/
         //DB에서 불러오기
@@ -115,11 +116,9 @@ public class HistoryFragment extends Fragment {
                             history = doc.toObject(History.class);
                             historyList.add(history);
 
-//        historyRecyclerView.setHasFixedSize(true);
                             historyAdapter = new HistoryAdapter(historyList, getContext());
                             historyRecyclerView.setAdapter(historyAdapter);
-                            historyLayoutManager = new LinearLayoutManager(getActivity());
-                            historyRecyclerView.setLayoutManager(historyLayoutManager);
+
                         }
                     }
                 });
