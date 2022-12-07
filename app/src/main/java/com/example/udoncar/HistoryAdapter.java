@@ -68,11 +68,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        Post post = document.toObject(Post.class);
                         //post.setMeetAt((Date)document.getData().get("meetAt"));
                         ((MainHolder) holder).textViewTitle.setText((String)document.getData().get("title"));
                         ((MainHolder) holder).textViewDest.setText((String)document.getData().get("dest"));
                         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
-                        meetDateString = formatter.format(new Date());
+                        meetDateString = formatter.format((Date) post.getMeetAt());
                         ((MainHolder) holder).textViewTime.setText(meetDateString);
 
                         //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
