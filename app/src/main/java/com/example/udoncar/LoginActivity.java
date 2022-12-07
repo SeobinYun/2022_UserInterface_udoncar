@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(edittextToString(pwEdittext).equals("") | edittextToString(idEdittext).equals("")){
-                    Toast.makeText(LoginActivity.this, "필수 정보를 입력해주세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "필수 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
                 else{
                 Log.d(TAG, "온클릭옴");
