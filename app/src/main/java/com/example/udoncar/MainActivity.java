@@ -194,7 +194,9 @@ public class MainActivity extends AppCompatActivity {
             if (System.currentTimeMillis() - initTime > 3000) {showToast("종료할려면 한번 더 누르세요.");
                 initTime = System.currentTimeMillis();
             } else {
-                finish();
+                moveTaskToBack(true);						// 태스크를 백그라운드로 이동
+                finishAndRemoveTask();						// 액티비티 종료 + 태스크 리스트에서 지우기
+                android.os.Process.killProcess(android.os.Process.myPid());	// 앱 프로세스 종료
             }
             return true;
         }

@@ -6,6 +6,7 @@
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
     android:background="#EFEFEF"
+    android:elevation="7dp"
     android:orientation="vertical">
 
     <TextView

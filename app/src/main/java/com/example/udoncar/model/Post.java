@@ -16,16 +16,14 @@ public class Post implements Serializable {
     private String position;
     private String isrepeat;
     private String userId;
-    private List<String> optAge;
-    private List<String> optSex;
+    private List<String> optage;
+    private List<String> optsex;
     private Date createAt;
     private Date meetAt;
     private List<String> startspn;
     private List<String> destspn;
 
-    public Post(String postId, String title, String content, String dest, String position,
-                String isrepeat,
-                String userId, List<String> optAge, List<String> optSex, Date createAt, Date meetAt, List<String> startspn, List<String> destspn) {
+    public Post(String postId, String title, String content, String dest, String position, String isrepeat, String userId, List<String> optage, List<String> optsex, Date createAt, Date meetAt, List<String> startspn, List<String> destspn) {
         this.postId = postId;
         this.title = title;
         this.content = content;
@@ -33,8 +31,8 @@ public class Post implements Serializable {
         this.position = position;
         this.isrepeat = isrepeat;
         this.userId = userId;
-        this.optAge = optAge;
-        this.optSex = optSex;
+        this.optage = optage;
+        this.optsex = optsex;
         this.createAt = createAt;
         this.meetAt = meetAt;
         this.startspn = startspn;
@@ -99,20 +97,20 @@ public class Post implements Serializable {
         this.userId = userId;
     }
 
-    public List<String> getoptAge() {
-        return optAge;
+    public List<String> getOptage() {
+        return optage;
     }
 
-    public void setoptAge(List<String> optAge) {
-        this.optAge = optAge;
+    public void setOptage(List<String> optage) {
+        this.optage = optage;
     }
 
-    public List<String> getoptSex() {
-        return optSex;
+    public List<String> getOptsex() {
+        return optsex;
     }
 
-    public void setoptSex(List<String> optSex) {
-        this.optSex = optSex;
+    public void setOptsex(List<String> optsex) {
+        this.optsex = optsex;
     }
 
     public Date getCreateAt() {

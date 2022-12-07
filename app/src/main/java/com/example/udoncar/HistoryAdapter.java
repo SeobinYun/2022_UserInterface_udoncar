@@ -72,7 +72,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         //post.setMeetAt((Date)document.getData().get("meetAt"));
                         ((MainHolder) holder).textViewTitle.setText((String)document.getData().get("title"));
                         ((MainHolder) holder).textViewDest.setText((String)document.getData().get("dest"));
-                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd EEE HH:mm");
                         meetDateString = formatter.format((Date) post.getMeetAt());
                         ((MainHolder) holder).textViewTime.setText(meetDateString);
 
