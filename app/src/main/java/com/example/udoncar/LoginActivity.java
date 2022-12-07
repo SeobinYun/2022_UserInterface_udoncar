@@ -40,9 +40,14 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(edittextToString(pwEdittext).equals("") | edittextToString(idEdittext).equals("")){
+                    Toast.makeText(LoginActivity.this, "필수 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else{
                 Log.d(TAG, "온클릭옴");
                 loginUser(edittextToString(idEdittext), edittextToString(pwEdittext));
-            }
+            }}
         });
     }
 
