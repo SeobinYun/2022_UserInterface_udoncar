@@ -91,7 +91,7 @@ public class MainDetailActivity extends AppCompatActivity {
         titleTv.setText(post.getTitle());
         positionTv.setText(post.getPosition());
         destTv.setText(post.getDest());
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd EEE HH:mm");
         dateTv.setText(formatter.format(post.getMeetAt()));
         isrepeatTv.setText(post.getIsrepeat());
         contentTv.setText(post.getContent());
@@ -177,34 +177,31 @@ public class MainDetailActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view){
-                //history에 저장
-                //histIdS = Integer.toString((int) Math.random()*1000000000);
-
-                //String randomS = randomString();
-                db.collection("history").whereEqualTo("postId", post.getpostId())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String id = (String)document.getData().get("histId");
-                                        db.collection("history").document(id)
-                                                .update("usersId", FieldValue.arrayUnion(user.getEmail()));
+                if (post.getuserId().equals(user.getEmail())){
+                    Toast.makeText(getApplicationContext(), "본인이 작성한 글입니다.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    db.collection("history").whereEqualTo("postId", post.getpostId())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String id = (String)document.getData().get("histId");
+                                            db.collection("history").document(id)
+                                                    .update("usersId", FieldValue.arrayUnion(user.getEmail()));
+                                        }
                                     }
                                 }
-                            }
-                        });
-                //Map<String, Object> docData = new HashMap<>();
-                //docData.put("histId", randomS );
-                //docData.put("postId", post.getpostId() );
-                //docData.put("userId", user.getEmail() );
-                //db.collection("history").document(randomS).set(docData);
+                            });
 
-                Toast.makeText(getApplicationContext(), "HISTORY에서 확인하세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "HISTORY에서 확인하세요.", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+
                 //getSupportFragmentManager().beginTransaction().replace(R.id.containers, historyFragment).commit();
 
 //                HistoryFragment historyFragment;
