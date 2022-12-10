@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="운전자"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <RadioButton
             android:id="@+id/dialogposition_btn2"
@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="일회성"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <RadioButton
             android:id="@+id/dialogisrepeat_btn2"
@@ -147,7 +147,8 @@
         android:layout_alignLeft="@id/dialogdest_spn1"
         android:layout_marginTop="13dp"
         android:text="남자"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:fontFamily="@font/nanum_regular"/>
 
     <CheckBox
         android:id="@+id/dialogsex_cb2"
@@ -157,7 +158,8 @@
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@id/dialogsex_cb1"
         android:text="여자"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:fontFamily="@font/nanum_regular" />
 
     <TextView
         android:id="@+id/dialogage_tv"
@@ -177,7 +179,8 @@
         android:layout_alignLeft="@id/dialogdest_spn1"
         android:layout_marginTop="5dp"
         android:text="10대"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:fontFamily="@font/nanum_regular" />
 
     <CheckBox
         android:id="@+id/dialogage_cb2"
@@ -187,7 +190,8 @@
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@id/dialogsex_cb1"
         android:text="20대"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:fontFamily="@font/nanum_regular" />
 
     <CheckBox
         android:id="@+id/dialogage_cb3"
@@ -197,7 +201,8 @@
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@id/dialogsex_cb2"
         android:text="30대"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:fontFamily="@font/nanum_regular" />
 
     <CheckBox
         android:id="@+id/dialogage_cb4"
@@ -206,7 +211,8 @@
         android:layout_below="@id/dialogage_cb1"
         android:layout_alignLeft="@id/dialogage_cb1"
         android:text="40대"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:fontFamily="@font/nanum_regular" />
 
     <CheckBox
         android:id="@+id/dialogage_cb5"
@@ -216,17 +222,19 @@
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@id/dialogsex_cb1"
         android:text="50대"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:fontFamily="@font/nanum_regular" />
 
     <CheckBox
         android:id="@+id/dialogage_cb6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/dialogage_cb4"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="35dp"
         android:layout_toRightOf="@id/dialogage_cb5"
         android:text="60대"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:fontFamily="@font/nanum_regular" />
 
     <View
         android:id="@+id/view"

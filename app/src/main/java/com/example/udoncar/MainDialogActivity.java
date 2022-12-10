@@ -1,5 +1,7 @@
 package com.example.udoncar;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,11 +20,14 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.udoncar.model.Post;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -173,20 +179,46 @@ public class MainDialogActivity extends AppCompatActivity {
                 postListD = new ArrayList<>();
 
                 Query query = db.collection("post")
-                        .whereArrayContains("destspn", spinnerToString(dest3Spn));
-                if (posRb.getText() != null){
+                        .whereArrayContains("destspn", spinnerToString(dest3Spn))
+                        .whereEqualTo("position", posRb.getText().toString())
+                        .whereEqualTo("isrepeat", isreRb.getText().toString());
+                        //.whereArrayContains("optsex", sexCb(sexCb1, sexCb2))
+                        //.whereArrayContains("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6));
+                /*if (posRb.getText().toString().length() != 0){
                     query.whereEqualTo("position", posRb.getText().toString());
                 }
-                if (isreRb.getText() != null){
+                if (isreRb.getText().toString().length() != 0){
                     query.whereEqualTo("isrepeat", isreRb.getText().toString());
-                }
-                if (sexCb(sexCb1, sexCb2) != null){
+                }*/
+                /*if (sexCb(sexCb1, sexCb2) != null){
                     query.whereEqualTo("optsex", sexCb(sexCb1, sexCb2));
                 }
                 if (ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6) != null){
                     query.whereEqualTo("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6));
-                }
-                query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                }*/
+                query.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    if(task.getResult().size()==0){
+                                        toast.makeText(getApplicationContext(), "해당하는 글이 없습니다!", Toast.LENGTH_SHORT).show();
+                                    }
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        post = document.toObject(Post.class);
+                                        postListD.add(post);
+                                        toast.makeText(getApplicationContext(), "필터링 성공!", Toast.LENGTH_SHORT).show();
+                                        intent.putExtra("postListD", postListD);
+                                        setResult(RESULT_OK, intent);
+                                        finish();
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+
+                                }
+                            }
+                        });
+                        /*.addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         for (QueryDocumentSnapshot doc : value) {
@@ -198,9 +230,8 @@ public class MainDialogActivity extends AppCompatActivity {
                             finish();
                         }
                     }
-                });
+                });*/
 
-                toast.makeText(getApplicationContext(), "필터링 성공!", Toast.LENGTH_SHORT).show();
 
             }
         });

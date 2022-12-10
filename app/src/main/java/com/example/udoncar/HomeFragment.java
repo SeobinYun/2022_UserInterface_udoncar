@@ -91,6 +91,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<Post> postList;
 
     private Button filterBtn;
+    private Button refreshBtn;
     private MainDialogActivity dial;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -106,7 +107,7 @@ public class HomeFragment extends Fragment {
     private  List<String> startList;
     private  List<String> destList;
     private String region2;
-
+    DocumentReference currentuserRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,7 +128,17 @@ public class HomeFragment extends Fragment {
 
         });
 
-        DocumentReference currentuserRef = db.collection("users").document(user.getEmail());
+        refreshBtn = v.findViewById(R.id.refresh_btn);
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("새로고침 버튼");
+                getPosts();
+            }
+
+        });
+
+        currentuserRef = db.collection("users").document(user.getEmail());
         currentuserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -154,47 +165,55 @@ public class HomeFragment extends Fragment {
             mainRecyclerView.setAdapter(mainAdapter);
         }
         else{
-            db.collection("users").document(user.getEmail());
-            currentuserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    DocumentSnapshot document = task.getResult();
-                    region = (List<String>) document.getData().get("region");
-                    region2 = region.toArray()[2].toString();
-                    db.collection("post")
-                            .whereArrayContains("startspn", region2)
-                            .orderBy("creatAt", Query.Direction.DESCENDING)
-                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    Log.d(TAG, "onComplete", task.getException());
-                                    if (task.isSuccessful()) {
-                                        Log.d(TAG, "if", task.getException());
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            Log.d(TAG, "for", task.getException());
-                                            post = new Post();
-                                            post = document.toObject(Post.class);
-                                            postList.add(post);
-
-                                            //        mainRecyclerView.setHasFixedSize(true);
-                                            mainAdapter = new MainAdapter(postList, getContext());
-                                            mainLayoutManager = new LinearLayoutManager(getActivity());
-                                            mainRecyclerView.setLayoutManager(mainLayoutManager);
-                                            mainRecyclerView.setAdapter(mainAdapter);
-                                        }
-                                    }
-                                    else {
-                                        Log.d(TAG, "else", task.getException());
-                                    }
-                                }
-                            });
-                }
-            });
+            getPosts();
         }
 
 
             return v;
 
     }
+    public void refresh(){
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+    }
+    public void getPosts(){
+        db.collection("users").document(user.getEmail());
+        currentuserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                region = (List<String>) document.getData().get("region");
+                region2 = region.toArray()[2].toString();
+                db.collection("post")
+                        .whereArrayContains("startspn", region2)
+                        .orderBy("creatAt", Query.Direction.DESCENDING)
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                Log.d(TAG, "onComplete", task.getException());
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "if", task.getException());
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Log.d(TAG, "for", task.getException());
+                                        post = new Post();
+                                        post = document.toObject(Post.class);
+                                        postList.add(post);
+
+                                        //        mainRecyclerView.setHasFixedSize(true);
+                                        mainAdapter = new MainAdapter(postList, getContext());
+                                        mainLayoutManager = new LinearLayoutManager(getActivity());
+                                        mainRecyclerView.setLayoutManager(mainLayoutManager);
+                                        mainRecyclerView.setAdapter(mainAdapter);
+                                    }
+                                }
+                                else {
+                                    Log.d(TAG, "else", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
+    }
+
 
 }
