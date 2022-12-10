@@ -50,7 +50,7 @@ public class MainDetailActivity extends AppCompatActivity {
     private Intent intent;
 
     private Button backBtn;
-    private Button deleteBtn;
+    //private Button deleteBtn;
     private Button signupBtn;
     private TextView titleTv, mynameTv, mysexTv, myageTv, positionTv;
     private TextView destTv, dateTv, isrepeatTv;
@@ -69,7 +69,7 @@ public class MainDetailActivity extends AppCompatActivity {
         historyFragment = new HistoryFragment();
 
         backBtn = (Button)findViewById(R.id.back_btn);
-        deleteBtn = (Button) findViewById(R.id.del_btn);
+        //deleteBtn = (Button) findViewById(R.id.del_btn);
         signupBtn = (Button)findViewById(R.id.signup_btn);
 
         titleTv = (TextView) findViewById(R.id.title);
@@ -146,7 +146,7 @@ public class MainDetailActivity extends AppCompatActivity {
         });
 
         //글삭제버튼
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
+        /*deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //DB에서 삭제 (currentid같으면)
@@ -164,12 +164,10 @@ public class MainDetailActivity extends AppCompatActivity {
                 }
                 else
                     Toast.makeText(getApplicationContext(), "작성자가 아닙니다.", Toast.LENGTH_SHORT).show();
-
-
-
             }
-
         });
+
+         */
 
 
         //참가하기 버튼
