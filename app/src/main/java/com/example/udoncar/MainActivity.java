@@ -3,6 +3,7 @@ package com.example.udoncar;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,6 +50,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -201,5 +203,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            ArrayList<Post> postList = (ArrayList<Post>) data.getSerializableExtra("postListD");
+            System.out.println("성공" + postList.size());
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("postListD", (ArrayList<Post>) postList);
+            homeFragment = new HomeFragment();
+            homeFragment.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();
+        }
     }
 }

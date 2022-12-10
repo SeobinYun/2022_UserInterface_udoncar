@@ -2,6 +2,7 @@ package com.example.udoncar;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,12 +18,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.udoncar.model.Post;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -30,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainDialogActiviy extends Dialog {
+public class MainDialogActivity extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -47,14 +50,14 @@ public class MainDialogActiviy extends Dialog {
     private Post post;
     private ArrayList<Post> postListD;
     private Toast toast;
+    private Intent intent;
 
-
-    public MainDialogActiviy(Context context) {
-        super(context);
+    protected void onCreate(Bundle savedInstanceState){
         //다이얼로그 배경을 투명으로
         //왜인지 없으면 안 돌아감
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_main);
+        intent = getIntent();
 
         dest1Spn = findViewById(R.id.dialogdest_spn1);
         dest2Spn = findViewById(R.id.dialogdest_spn2);
@@ -72,7 +75,7 @@ public class MainDialogActiviy extends Dialog {
         posRg = (RadioGroup) findViewById(R.id.dialogpos_rg);
         isreRg = (RadioGroup) findViewById(R.id.dialogisre_rg);
 
-        destspnAdpater1 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region, R.layout.item_spinner);
+        destspnAdpater1 = ArrayAdapter.createFromResource(this, R.array.spinner_region, R.layout.item_spinner);
         destspnAdpater1.setDropDownViewResource(R.layout.item_spinner_dropdown);
         dest1Spn.setAdapter(destspnAdpater1);
 
@@ -80,40 +83,40 @@ public class MainDialogActiviy extends Dialog {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (destspnAdpater1.getItem(i).equals("서울특별시")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_seoul, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("부산광역시")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_busan, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_busan, R.layout.item_spinner);
                 }
                 else if (destspnAdpater1.getItem(i).equals("대구광역시")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_daegu, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_daegu, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("인천광역시")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_incheon, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_incheon, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("광주광역시")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_gwangju, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_gwangju, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("대전광역시")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_daejeon, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_daejeon, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("울산광역시")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_ulsan, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_ulsan, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("세종특별자치시")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_sejong, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_sejong, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("경기도")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_gyeonggi, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_gyeonggi, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("강원도")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_gangwon, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_gangwon, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("충청북도")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_chung_buk, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_chung_buk, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("충청남도")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_chung_nam, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_chung_nam, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("전라북도")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_jeon_buk, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_jeon_buk, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("전라남도")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_jeon_nam, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_jeon_nam, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("경상북도")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_gyeong_buk, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_gyeong_buk, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("경상남도")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_gyeong_nam, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_gyeong_nam, R.layout.item_spinner);
                 } else if (destspnAdpater1.getItem(i).equals("제주특별자치도")) {
-                    destspnAdapter2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_jeju, R.layout.item_spinner);
+                    destspnAdapter2 = ArrayAdapter.createFromResource(MainDialogActivity.this, R.array.spinner_region_jeju, R.layout.item_spinner);
                 }
                 destspnAdapter2.setDropDownViewResource(R.layout.item_spinner_dropdown);
                 dest2Spn.setAdapter(destspnAdapter2);
@@ -139,7 +142,7 @@ public class MainDialogActiviy extends Dialog {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+                finish();
             }
         });
 
@@ -164,43 +167,41 @@ public class MainDialogActiviy extends Dialog {
                     }
                 });
 
-                //isreRb = (RadioButton) view.findViewById(isreRg.getCheckedRadioButtonId());
-                //Log.w("디버그", "posRb: " + posRb.getText().toString());
-
                 destList = Arrays.asList(spinnerToString(dest1Spn), spinnerToString(dest2Spn), spinnerToString(dest3Spn));
 
                 //필터링
                 postListD = new ArrayList<>();
 
-                //Query query = db.collection("post").
-                db.collection("post")
-                        .whereArrayContains("destspn", spinnerToString(dest3Spn))
-                        //.whereEqualTo("position", posRb.getText().toString())
-                        //.whereEqualTo("optsex", sexCb(sexCb1, sexCb2))
-                        //.whereEqualTo("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6))
-                        //.whereEqualTo("isrepeat", isreRb.getText().toString())
-                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                for (QueryDocumentSnapshot doc : value) {
-                                    post = doc.toObject(Post.class);
-                                    postListD.add(post);
+                Query query = db.collection("post")
+                        .whereArrayContains("destspn", spinnerToString(dest3Spn));
+                if (posRb.getText() != null){
+                    query.whereEqualTo("position", posRb.getText().toString());
+                }
+                if (isreRb.getText() != null){
+                    query.whereEqualTo("isrepeat", isreRb.getText().toString());
+                }
+                if (sexCb(sexCb1, sexCb2) != null){
+                    query.whereEqualTo("optsex", sexCb(sexCb1, sexCb2));
+                }
+                if (ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6) != null){
+                    query.whereEqualTo("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6));
+                }
+                query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        for (QueryDocumentSnapshot doc : value) {
+                            post = doc.toObject(Post.class);
+                            postListD.add(post);
 
-                                    HomeFragment homeFragment = new HomeFragment();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("postListD", (ArrayList<Post>)postListD);
-                                    homeFragment.setArguments(bundle);
+                            intent.putExtra("postListD", postListD);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                    }
+                });
 
-                                }
-                            }
-                        });
+                toast.makeText(getApplicationContext(), "필터링 성공!", Toast.LENGTH_SHORT).show();
 
-
-
-                toast.makeText(getContext(), "필터링 성공!", Toast.LENGTH_SHORT).show();
-
-
-                dismiss();
             }
         });
     }
@@ -258,109 +259,109 @@ public class MainDialogActiviy extends Dialog {
     public void choose3(Spinner spinner1, Spinner spinner2) {
         if (spinnerToString(spinner1).equals("서울특별시")) {
             if (spinnerToString(spinner2).equals("강남구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_gangnam, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_gangnam, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if ("강동구".equals(spinnerToString(spinner2))) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_gangdong, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_gangdong, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             }
             else if (spinnerToString(spinner2).equals("강북구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_gangbuk, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_gangbuk, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("강서구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_gangseo, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_gangseo, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("관악구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_gwanak, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_gwanak, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("광진구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_gwangjin, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_gwangjin, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("구로구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_guro, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_guro, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("금천구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_geumcheon, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_geumcheon, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("노원구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_nowon, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_nowon, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("도봉구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_dobong, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_dobong, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("동대문구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_dongdaemun, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_dongdaemun, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("동작구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_dongjag, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_dongjag, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("마포구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_mapo, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_mapo, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("서대문구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_seodaemun, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_seodaemun, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("서초구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_seocho, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_seocho, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("성동구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_seongdong, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_seongdong, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("성북구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_seongbuk, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_seongbuk, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("송파구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_songpa, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_songpa, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("양천구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_yangcheon, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_yangcheon, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("영등포구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_yeongdeungpo, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_yeongdeungpo, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("용산구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_yongsan, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_yongsan, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("은평구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_eunpyeong, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_eunpyeong, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("종로구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_jongno, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_jongno, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("중구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_jung, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_jung, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             } else if (spinnerToString(spinner2).equals("중랑구")) {
-                destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_seoul_jungnanggu, R.layout.item_spinner);
+                destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_jungnanggu, R.layout.item_spinner);
 //                regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //                regionSpinner3.setAdapter(regionSpinner3Adapter);
             }
         } else {
-            destspnAdapter3 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_region_empty, R.layout.item_spinner);
+            destspnAdapter3 = ArrayAdapter.createFromResource(this, R.array.spinner_region_empty, R.layout.item_spinner);
 //            regionSpinner3Adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 //            regionSpinner3.setAdapter(regionSpinner3Adapter);
         }
