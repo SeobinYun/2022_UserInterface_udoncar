@@ -1,10 +1,13 @@
 package com.example.udoncar;
 
+import static android.app.Activity.RESULT_OK;
 import static androidx.constraintlayout.widget.StateSet.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -88,7 +91,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<Post> postList;
 
     private Button filterBtn;
-    private MainDialogActiviy dial;
+    private MainDialogActivity dial;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -113,12 +116,13 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         filterBtn = v.findViewById(R.id.mainfilter_btn);
-        dial = new MainDialogActiviy((MainActivity) getActivity());
 
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dial.show();  //다이얼로그
+                Intent filterIntent = new Intent();
+                filterIntent.setClass(getActivity(), MainDialogActivity.class);
+                getActivity().startActivityForResult(filterIntent, 20);
             }
 
         });
@@ -127,11 +131,6 @@ public class HomeFragment extends Fragment {
         currentuserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                String region;
-//                DocumentSnapshot document = task.getResult();
-//                locaTv = v.findViewById(R.id.mainloca_tv);
-//                region = document.getData().get("region").toString();
-//                locaTv.setText(region.substring(13,16));
 
                 DocumentSnapshot document = task.getResult();
                 region = (List<String>) document.getData().get("region");
@@ -145,31 +144,16 @@ public class HomeFragment extends Fragment {
         mainRecyclerView = v.findViewById(R.id.main_rv);
         postList = new ArrayList<>();
 
-        //dialog에서 불러오기
-//        Bundle bundle = new Bundle();
-//        if (bundle != null) {
-//            postList = (ArrayList<Post>)bundle.getSerializable("postListD");
-//
-//            mainAdapter = new MainAdapter(postList, getContext());
-//            mainLayoutManager = new LinearLayoutManager(getActivity());
-//            mainRecyclerView.setLayoutManager(mainLayoutManager);
-//            mainRecyclerView.setAdapter(mainAdapter);
-//        }
-        //DB에서 불러오기
-
-//            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
-//            date = null;
-//            try {
-//                date = formatter.parse("12/12 12:12");
-//            } catch (ParseException e) {
-//            }
-//            startList = Arrays.asList("서울특별시", "강남구", "세곡동");
-//            destList = Arrays.asList("서울특별시", "강남구", "개포동");
-//            post = new Post("CdLB5vxPVN", "ttttt", "ccccc", "ddddd",
-//                    "택시", "일회성", "qwer@naver.com", "20대", "여자",
-//                    new Date(), date, startList, destList);
-//            postList.add(post);
-
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            postList = (ArrayList<Post>) bundle.getSerializable("postListD");
+            System.out.println("성공" + postList.size());
+            mainAdapter = new MainAdapter(postList, getContext());
+            mainLayoutManager = new LinearLayoutManager(getActivity());
+            mainRecyclerView.setLayoutManager(mainLayoutManager);
+            mainRecyclerView.setAdapter(mainAdapter);
+        }
+        else{
             db.collection("users").document(user.getEmail());
             currentuserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -177,7 +161,7 @@ public class HomeFragment extends Fragment {
                     DocumentSnapshot document = task.getResult();
                     region = (List<String>) document.getData().get("region");
                     region2 = region.toArray()[2].toString();
-                         db.collection("post")
+                    db.collection("post")
                             .whereArrayContains("startspn", region2)
                             .orderBy("creatAt", Query.Direction.DESCENDING)
                             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -200,32 +184,17 @@ public class HomeFragment extends Fragment {
                                         }
                                     }
                                     else {
-                                            Log.d(TAG, "else", task.getException());
+                                        Log.d(TAG, "else", task.getException());
                                     }
                                 }
                             });
                 }
             });
-
-            Bundle bundle = getArguments();
-            if (bundle != null){
-                //Bundle bundle = new Bundle();
-                //refresh();
-                postList = (ArrayList<Post>) bundle.getSerializable("postListD");
-                System.out.println("성공" + postList.size());
-                mainAdapter = new MainAdapter(postList, getContext());
-                mainLayoutManager = new LinearLayoutManager(getActivity());
-                mainRecyclerView.setLayoutManager(mainLayoutManager);
-                mainRecyclerView.setAdapter(mainAdapter);
-            }
-
+        }
 
 
             return v;
 
     }
-    private void refresh() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(this).attach(this).commit();
-    }
+
 }

@@ -28,6 +28,9 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".MainDialogActivity"
+            android:exported="false"/>
 
         <meta-data
             android:name="com.google.android.actions"
