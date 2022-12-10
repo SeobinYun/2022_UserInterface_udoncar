@@ -1,21 +1,21 @@
 package com.example.udoncar;
 
+import static androidx.constraintlayout.widget.StateSet.TAG;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.StateSet;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.udoncar.model.Post;
 import com.example.udoncar.model.User;
@@ -23,18 +23,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -180,25 +177,30 @@ public class HomeFragment extends Fragment {
                     DocumentSnapshot document = task.getResult();
                     region = (List<String>) document.getData().get("region");
                     region2 = region.toArray()[2].toString();
-                    db.collection("post")
+                         db.collection("post")
                             .whereArrayContains("startspn", region2)
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            .orderBy("creatAt", Query.Direction.DESCENDING)
+                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        post = new Post();
-                                        post = document.toObject(Post.class);
-                                        postList.add(post);
-                                        //System.out.println("실패" + postList.size());
-                                        //System.out.println("제목 : " + post.getTitle());
-                                        //System.out.println(postList.size());
+                                    Log.d(TAG, "onComplete", task.getException());
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "if", task.getException());
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            Log.d(TAG, "for", task.getException());
+                                            post = new Post();
+                                            post = document.toObject(Post.class);
+                                            postList.add(post);
 
-                                        //        mainRecyclerView.setHasFixedSize(true);
-                                        mainAdapter = new MainAdapter(postList, getContext());
-                                        mainLayoutManager = new LinearLayoutManager(getActivity());
-                                        mainRecyclerView.setLayoutManager(mainLayoutManager);
-                                        mainRecyclerView.setAdapter(mainAdapter);
+                                            //        mainRecyclerView.setHasFixedSize(true);
+                                            mainAdapter = new MainAdapter(postList, getContext());
+                                            mainLayoutManager = new LinearLayoutManager(getActivity());
+                                            mainRecyclerView.setLayoutManager(mainLayoutManager);
+                                            mainRecyclerView.setAdapter(mainAdapter);
+                                        }
+                                    }
+                                    else {
+                                            Log.d(TAG, "else", task.getException());
                                     }
                                 }
                             });

@@ -17,6 +17,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/back" />
 
+        <!--
         <Button
             android:id="@+id/del_btn"
             android:layout_width="40dp"
@@ -24,7 +25,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/trash" />
+            android:background="@drawable/trash" />-->
 
     </RelativeLayout>
 
