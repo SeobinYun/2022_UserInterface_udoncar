@@ -26,8 +26,10 @@ import com.example.udoncar.model.History;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -37,6 +39,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -111,11 +114,35 @@ public class ChatActivity extends AppCompatActivity {
                     chat.setcreateAt(new Date());
                     chatRef.set(chat);
                     addDocId = chatRef.getId();
-                    readAddChat();
                 }
             }
         });
+        // 변화 생기면 현재 시간과 같거나 빠른 채팅들 불러오기
+        Timestamp nowTime = Timestamp.now();
+        db.collection("history").document(history.gethistId()).collection("msg")
+                .whereGreaterThanOrEqualTo("createAt", nowTime)
+                .orderBy("createAt", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "listen:error", e);
+                            return;
+                        }
 
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    Log.d(TAG, "New chat: " + dc.getDocument().getData());
+                                    Chat chat = dc.getDocument().toObject(Chat.class);
+                                    ((ChatAdapter) chatAdapter).addChat(chat);
+                                    break;
+                            }
+                        }
+
+                    }
+                });
 
 
         //title 넣기
@@ -139,7 +166,6 @@ public class ChatActivity extends AppCompatActivity {
                 showDialogNum();
             }
         });
-
 
     }
     private void showDialogNum() {
@@ -181,29 +207,7 @@ public class ChatActivity extends AppCompatActivity {
         numPeopleBtn.setText(String.format("인원수 %d명", numUsers));
     }
 
-    //chat 추가 받아오는 함수
-    public void readAddChat(){
-        db.collection("history").document(history.gethistId()).collection("msg").document(addDocId)
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
 
-                        if (snapshot != null && snapshot.exists()) {
-                            Log.d(TAG, "Current data: " + snapshot.getData());
-                            Chat chat = snapshot.toObject(Chat.class);
-                            ((ChatAdapter) chatAdapter).addChat(chat);
-                        } else {
-                            Log.d(TAG, "Current data: null");
-                        }
-                    }
-                });
-
-    }
     public void getUserName() {
         //user의 이메일 정보로 유저 정보 db에서 가져옴
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -224,7 +228,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
     }
-
+    //처음 입장 시 이전 채팅들 불러오기
     public List<Chat> getChatList(){
         chatList = new ArrayList<Chat>();
         db.collection("history").document(history.gethistId()).collection("msg")

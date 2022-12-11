@@ -160,25 +160,25 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
                             Log.d(TAG, "User account deleted.");
-
-                            // firestore post 부분 document 삭제
-                            db.collection("post").whereEqualTo("user_id", user.getEmail())
-                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if(task.isSuccessful()){
-                                                Log.d(TAG, "task: " + task);
-
-                                                for(QueryDocumentSnapshot document : task.getResult()){
-                                                    Log.d(TAG, document.getData().toString());
-                                                    document.getReference().delete();
-                                                }
-                                            }
-                                            else{
-                                                Log.d(TAG, "Error getting document: ", task.getException());
-                                            }
-                                        }
-                                    });
+//
+//                            // firestore post 부분 document 삭제
+//                            db.collection("post").whereEqualTo("user_id", user.getEmail())
+//                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                            if(task.isSuccessful()){
+//                                                Log.d(TAG, "task: " + task);
+//
+//                                                for(QueryDocumentSnapshot document : task.getResult()){
+//                                                    Log.d(TAG, document.getData().toString());
+//                                                    document.getReference().delete();
+//                                                }
+//                                            }
+//                                            else{
+//                                                Log.d(TAG, "Error getting document: ", task.getException());
+//                                            }
+//                                        }
+//                                    });
 
                             Toast.makeText(MainActivity.this, "정상적으로 탈퇴처리 되었습니다.", Toast.LENGTH_LONG).show();
                         } else {
