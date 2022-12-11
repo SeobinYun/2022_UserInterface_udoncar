@@ -123,12 +123,6 @@ public class MainDetailActivity extends AppCompatActivity {
                         mynameTv.setText(writeuser.getName());
                         mysexTv.setText("("+writeuser.getSex()+")");
                         myageTv.setText("("+writeuser.getAge()+")");
-//                name = (String) document.getData().get("name");
-//                sex = (String) document.getData().get("sex");
-//                age = (String) document.getData().get("age");
-//                mynameTv.setText(name);
-//                sexTv.setText(sex);
-//                ageTv.setText(age);
                     }
                 });
 
@@ -199,23 +193,6 @@ public class MainDetailActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }
-
-                //getSupportFragmentManager().beginTransaction().replace(R.id.containers, historyFragment).commit();
-
-//                HistoryFragment historyFragment;
-//                historyFragment = (HistoryFragment) getSupportFragmentManager().findFragmentById(R.id.containers);
-//                getSupportFragmentManager().beginTransaction().add(historyFragment).commit();
-
-
-//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                // 프래그먼트매니저를 통해 사용
-//                //HistoryFragment historyFragment= new HistoryFragment(); // 객체 생성
-//                transaction.replace(R.id.containers, HistoryFragment); //layout, 교체될 layout
-//                transaction.commit();
-
-                //getSupportFragmentManager().beginTransaction().add(R.id.containers, HistoryFragment).commit();
-//                Intent intent = new Intent(getApplicationContext(), HistoryFragment.class);
-//                startActivity(intent);
             }
         });
     }

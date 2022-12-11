@@ -56,11 +56,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         History history = historyList.get(position);
- /*       ((MainHolder) holder).textViewTitle.setText(history.gethistId());
-        ((MainHolder) holder).textViewDest.setText(history.getpostId());
-        ((MainHolder) holder).textViewDest.setText(history.getuserId());
 
-  */
         DocumentReference docRef = db.collection("post").document(history.getpostId());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -76,7 +72,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         meetDateString = formatter.format((Date) post.getMeetAt());
                         ((MainHolder) holder).textViewTime.setText(meetDateString);
 
-                        //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                     }
                 }
             }
@@ -84,10 +79,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
 
-
-//        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
-//        meetDateString = formatter.format(post.getMeetAt());
-//        ((MainHolder) holder).textViewTime.setText(meetDateString);
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

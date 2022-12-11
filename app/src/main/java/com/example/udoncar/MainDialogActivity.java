@@ -182,19 +182,11 @@ public class MainDialogActivity extends AppCompatActivity {
                         .whereArrayContains("destspn", spinnerToString(dest3Spn))
                         .whereEqualTo("position", posRb.getText().toString())
                         .whereEqualTo("isrepeat", isreRb.getText().toString());
-                        //.whereArrayContains("optsex", sexCb(sexCb1, sexCb2))
-                        //.whereArrayContains("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6));
                 /*if (posRb.getText().toString().length() != 0){
                     query.whereEqualTo("position", posRb.getText().toString());
                 }
                 if (isreRb.getText().toString().length() != 0){
                     query.whereEqualTo("isrepeat", isreRb.getText().toString());
-                }*/
-                /*if (sexCb(sexCb1, sexCb2) != null){
-                    query.whereEqualTo("optsex", sexCb(sexCb1, sexCb2));
-                }
-                if (ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6) != null){
-                    query.whereEqualTo("optage", ageCb(ageCb1,ageCb2,ageCb3,ageCb4,ageCb5,ageCb6));
                 }*/
                 query.get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -218,21 +210,6 @@ public class MainDialogActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                        /*.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        for (QueryDocumentSnapshot doc : value) {
-                            post = doc.toObject(Post.class);
-                            postListD.add(post);
-
-                            intent.putExtra("postListD", postListD);
-                            setResult(RESULT_OK, intent);
-                            finish();
-                        }
-                    }
-                });*/
-
-
             }
         });
     }
