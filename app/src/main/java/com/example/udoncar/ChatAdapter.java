@@ -32,6 +32,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         View view;
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        // viewType에 따라 다른 뷰홀더 return할 수 있도록
         if (viewType == ViewCode.TYPE_RECEIVED_MESSAGE){
             view = inflater.inflate(R.layout.item_chat, parent, false); //어떤 레이아웃을 쓸지
             return new ChatHolder(view);

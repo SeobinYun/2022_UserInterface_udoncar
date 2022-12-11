@@ -100,10 +100,7 @@ public class HistoryFragment extends Fragment {
         historyList = new ArrayList<>();
         historyLayoutManager = new LinearLayoutManager(getActivity());
         historyRecyclerView.setLayoutManager(historyLayoutManager);
-        /*//DB에서 불러오기
-        historyList.add(new History("68rmZ3wQoyVhoFXuc2GW", "M3CdoVBK5r5ihau75OHE", "qwer@naver.com"));*/
         //DB에서 불러오기
-        //historyList.add(new History("68rmZ3wQoyVhoFXuc2GW", "M3CdoVBK5r5ihau75OHE", "qwer@naver.com"));
 
         db.collection("history")
                 .whereArrayContains("usersId", user.getEmail())
@@ -111,9 +108,6 @@ public class HistoryFragment extends Fragment {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         for (QueryDocumentSnapshot doc : value) {
-//                            history.sethistId(doc.getData().get("hist_id").toString());
-//                            history.setpostId(doc.getData().get("post_id").toString());
-//                            history.setuserId(user.getEmail());
                             history = doc.toObject(History.class);
                             historyList.add(history);
 
